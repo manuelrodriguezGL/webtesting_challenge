@@ -6,6 +6,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+
 public class SeleniumBae {
 
     private WebDriver driver;
@@ -37,6 +39,8 @@ public class SeleniumBae {
     }
 
     private void chromeSetup(boolean headless) {
+        WebDriverManager.chromedriver().setup();
+
         ChromeOptions options = new ChromeOptions();
         options.setHeadless(headless);
         options.addArguments("start-maximized");
