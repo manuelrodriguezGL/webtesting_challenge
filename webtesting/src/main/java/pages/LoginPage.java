@@ -3,15 +3,16 @@ package pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginPage extends BasePage {
 
+    private static final String URL = "/index.html";
     @FindBy(tagName = "title")
     private WebElement title;
 
-    public LoginPage(WebDriver driver)
-    {
+    public LoginPage(WebDriver driver) {
         super(driver);
         super.initElements(driver, this);
     }
@@ -23,8 +24,7 @@ public class LoginPage extends BasePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!title.isDisplayed()){
-            throw new Error("Page not loaded!");
-        }
+        String currentUrl = driver.getCurrentUrl();
+        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
     }
 }
