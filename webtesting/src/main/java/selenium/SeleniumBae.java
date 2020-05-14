@@ -18,7 +18,7 @@ public class SeleniumBae {
      * @param headless Boolean value to decide whether to run headless or not
      */
     //TODO: Implement remaining multi-browser logic
-    public void setup(String browser, boolean headless) {
+    public WebDriver setup(String browser, boolean headless) {
 
         if (browser == null || browser.isEmpty())
             throw new NullPointerException("Browser name can't be empty or null");
@@ -36,6 +36,8 @@ public class SeleniumBae {
             default:
                 System.out.println("No browser has been provided!");
         }
+
+        return driver;
     }
 
     private void chromeSetup(boolean headless) {
@@ -50,7 +52,7 @@ public class SeleniumBae {
     /**
      * Disposes the session and quits the driver
      */
-    private void quit(){
+    public void quit(){
         driver.quit();
     }
 }

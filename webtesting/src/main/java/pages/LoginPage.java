@@ -19,7 +19,7 @@ public class LoginPage extends BasePage {
 
     @Override
     protected void load() {
-
+        driver.get(BASE_URL + URL);
     }
 
     @Override
