@@ -6,65 +6,69 @@ import org.openqa.selenium.support.FindBy;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class InventoryItem extends BasePage {
+public class InventoryItem  {
 
-    private static final String URL = "/inventory.html";
-
-    @FindBy(css = ".inventory_item_img>a")
-    private WebElement itemImage;
-
-    @FindBy(className = "inventory_item_label")
-    private WebElement itemLabel;
-
-    @FindBy(className = "inventory_item_name")
-    private WebElement itemName;
-
-    @FindBy(className = "inventory_item_desc")
-    private WebElement itemDescription;
-
-    @FindBy(className = "inventory_item_price")
-    private WebElement itemPrice;
-
-    @FindBy(className = "btn_primary btn_inventory")
+    private String itemURL;
+    private String itemImage;
+    private String itemName;
+    private String itemDescription;
+    private String itemPrice;
     private WebElement itemButton;
 
-    public InventoryItem(WebDriver driver) {
-        super(driver);
-        super.initElements(driver, this);
+    public InventoryItem(String itemURL, String itemImage, String itemName, String itemDescription, String itemPrice, WebElement itemButton) {
+        this.itemURL = itemURL;
+        this.itemImage = itemImage;
+        this.itemName = itemName;
+        this.itemDescription = itemDescription;
+        this.itemPrice = itemPrice;
+        this.itemButton = itemButton;
     }
 
-    @Override
-    protected void load() {
-        driver.get(BASE_URL + URL);
+    public String getItemURL() {
+        return itemURL;
     }
 
-    @Override
-    protected void isLoaded() throws Error {
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+    public void setItemURL(String itemURL) {
+        this.itemURL = itemURL;
     }
 
     public String getItemImage() {
-        return itemImage.getAttribute("href");
+        return itemImage;
     }
 
-    public WebElement getItemLabel() {
-        return itemLabel;
+    public void setItemImage(String itemImage) {
+        this.itemImage = itemImage;
     }
 
     public String getItemName() {
-        return itemName.getAttribute("innerText");
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 
     public String getItemDescription() {
-        return itemDescription.getAttribute("innerText");
+        return itemDescription;
+    }
+
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
     }
 
     public String getItemPrice() {
-        return itemPrice.getAttribute("innerText");
+        return itemPrice;
+    }
+
+    public void setItemPrice(String itemPrice) {
+        this.itemPrice = itemPrice;
     }
 
     public WebElement getItemButton() {
         return itemButton;
+    }
+
+    public void setItemButton(WebElement itemButton) {
+        this.itemButton = itemButton;
     }
 }

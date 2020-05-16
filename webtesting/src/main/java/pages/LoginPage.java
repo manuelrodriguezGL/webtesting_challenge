@@ -14,7 +14,7 @@ public class LoginPage extends BasePage {
     @FindBy(tagName = "title")
     private WebElement title;
 
-    @FindBy(id = "user-nameL")
+    @FindBy(id = "user-name")
     private WebElement userNameText;
 
     @FindBy(id = "password")
