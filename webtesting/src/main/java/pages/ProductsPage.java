@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -118,51 +119,65 @@ public class ProductsPage extends BasePage {
         boolean result = false;
         String firstValue = "";
         String lastValue = "";
+        ArrayList<Double> pricesList;
+
         // A workaround since enums are case sensitive, as well as Select values.
         String switchOption = sortValue.toUpperCase();
 
-        try {
-            switch (SortValues.valueOf(switchOption)) {
-                case AZ:
-                    changeValueProductSortSelect(SortValues.ZA.getSortCode());
-                    firstValue = itemNames.get(0).getAttribute("innerText");
-                    lastValue = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
-                    changeValueProductSortSelect(sortValue.toLowerCase());
-                    result = (itemNames.get(0).getAttribute("innerText").equals(lastValue)
-                            && itemNames.get(itemNames.size() - 1).getAttribute("innerText").equals(firstValue));
-                    break;
-                case ZA:
-                    changeValueProductSortSelect(SortValues.AZ.getSortCode());
-                    firstValue = itemNames.get(0).getAttribute("innerText");
-                    lastValue = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
-                    changeValueProductSortSelect(sortValue.toLowerCase());
-                    result = (itemNames.get(0).getAttribute("innerText").equals(lastValue)
-                            && itemNames.get(itemNames.size() - 1).getAttribute("innerText").equals(firstValue));
-                    break;
-                case LOHI:
-                    changeValueProductSortSelect(SortValues.HILO.getSortCode());
-                    firstValue = itemPrices.get(0).getAttribute("innerText");
-                    lastValue = itemPrices.get(itemPrices.size() - 1).getAttribute("innerText");
-                    changeValueProductSortSelect(sortValue.toLowerCase());
-                    result = (itemPrices.get(0).getAttribute("innerText").equals(lastValue)
-                            && itemPrices.get(itemPrices.size() - 1).getAttribute("innerText").equals(firstValue));
-                    break;
-                case HILO:
-                    changeValueProductSortSelect(SortValues.LOHI.getSortCode());
-                    firstValue = itemPrices.get(0).getAttribute("innerText");
-                    lastValue = itemPrices.get(itemPrices.size() - 1).getAttribute("innerText");
-                    changeValueProductSortSelect(sortValue.toLowerCase());
-                    result = (itemPrices.get(0).getAttribute("innerText").equals(lastValue)
-                            && itemPrices.get(itemPrices.size() - 1).getAttribute("innerText").equals(firstValue));
-                    break;
-                default:
-                    result = false;
-            }
-        } catch (Exception e) {
-            throw e;
+        switch (SortValues.valueOf(switchOption)) {
+            case AZ:
+                itemNames.sort(Comparator.comparing(item -> item.getAttribute("innerText")));
+                // Gotta save the values, since itemNames changes dynamically
+                firstValue = itemNames.get(0).getAttribute("innerText");
+                lastValue = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
+                changeValueProductSortSelect(sortValue.toLowerCase());
+                result = (itemNames.get(0).getAttribute("innerText").equals(firstValue)
+                        && itemNames.get(itemNames.size() - 1).getAttribute("innerText").equals(lastValue));
+                break;
+            case ZA:
+                itemNames.sort(Comparator.comparing(item -> item.getAttribute("innerText")));
+                // Gotta save the values, since itemNames changes dynamically
+                firstValue = itemNames.get(0).getAttribute("innerText");
+                lastValue = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
+                changeValueProductSortSelect(sortValue.toLowerCase());
+                result = (itemNames.get(0).getAttribute("innerText").equals(lastValue)
+                        && itemNames.get(itemNames.size() - 1).getAttribute("innerText").equals(firstValue));
+                break;
+            case LOHI:
+                // Get a list of prices as Doubles
+                pricesList = getPricesList(itemPrices);
+                pricesList.sort(Comparator.naturalOrder());
+                // Gotta save the values, since itemPrices changes dynamically
+                firstValue = "$" + pricesList.get(0).toString();
+                lastValue = "$" + pricesList.get(pricesList.size() - 1).toString();
+                changeValueProductSortSelect(sortValue.toLowerCase());
+                result = (itemPrices.get(0).getAttribute("innerText").equals(firstValue)
+                        && itemPrices.get(itemPrices.size() - 1).getAttribute("innerText").equals(lastValue));
+                break;
+            case HILO:
+                // Get a list of prices as Doubles
+                pricesList = getPricesList(itemPrices);
+                pricesList.sort(Comparator.naturalOrder());
+                // Gotta save the values, since itemPrices changes dynamically
+                firstValue = "$" + pricesList.get(0).toString();
+                lastValue = "$" + pricesList.get(pricesList.size() - 1).toString();
+                changeValueProductSortSelect(sortValue.toLowerCase());
+                result = (itemPrices.get(0).getAttribute("innerText").equals(lastValue)
+                        && itemPrices.get(itemPrices.size() - 1).getAttribute("innerText").equals(firstValue));
+                break;
+            default:
+                result = false;
         }
 
         return result;
+    }
+
+    private ArrayList<Double> getPricesList(List<WebElement> list) {
+        ArrayList<Double> pricesList = new ArrayList<>();
+        for (WebElement e : list) {
+            pricesList.add(Double.parseDouble(e.getAttribute("innerText").substring(1)));
+        }
+        return pricesList;
     }
 
     private Select getProductSortSelect(WebElement e) {

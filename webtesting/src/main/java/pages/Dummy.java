@@ -11,7 +11,7 @@ public class Dummy {
         try {
             login.get();
             ProductsPage page = login.login("standard_user", "secret_sauce");
-            if(page.changeProductSort("hilo"))
+            if(page.changeProductSort("ZA"))
                 System.out.println("Success!");
             Thread.sleep(2000); // Just a small pause to see the page
         } catch (Exception e) {
