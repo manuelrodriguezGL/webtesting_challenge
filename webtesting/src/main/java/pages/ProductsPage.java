@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,7 +58,16 @@ public class ProductsPage extends BasePage {
     private List<WebElement> itemPrices;
 
     @FindBy(css = ".btn_primary.btn_inventory")
-    private List<WebElement> itemButtons;
+    private List<WebElement> itemAddToCartButtons;
+
+    @FindBy(css = ".btn_secondary.btn_inventory")
+    private List<WebElement> itemRemoveFromCartButtons;
+
+    @FindBy(css = "[data-icon=\"shopping-cart\"]")
+    private WebElement shoppingCartIcon;
+
+    @FindBy(css = ".fa-layers-counter.shopping_cart_badge")
+    private WebElement cartItemsIcon;
 
     private ArrayList<InventoryItem> inventoryItems;
 
@@ -98,7 +109,7 @@ public class ProductsPage extends BasePage {
                 itemName = itemNames.get(i).getAttribute("innerText");
                 itemDescription = itemDescriptions.get(i).getAttribute("innerText");
                 itemPrice = itemPrices.get(i).getAttribute("innerText");
-                itemButton = itemButtons.get(i);
+                itemButton = itemAddToCartButtons.get(i);
                 inventoryItems.add(new InventoryItem(itemURL, itemImage,
                         itemName, itemDescription, itemPrice, itemButton));
             }
@@ -198,5 +209,36 @@ public class ProductsPage extends BasePage {
         } else {
             throw new NoSuchElementException("Could not find sort field!");
         }
+    }
+
+    public boolean addToCartByQuantity(int quantity) throws NoSuchElementException {
+
+        if(quantity > inventoryList.size()){
+            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products");
+        }
+
+        for (int i = 0; i < quantity; i++) {
+            itemAddToCartButtons.get(i).click();
+        }
+
+        return (quantity == Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
+    }
+
+    public boolean addToCartById(int id){
+        //TODO: A method that adds one element to cart, by the ID
+        // Must verify that the ID exists
+
+        Pattern p = Pattern.compile("\\d+");
+
+        int i = 0;
+        for (WebElement e : itemURLs) {
+            Matcher m = p.matcher(e.getAttribute("href"));
+            if(m.find()) {
+                itemAddToCartButtons.get(i).click();
+                break;
+            }
+            i++;
+        }
+        return (i + 1 == Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
     }
 }
