@@ -11,6 +11,23 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+enum SortValues {
+    AZ("az"),
+    ZA("za"),
+    LOHI("lohi"),
+    HILO("hilo");
+
+    private final String sortCode;
+
+    SortValues(String sortCode) {
+        this.sortCode = sortCode.toLowerCase();
+    }
+
+    public String getSortCode() {
+        return this.sortCode.toLowerCase();
+    }
+}
+
 public class ProductsPage extends BasePage {
 
     private static final String URL = "/inventory.html";
@@ -45,8 +62,6 @@ public class ProductsPage extends BasePage {
     ProductsPage(WebDriver driver) {
         super(driver);
         super.initElements(driver, this);
-
-        generateInventoryList();
     }
 
     @Override
@@ -60,13 +75,15 @@ public class ProductsPage extends BasePage {
         assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
     }
 
-    private void generateInventoryList() throws IndexOutOfBoundsException {
+    private ArrayList<InventoryItem> generateInventoryList() throws IndexOutOfBoundsException {
         // Check if there are items on the inventory
+        inventoryItems = new ArrayList<InventoryItem>();
+
         if (!inventoryList.isEmpty()) {
             // Set the default product sort
-            selectProductSort(DEFAULT_SORT);
+            changeValueProductSortSelect(DEFAULT_SORT);
             //Go thru the list and add items
-            inventoryItems = new ArrayList<InventoryItem>();
+
             for (int i = 0; i < inventoryList.size(); i++) {
                 String itemURL;
                 String itemImage;
@@ -87,6 +104,65 @@ public class ProductsPage extends BasePage {
         } else {
             throw new IndexOutOfBoundsException("Could not load inventory list! ");
         }
+
+        return inventoryItems;
+    }
+
+    public boolean changeProductSort(String sortValue) throws NoSuchElementException {
+        /*
+            1. Change the sort
+            2. Get the current first an last item
+            3. Perform the sort action
+            4. Compare the old first and last with current first and last
+         */
+        boolean result = false;
+        String firstValue = "";
+        String lastValue = "";
+        // A workaround since enums are case sensitive, as well as Select values.
+        String switchOption = sortValue.toUpperCase();
+
+        try {
+            switch (SortValues.valueOf(switchOption)) {
+                case AZ:
+                    changeValueProductSortSelect(SortValues.ZA.getSortCode());
+                    firstValue = itemNames.get(0).getAttribute("innerText");
+                    lastValue = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
+                    changeValueProductSortSelect(sortValue.toLowerCase());
+                    result = (itemNames.get(0).getAttribute("innerText").equals(lastValue)
+                            && itemNames.get(itemNames.size() - 1).getAttribute("innerText").equals(firstValue));
+                    break;
+                case ZA:
+                    changeValueProductSortSelect(SortValues.AZ.getSortCode());
+                    firstValue = itemNames.get(0).getAttribute("innerText");
+                    lastValue = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
+                    changeValueProductSortSelect(sortValue.toLowerCase());
+                    result = (itemNames.get(0).getAttribute("innerText").equals(lastValue)
+                            && itemNames.get(itemNames.size() - 1).getAttribute("innerText").equals(firstValue));
+                    break;
+                case LOHI:
+                    changeValueProductSortSelect(SortValues.HILO.getSortCode());
+                    firstValue = itemPrices.get(0).getAttribute("innerText");
+                    lastValue = itemPrices.get(itemPrices.size() - 1).getAttribute("innerText");
+                    changeValueProductSortSelect(sortValue.toLowerCase());
+                    result = (itemPrices.get(0).getAttribute("innerText").equals(lastValue)
+                            && itemPrices.get(itemPrices.size() - 1).getAttribute("innerText").equals(firstValue));
+                    break;
+                case HILO:
+                    changeValueProductSortSelect(SortValues.LOHI.getSortCode());
+                    firstValue = itemPrices.get(0).getAttribute("innerText");
+                    lastValue = itemPrices.get(itemPrices.size() - 1).getAttribute("innerText");
+                    changeValueProductSortSelect(sortValue.toLowerCase());
+                    result = (itemPrices.get(0).getAttribute("innerText").equals(lastValue)
+                            && itemPrices.get(itemPrices.size() - 1).getAttribute("innerText").equals(firstValue));
+                    break;
+                default:
+                    result = false;
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return result;
     }
 
     private Select getProductSortSelect(WebElement e) {
@@ -101,7 +177,7 @@ public class ProductsPage extends BasePage {
         }
     }
 
-    public void selectProductSort(String sortValue) throws NoSuchElementException {
+    public void changeValueProductSortSelect(String sortValue) throws NoSuchElementException {
         if (isElementVisible(productSortSelect)) {
             getProductSortSelect(productSortSelect).selectByValue(sortValue);
         } else {
@@ -109,4 +185,3 @@ public class ProductsPage extends BasePage {
         }
     }
 }
-
