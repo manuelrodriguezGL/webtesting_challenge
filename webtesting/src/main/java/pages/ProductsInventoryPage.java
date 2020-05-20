@@ -9,8 +9,6 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,10 +29,12 @@ enum SortValues {
     }
 }
 
-public class ProductsPage extends BasePage {
+public class ProductsInventoryPage extends BasePage {
 
     private static final String URL = "/inventory.html";
     private static final String DEFAULT_SORT = "az";
+    private static final String ADD_TO_CART_TXT = "ADD TO CART";
+    private static final String REMOVE_FROM_CART_TXT = "REMOVE";
 
     @FindBy(className = "product_sort_container")
     private WebElement productSortSelect;
@@ -63,6 +63,9 @@ public class ProductsPage extends BasePage {
     @FindBy(css = ".btn_secondary.btn_inventory")
     private List<WebElement> itemRemoveFromCartButtons;
 
+    @FindBy(xpath = "//div[@class='inventory_item']/div[@class='pricebar']/div[@class='inventory_item_price']/following-sibling::button")
+    private List<WebElement> itemButtonList;
+
     @FindBy(css = "[data-icon=\"shopping-cart\"]")
     private WebElement shoppingCartIcon;
 
@@ -71,7 +74,7 @@ public class ProductsPage extends BasePage {
 
     private ArrayList<InventoryItem> inventoryItems;
 
-    ProductsPage(WebDriver driver) {
+    ProductsInventoryPage(WebDriver driver) {
         super(driver);
         super.initElements(driver, this);
     }
@@ -213,32 +216,85 @@ public class ProductsPage extends BasePage {
 
     public boolean addToCartByQuantity(int quantity) throws NoSuchElementException {
 
-        if(quantity > inventoryList.size()){
+        if (quantity > inventoryList.size()) {
             throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products");
         }
 
-        for (int i = 0; i < quantity; i++) {
-            itemAddToCartButtons.get(i).click();
+        int i = 1;
+        for (WebElement e : itemAddToCartButtons) {
+            if (i > quantity) {
+                break;
+            }
+            e.click();
+            i++;
         }
 
         return (quantity == Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
     }
 
-    public boolean addToCartById(int id){
-        //TODO: A method that adds one element to cart, by the ID
-        // Must verify that the ID exists
+    public boolean addToCartById(int id) {
 
-        Pattern p = Pattern.compile("\\d+");
+        String numberToFind = String.valueOf(id);
 
         int i = 0;
         for (WebElement e : itemURLs) {
-            Matcher m = p.matcher(e.getAttribute("href"));
-            if(m.find()) {
+            if (e.getAttribute("href").contains(numberToFind)) {
                 itemAddToCartButtons.get(i).click();
-                break;
+                return (itemRemoveFromCartButtons.get(itemRemoveFromCartButtons.size() - 1)
+                        .getAttribute("innerText").equals(REMOVE_FROM_CART_TXT)
+                        && itemRemoveFromCartButtons.size() == getCartItems());
             }
             i++;
         }
-        return (i + 1 == Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
+
+        return false;
+    }
+
+    public boolean removeFromCartByQuantity(int quantity) throws NoSuchElementException {
+
+        if (quantity > itemRemoveFromCartButtons.size()) {
+            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products added to cart");
+        }
+
+        int originalQuantity = getCartItems();
+        int i = 1;
+        for (WebElement e : itemRemoveFromCartButtons) {
+            if (i > quantity) {
+                break;
+            }
+            e.click();
+            i++;
+        }
+
+        return (getCartItems() == 0 || getCartItems() + quantity == originalQuantity);
+    }
+
+    public boolean removeFromCartById(int id) {
+
+        if (itemRemoveFromCartButtons.size() == 0) {
+            throw new IndexOutOfBoundsException("There are no products added to cart");
+        }
+
+        String numberToFind = String.valueOf(id);
+        int i = 0;
+        for (WebElement e : itemURLs) {
+
+            if (e.getAttribute("href").contains(numberToFind)) {
+                itemButtonList.get(i).click();
+                return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(ADD_TO_CART_TXT)
+                        && (getCartItems() == 0 || itemRemoveFromCartButtons.size() == getCartItems()));
+            }
+            i++;
+        }
+
+        return false;
+    }
+
+    public int getCartItems() throws NoSuchElementException {
+        try {
+            return (Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
+        } catch (NoSuchElementException e) {
+            return 0;
+        }
     }
 }

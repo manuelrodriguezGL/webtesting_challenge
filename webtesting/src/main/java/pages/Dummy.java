@@ -10,8 +10,10 @@ public class Dummy {
 
         try {
             login.get();
-            ProductsPage page = login.login("standard_user", "secret_sauce");
-            if(page.addToCartById(40))
+            ProductsInventoryPage page = login.login("standard_user", "secret_sauce");
+            page.addToCartById(1);
+            page.addToCartById(4);
+            if(page.removeFromCartById(1))
                 System.out.println("Success!");
             Thread.sleep(2000); // Just a small pause to see the page
         } catch (Exception e) {

@@ -61,13 +61,13 @@ public class LoginPage extends BasePage {
         }
     }
 
-    ProductsPage login(String user, String pwd) throws NoSuchElementException {
+    ProductsInventoryPage login(String user, String pwd) throws NoSuchElementException {
 
         enterUserName(user);
         enterPwd(pwd);
         loginButton.click();
 
-        return new ProductsPage(driver);
+        return new ProductsInventoryPage(driver);
     }
 
 
