@@ -297,4 +297,16 @@ public class ProductsInventoryPage extends BasePage {
             return 0;
         }
     }
+
+    public ProductPage loadProductPageById(int id) throws NoSuchElementException {
+        String numberToFind = String.valueOf(id);
+        for (WebElement e : itemURLs) {
+            String productId = e.getAttribute("href");
+            if (productId.contains(numberToFind)) {
+                e.click();
+                return new ProductPage(driver, productId);
+            }
+        }
+        return null;
+    }
 }
