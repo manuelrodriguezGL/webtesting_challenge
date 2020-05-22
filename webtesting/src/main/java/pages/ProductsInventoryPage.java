@@ -182,6 +182,7 @@ public class ProductsInventoryPage extends BaseProductPage {
     private ArrayList<Double> getPricesList(List<WebElement> list) {
         ArrayList<Double> pricesList = new ArrayList<>();
         for (WebElement e : list) {
+            // Remove the $ character from each price
             pricesList.add(Double.parseDouble(e.getAttribute("innerText").substring(1)));
         }
         return pricesList;
