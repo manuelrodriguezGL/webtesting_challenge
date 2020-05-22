@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ProductPage extends BasePage {
+public class ProductPage extends BaseProductPage {
 
     private static final String ADD_TO_CART_TXT = "ADD TO CART";
     private static final String REMOVE_FROM_CART_TXT = "REMOVE";

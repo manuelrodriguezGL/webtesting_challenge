@@ -11,9 +11,9 @@ public class Dummy {
         try {
             login.get();
             ProductsInventoryPage page = login.login("standard_user", "secret_sauce");
-            page.addToCartById(1);
-            page.addToCartById(4);
-            if(page.removeFromCartById(1))
+            page.addToCartByQuantity(4);
+            //page.addToCartById(4);
+            if(page.removeFromCartByQuantity(3))
                 System.out.println("Success!");
             Thread.sleep(2000); // Just a small pause to see the page
         } catch (Exception e) {
