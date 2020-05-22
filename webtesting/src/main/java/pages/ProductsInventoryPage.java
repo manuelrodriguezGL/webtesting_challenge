@@ -33,8 +33,7 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     private static final String URL = "/inventory.html";
     private static final String DEFAULT_SORT = "az";
-    private static final String ADD_TO_CART_TXT = "ADD TO CART";
-    private static final String REMOVE_FROM_CART_TXT = "REMOVE";
+
 
     @FindBy(className = "product_sort_container")
     private WebElement productSortSelect;
@@ -65,12 +64,6 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     @FindBy(xpath = "//div[@class='inventory_item']/div[@class='pricebar']/div[@class='inventory_item_price']/following-sibling::button")
     private List<WebElement> itemButtonList;
-
-    @FindBy(css = "[data-icon=\"shopping-cart\"]")
-    private WebElement shoppingCartIcon;
-
-    @FindBy(css = ".fa-layers-counter.shopping_cart_badge")
-    private WebElement cartItemsIcon;
 
     private ArrayList<InventoryItem> inventoryItems;
 
@@ -289,14 +282,6 @@ public class ProductsInventoryPage extends BaseProductPage {
         }
 
         return false;
-    }
-
-    public int getCartItems() throws NoSuchElementException {
-        try {
-            return (Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
-        } catch (NoSuchElementException e) {
-            return 0;
-        }
     }
 
     public ProductPage loadProductPageById(int id) throws NoSuchElementException {

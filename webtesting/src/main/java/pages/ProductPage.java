@@ -4,8 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductPage extends BaseProductPage {
@@ -56,5 +54,32 @@ public class ProductPage extends BaseProductPage {
         assertTrue(currentUrl.endsWith(this.url), "The page could not be loaded! Found URL: " + currentUrl);
     }
 
+    public ProductsInventoryPage goBack() {
+        if (isElementVisible(backButton)) {
+            backButton.click();
+            return new ProductsInventoryPage(driver);
+        }
+        return null;
+    }
 
+    public boolean clickAddToCartButton() {
+        int originalQuantity = headerContainer.getCartItems();
+        if (isElementVisible(productAddToCartButton)) {
+            productAddToCartButton.click();
+            return (productRemoveFromCartButton.getAttribute("innerText").equals(REMOVE_FROM_CART_TXT)
+                    && (headerContainer.getCartItems() == originalQuantity + 1));
+        }
+        return false;
+    }
+
+    public boolean clickRemoveButton() {
+        int originalQuantity = headerContainer.getCartItems();
+        if (isElementVisible(productRemoveFromCartButton)) {
+            productRemoveFromCartButton.click();
+            return (productAddToCartButton.getAttribute("innerText").equals(ADD_TO_CART_TXT)
+                    && (headerContainer.getCartItems() == 0
+                    || originalQuantity - 1 == headerContainer.getCartItems()));
+        }
+        return false;
+    }
 }

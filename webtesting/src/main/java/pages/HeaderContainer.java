@@ -16,6 +16,9 @@ public class HeaderContainer extends BasePage {
     @FindBy(css = ".bm-item-list>a")
     private WebElement menuItems;
 
+    @FindBy(id = "logout_sidebar_link")
+    private WebElement logoutLink;
+
     @FindBy(css = "[data-icon=\"shopping-cart\"]")
     private WebElement shoppingCartIcon;
 
@@ -27,10 +30,12 @@ public class HeaderContainer extends BasePage {
         super.initElements(driver, this);
     }
 
-    public ShoppingCartPage clickShoppingCartLink(){
-        if(isElementVisible(shoppingCartLink))
+    public ShoppingCartPage clickShoppingCartLink() {
+        if (isElementVisible(shoppingCartLink)) {
             shoppingCartLink.click();
-        return new ShoppingCartPage(driver);
+            return new ShoppingCartPage(driver);
+        }
+        return null;
     }
 
     public int getCartItems() throws NoSuchElementException {
@@ -39,6 +44,14 @@ public class HeaderContainer extends BasePage {
         } catch (NoSuchElementException e) {
             return 0;
         }
+    }
+
+    public LoginPage logout() throws NoSuchElementException {
+        if (isElementVisible(logoutLink)) {
+            logoutLink.click();
+            return new LoginPage(driver);
+        }
+        return null;
     }
 
 }

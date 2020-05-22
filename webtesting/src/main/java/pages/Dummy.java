@@ -11,9 +11,10 @@ public class Dummy {
         try {
             login.get();
             ProductsInventoryPage page = login.login("standard_user", "secret_sauce");
-            page.addToCartByQuantity(4);
-            //page.addToCartById(4);
-            if(page.removeFromCartByQuantity(3))
+            //page.addToCartByQuantity(4);
+            page.addToCartById(4);
+            ProductPage productPage = page.loadProductPageById(0);
+            if(productPage.clickAddToCartButton())
                 System.out.println("Success!");
             Thread.sleep(2000); // Just a small pause to see the page
         } catch (Exception e) {
