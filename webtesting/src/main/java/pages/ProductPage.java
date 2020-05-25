@@ -77,8 +77,7 @@ public class ProductPage extends BaseProductPage {
         if (isElementVisible(productRemoveFromCartButton)) {
             productRemoveFromCartButton.click();
             return (productAddToCartButton.getAttribute("innerText").equals(ADD_TO_CART_TXT)
-                    && (headerContainer.getCartItems() == 0
-                    || originalQuantity - 1 == headerContainer.getCartItems()));
+                    && (headerContainer.getCartItems() == originalQuantity - 1));
         }
         return false;
     }

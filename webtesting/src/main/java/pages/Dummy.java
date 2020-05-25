@@ -14,7 +14,9 @@ public class Dummy {
             //page.addToCartByQuantity(4);
             page.addToCartById(4);
             ProductPage productPage = page.loadProductPageById(0);
-            if(productPage.clickAddToCartButton())
+            productPage.clickAddToCartButton();
+            ShoppingCartPage cart = productPage.headerContainer.clickShoppingCartLink();
+            if(cart.removeAllFromCart())
                 System.out.println("Success!");
             Thread.sleep(2000); // Just a small pause to see the page
         } catch (Exception e) {
