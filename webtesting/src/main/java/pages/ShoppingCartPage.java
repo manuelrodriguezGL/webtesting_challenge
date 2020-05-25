@@ -85,11 +85,18 @@ public class ShoppingCartPage extends BaseProductPage {
     }
 
     public ProductsInventoryPage clickContinueShoppingButton() {
-        return (isElementVisible(continueShoppingButton)) ? new ProductsInventoryPage(driver) : null;
+        if (isElementVisible(continueShoppingButton)) {
+            continueShoppingButton.click();
+            return new ProductsInventoryPage(driver);
+        }
+        return null;
     }
 
-    public CheckoutInformation clickCheckoutButton() {
-        return (isElementVisible(checkoutButton)) ? new CheckoutInformation(driver) : null;
+    public CheckoutInformationPage clickCheckoutButton() {
+        if (isElementVisible(checkoutButton)) {
+            checkoutButton.click();
+            return new CheckoutInformationPage(driver);
+        }
+        return null;
     }
-
 }
