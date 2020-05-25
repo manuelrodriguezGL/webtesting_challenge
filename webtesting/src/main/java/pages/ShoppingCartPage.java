@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -54,7 +55,7 @@ public class ShoppingCartPage extends BaseProductPage {
 
     public boolean removeFromCartById(int id) {
 
-        if (removeFromCartButtonsList.size() == 0) {
+        if (isCartEmpty()) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
 
@@ -73,7 +74,7 @@ public class ShoppingCartPage extends BaseProductPage {
 
     public boolean removeAllFromCart() {
 
-        if (removeFromCartButtonsList.size() == 0) {
+        if (isCartEmpty()) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
 
@@ -82,6 +83,14 @@ public class ShoppingCartPage extends BaseProductPage {
         }
 
         return (removeFromCartButtonsList.size() == headerContainer.getCartItems());
+    }
+
+    public boolean isCartEmpty() {
+        try {
+            return cartItemsList.size() == 0;
+        } catch (NoSuchElementException e) {
+            return true;
+        }
     }
 
     public ProductsInventoryPage clickContinueShoppingButton() {
