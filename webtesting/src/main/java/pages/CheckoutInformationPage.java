@@ -14,7 +14,7 @@ enum ErrorValues {
     private final String errorCode;
 
     ErrorValues(String errorCode) {
-        this.errorCode = errorCode.toLowerCase();
+        this.errorCode = errorCode;
     }
 
     public String getErrorCode() {
@@ -24,12 +24,10 @@ enum ErrorValues {
 
 public class CheckoutInformationPage extends BaseProductPage {
 
+    public static final String FIRST_NAME_ERROR = "FIRST";
+    public static final String LAST_NAME_ERROR = "LAST";
+    public static final String POSTAL_CODE_ERROR = "POSTAL";
     private static final String URL = "//checkout-step-one.html";
-
-    private static final String FIRST_NAME_ERROR = "Error: First Name is required";
-    private static final String LAST_NAME_ERROR = "Error: Last Name is required";
-    private static final String POSTAL_CODE_ERROR = "Error: Postal Code is required";
-
     @FindBy(id = "first-name")
     private WebElement firstNameInput;
 
@@ -73,11 +71,11 @@ public class CheckoutInformationPage extends BaseProductPage {
         return null;
     }
 
-    public FinishCheckoutPage continueCheckout() {
+    public CheckoutOverviewPage continueCheckout() {
 
         if (isElementVisible(continueButton)) {
             continueButton.click();
-            return new FinishCheckoutPage(driver);
+            return new CheckoutOverviewPage(driver);
         }
         return null;
     }
@@ -91,13 +89,14 @@ public class CheckoutInformationPage extends BaseProductPage {
     }
 
     public boolean checkErrorMessage(String errorCode) {
+        String errorMsg = errorMessage.getAttribute("innerText");
         switch (ErrorValues.valueOf(errorCode)) {
             case FIRST:
-                return errorMessage.getAttribute("innerText").equals(ErrorValues.FIRST.getErrorCode());
+                return errorMsg.equals(ErrorValues.FIRST.getErrorCode());
             case LAST:
-                return errorMessage.getAttribute("innerText").equals(ErrorValues.LAST.getErrorCode());
+                return errorMsg.equals(ErrorValues.LAST.getErrorCode());
             case POSTAL:
-                return errorMessage.getAttribute("innerText").equals(ErrorValues.POSTAL.getErrorCode());
+                return errorMsg.equals(ErrorValues.POSTAL.getErrorCode());
             default:
                 return false;
         }
