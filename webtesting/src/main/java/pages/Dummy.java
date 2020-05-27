@@ -1,11 +1,11 @@
 package pages;
 
-import selenium.SeleniumBae;
+import selenium.SeleniumBase;
 
 public class Dummy {
     public static void main(String[] args) {
 
-        SeleniumBae baseDriver = new SeleniumBae();
+        SeleniumBase baseDriver = new SeleniumBase();
         LoginPage login = new LoginPage(baseDriver.setup("Chrome", false));
 
         try {
