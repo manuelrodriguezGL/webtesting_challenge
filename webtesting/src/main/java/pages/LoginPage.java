@@ -23,7 +23,7 @@ public class LoginPage extends BasePage {
     @FindBy(className = "btn_action")
     private WebElement loginButton;
 
-    LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) {
         super(driver);
         super.initElements(driver, this);
     }
