@@ -1,4 +1,7 @@
+<!--Selenium Parameters-->
 <parameter name="browserName" value="Chrome"/>
-<parameter name="headless" value="true"/>
+<parameter name="headless" value="false"/>
+
+        <!--Login Page Parameters-->
 <parameter name="validUser" value="test"/>
 <parameter name="validPassword" value="test"/>

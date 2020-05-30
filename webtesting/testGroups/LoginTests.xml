@@ -1,7 +1,7 @@
 <!--Add your INCLUDED groups here-->
 
-<include name="login"/>
+<include name="UI"/>
 
 <!--Add your EXCLUDED groups here-->
 
-<!--<exclude />-->
+<exclude name = "login"/>

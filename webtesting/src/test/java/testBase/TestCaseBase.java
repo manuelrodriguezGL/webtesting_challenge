@@ -19,6 +19,7 @@ public class TestCaseBase extends SeleniumBase {
         super.setup(browserName, Boolean.valueOf(headless));
         System.out.println("Loading login page...");
         loginPage = new LoginPage(getWebDriverInstance());
+        loginPage.get();
     }
 
     @AfterMethod(alwaysRun = true)
