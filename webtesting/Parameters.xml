@@ -1,0 +1,4 @@
+<parameter name="browserName" value="Chrome"/>
+<parameter name="headless" value="true"/>
+<parameter name="validUser" value="test"/>
+<parameter name="validPassword" value="test"/>

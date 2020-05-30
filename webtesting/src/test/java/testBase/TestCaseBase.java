@@ -14,9 +14,9 @@ public class TestCaseBase extends SeleniumBase {
 
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browserName", "headless"})
-    public void setUp(String browserName, boolean headless) {
+    public void setUp(String browserName, String headless) {
         System.out.println("Setting up Selenium driver for browser: " + browserName);
-        super.setup(browserName, headless);
+        super.setup(browserName, Boolean.valueOf(headless));
         System.out.println("Loading login page...");
         loginPage = new LoginPage(getWebDriverInstance());
     }

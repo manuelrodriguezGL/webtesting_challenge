@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" [
+        <!ENTITY classes SYSTEM "Classes.xml">
+        <!ENTITY parameters SYSTEM "Parameters.xml">
+        <!ENTITY loginTests SYSTEM "testGroups/LoginTests.xml">
+        ]>
+
+<!--NOTE: There's a known TestNG bug. Add this param to the JVM [-Dtestng.dtd.http=true]-->
+<!--https://github.com/cbeust/testng/issues/2022-->
+
+<suite name="MainSuite">
+    &parameters;
+    <test name="Login Tests">
+        <groups>
+            <run>
+                &loginTests;
+            </run>
+        </groups>
+        &classes;
+    </test>
+</suite>
