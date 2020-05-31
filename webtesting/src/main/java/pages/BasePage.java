@@ -34,6 +34,10 @@ public class BasePage extends LoadableComponent {
     protected void isLoaded() throws Error {
     }
 
+    public boolean isPageLoaded(){
+        return false;
+    }
+
     protected boolean isElementVisible(WebElement e) throws NoSuchElementException {
         WebDriverWait wait = new WebDriverWait(driver, GlobalPageConstants.GLOBAL_TIMEOUT);
         return wait.until(driver -> e.isDisplayed());

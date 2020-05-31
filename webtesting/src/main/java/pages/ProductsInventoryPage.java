@@ -34,6 +34,8 @@ public class ProductsInventoryPage extends BaseProductPage {
     private static final String URL = "/inventory.html";
     private static final String DEFAULT_SORT = "az";
 
+    @FindBy(className = "product_label")
+    private WebElement pageHeader;
 
     @FindBy(className = "product_sort_container")
     private WebElement productSortSelect;
@@ -80,7 +82,12 @@ public class ProductsInventoryPage extends BaseProductPage {
     @Override
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        assertTrue(isPageLoaded() && currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+    }
+
+    @Override
+    public boolean isPageLoaded() {
+        return isElementVisible(pageHeader);
     }
 
     private ArrayList<InventoryItem> generateInventoryList() throws IndexOutOfBoundsException {

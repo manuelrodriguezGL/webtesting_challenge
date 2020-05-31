@@ -3,5 +3,7 @@
 <parameter name="headless" value="false"/>
 
         <!--Login Page Parameters-->
-<parameter name="validUser" value="test"/>
-<parameter name="validPassword" value="test"/>
+<parameter name="validUser" value="standard_user"/>
+<parameter name="validPassword" value="secret_sauce"/>
+<parameter name="invalidUser" value="test"/>
+<parameter name="invalidPassword" value="test"/>

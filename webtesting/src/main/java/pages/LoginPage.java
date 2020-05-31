@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginPage extends BasePage {
@@ -96,4 +94,36 @@ public class LoginPage extends BasePage {
         return errorMessages;
     }
 
+    public boolean checkEmptyUserErrorMessage(String pwd) {
+        try {
+            enterUserName("");
+            enterPwd(pwd);
+            loginButton.click();
+            return errorMessage.getText().equals(LoginPageConstants.LOGIN_USER_ERROR_MESSAGE);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public boolean checkEmptyPwdErrorMessage(String user) {
+        try {
+            enterUserName(user);
+            enterPwd("");
+            loginButton.click();
+            return errorMessage.getText().equals(LoginPageConstants.LOGIN_PWD_ERROR_MESSAGE);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    public boolean checkInvalidCredsErrorMessage(String user, String pwd) {
+        try {
+            enterUserName(user);
+            enterPwd(pwd);
+            loginButton.click();
+            return errorMessage.getText().equals(LoginPageConstants.LOGIN_ERROR_MESSAGE);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 }
