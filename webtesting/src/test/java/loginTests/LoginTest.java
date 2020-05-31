@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify items on login page",
-            groups = {"login"})
+            groups = {"UI"})
     @Parameters({"validUser", "validPassword"})
     public void verifyLoginUI() {
         String errorMessages = getLoginPage().assesPageElements();
@@ -31,8 +31,8 @@ public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify the error message for empty username",
             groups = {"UI"})
-    @Parameters({"invalidUser", "invalidPassword"})
-    public void verifyEmptyUserNameErrorMessage(String invalidUser, String invalidPassword) {
+    @Parameters({"invalidPassword"})
+    public void verifyEmptyUserNameErrorMessage(String invalidPassword) {
         LoginPage login = getLoginPage();
         assertTrue(login.checkEmptyUserErrorMessage(invalidPassword),
                 GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
@@ -41,8 +41,8 @@ public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify the error message for empty password",
             groups = {"UI"})
-    @Parameters({"invalidUser", "invalidPassword"})
-    public void verifyEmptyPasswordErrorMessage(String invalidUser, String invalidPassword) {
+    @Parameters({"invalidUser"})
+    public void verifyEmptyPasswordErrorMessage(String invalidUser) {
         LoginPage login = getLoginPage();
         assertTrue(login.checkEmptyPwdErrorMessage(invalidUser),
                 GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
