@@ -47,7 +47,26 @@ public class BasePage extends LoadableComponent {
         return e.getAttribute("innerText").equals(text);
     }
 
-    protected String assesElementText(WebElement e, String text) {
+    protected boolean textContains(String e, String text) {
+        return e.contains(text);
+    }
+
+    protected String assesElementTextContains(String e, String text)
+    {
+        String errorMessage = "";
+
+        try {
+            if (!textContains(e, text))
+                errorMessage = "Element text is different from compared value! " +
+                        "| Element value: " + e + " | Compared value: " + text + "\n";
+        } catch (Exception ex) {
+            errorMessage = Arrays.toString(ex.getStackTrace()) + "\n";
+        }
+
+        return errorMessage;
+    }
+
+    protected String assesElementTextEquals(WebElement e, String text) {
         String errorMessage = "";
 
         try {

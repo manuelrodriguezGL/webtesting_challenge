@@ -1,5 +1,6 @@
 package pages;
 
+import constants.GlobalPageConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,9 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductPage extends BaseProductPage {
-
-    private static final String ADD_TO_CART_TXT = "ADD TO CART";
-    private static final String REMOVE_FROM_CART_TXT = "REMOVE";
 
     @FindBy(className = "inventory_details_back_button")
     private WebElement backButton;
@@ -66,7 +64,7 @@ public class ProductPage extends BaseProductPage {
         int originalQuantity = headerContainer.getCartItems();
         if (isElementVisible(productAddToCartButton)) {
             productAddToCartButton.click();
-            return (productRemoveFromCartButton.getAttribute("innerText").equals(REMOVE_FROM_CART_TXT)
+            return (productRemoveFromCartButton.getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)
                     && (headerContainer.getCartItems() == originalQuantity + 1));
         }
         return false;
@@ -76,7 +74,7 @@ public class ProductPage extends BaseProductPage {
         int originalQuantity = headerContainer.getCartItems();
         if (isElementVisible(productRemoveFromCartButton)) {
             productRemoveFromCartButton.click();
-            return (productAddToCartButton.getAttribute("innerText").equals(ADD_TO_CART_TXT)
+            return (productAddToCartButton.getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
                     && (headerContainer.getCartItems() == originalQuantity - 1));
         }
         return false;

@@ -1,5 +1,8 @@
 package pages;
 
+import constants.GlobalPageConstants;
+import constants.InventoryPageConstants;
+import constants.LoginPageConstants;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -123,6 +126,33 @@ public class ProductsInventoryPage extends BaseProductPage {
         return inventoryItems;
     }
 
+    public String assesInventoryItemValues(ArrayList<ArrayList<String>> values) {
+
+        // Read values from parameter
+        String errorMessages = "";
+        //ArrayList<InventoryItem> items = generateInventoryList();
+
+        try {
+            for (int row = 0; row < values.size(); row++) {
+                if (itemURLs.get(row).getAttribute("href").contains(values.get(row).get(0))) {
+                    errorMessages += assesElementTextContains(itemURLs.get(row).getAttribute("href"), values.get(row).get(0));
+                    errorMessages += assesElementTextContains(itemImages.get(row).getAttribute("src"), values.get(row).get(1));
+                    errorMessages += assesElementTextContains(itemNames.get(row).getAttribute("innerText"), values.get(row).get(2));
+                    errorMessages += assesElementTextContains(itemDescriptions.get(row).getAttribute("innerText"), values.get(row).get(3));
+                    errorMessages += assesElementTextContains(itemPrices.get(row).getAttribute("innerText"), values.get(row).get(4));
+                    errorMessages += assesElementTextEquals(itemAddToCartButtons.get(row), GlobalPageConstants.ADD_TO_CART_TXT);
+                }
+            }
+
+            errorMessages += assesElementTextEquals(pageHeader, InventoryPageConstants.INVENTORY_TITLE);
+            errorMessages += assesUIElement(productSortSelect);
+
+        } catch (Exception e) {
+            errorMessages = e.getStackTrace().toString();
+        }
+        return errorMessages;
+    }
+
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
         /*
             1. Change the sort
@@ -242,7 +272,7 @@ public class ProductsInventoryPage extends BaseProductPage {
             if (e.getAttribute("href").contains(numberToFind)) {
                 itemAddToCartButtons.get(i).click();
                 return (itemRemoveFromCartButtons.get(itemRemoveFromCartButtons.size() - 1)
-                        .getAttribute("innerText").equals(REMOVE_FROM_CART_TXT)
+                        .getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)
                         && itemRemoveFromCartButtons.size() == headerContainer.getCartItems());
             }
             i++;
@@ -282,7 +312,7 @@ public class ProductsInventoryPage extends BaseProductPage {
 
             if (e.getAttribute("href").contains(numberToFind)) {
                 itemButtonList.get(i).click();
-                return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(ADD_TO_CART_TXT)
+                return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
                         && (headerContainer.getCartItems() == 0 ||
                         itemRemoveFromCartButtons.size() == headerContainer.getCartItems()));
             }

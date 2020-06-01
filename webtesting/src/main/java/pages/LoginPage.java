@@ -84,7 +84,7 @@ public class LoginPage extends BasePage {
     public String assesPageElements() {
         String errorMessages = "";
 
-        errorMessages += assesElementText(title, LoginPageConstants.LOGIN_TITLE);
+        errorMessages += assesElementTextEquals(title, LoginPageConstants.LOGIN_TITLE);
         errorMessages += assesUIElement(loginLogo);
         errorMessages += assesUIElement(botLogo);
         errorMessages += assesUIElement(userNameText);
