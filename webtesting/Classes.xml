@@ -1,3 +1,4 @@
 <classes>
     <class name="loginTests.LoginTest"/>
+    <class name="inventoryTests.InventoryTest"/>
 </classes>

@@ -128,6 +128,7 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     public String assesInventoryItemValues(ArrayList<ArrayList<String>> values) {
 
+        //TODO: Make it work for a data provider test. Look at "Add to cart by ID" and copy the logic
         // Read values from parameter
         String errorMessages = "";
         //ArrayList<InventoryItem> items = generateInventoryList();

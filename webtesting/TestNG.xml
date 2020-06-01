@@ -3,6 +3,7 @@
         <!ENTITY classes SYSTEM "Classes.xml">
         <!ENTITY parameters SYSTEM "Parameters.xml">
         <!ENTITY loginTests SYSTEM "testGroups/LoginTests.xml">
+        <!ENTITY inventoryTests SYSTEM "testGroups/InventoryTests.xml">
         ]>
 
 <!--NOTE: There's a known TestNG bug. Add this param to the JVM [-Dtestng.dtd.http=true]-->
@@ -13,7 +14,7 @@
     <test name="Login Tests">
         <groups>
             <run>
-                &loginTests;
+                &inventoryTests;
             </run>
         </groups>
         &classes;
