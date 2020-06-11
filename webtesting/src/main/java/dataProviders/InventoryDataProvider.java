@@ -11,7 +11,12 @@ public class InventoryDataProvider {
     public static Object[][] inventoryData() throws IOException {
         // Thanks StackOverflow https://stackoverflow.com/a/52087820
         return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
-                InventoryPageConstants.INVENTORY_EXCEL_SHEET).
-                stream().map(value -> new Object[]{value}).toArray(Object[][]::new);
+                InventoryPageConstants.INVENTORY_EXCEL_SHEET);
+    }
+
+    @DataProvider(name = "Sort")
+    public static Object[][] sortOrder() throws  IOException {
+        return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
+                InventoryPageConstants.SORT_EXCEL_SHEET);
     }
 }

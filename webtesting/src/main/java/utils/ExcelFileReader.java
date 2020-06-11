@@ -9,7 +9,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ExcelFileReader {
     /**
@@ -20,46 +19,51 @@ public class ExcelFileReader {
      * @param sheetName Sheet name inside the workbook
      * @throws IOException
      */
-    public static ArrayList<ArrayList<String>> readFile(String filePath, String sheetName) throws IOException {
+    public static String[][] readFile(String filePath, String sheetName) throws IOException {
         File file = new File(filePath);
         FileInputStream fs = new FileInputStream(file);
         XSSFWorkbook wb = new XSSFWorkbook(fs);
         XSSFSheet sheet = wb.getSheet(sheetName);
 
-        ArrayList<ArrayList<String>> values = new ArrayList<ArrayList<String>>();
+        String[][] values = new String[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
         DataFormatter formatter = new DataFormatter();
 
         for (Row row : sheet) {
             if (row.getRowNum() == 0)
                 continue; // SKIP the first row that has column names
-
-            values.add(new ArrayList<String>());
             for (Cell cell : row) {
-                values.get(row.getRowNum() - 1).add(cell.getColumnIndex(), formatter.formatCellValue(cell));
+                values[row.getRowNum() - 1][cell.getColumnIndex()] = formatter.formatCellValue(cell);
             }
         }
 
         return values;
     }
 
-    public static ArrayList<String> readFileRow(String filePath, String sheetName, int index) throws IOException {
+    /**
+     * Return only one roe of data
+     *
+     * @param filePath  Path to the file
+     * @param sheetName Sheet name inside the workbook
+     * @param index     The row number (starting at 1)
+     * @return One-dimensioned ArrayList of Strings
+     * @throws IOException
+     */
+    public static String[][] readFileRow(String filePath, String sheetName, int index) throws IOException {
         File file = new File(filePath);
         FileInputStream fs = new FileInputStream(file);
         XSSFWorkbook wb = new XSSFWorkbook(fs);
         XSSFSheet sheet = wb.getSheet(sheetName);
 
-        ArrayList<String> values = new ArrayList<String>();
+        String[][] values = new String[1][sheet.getRow(0).getLastCellNum()];
         DataFormatter formatter = new DataFormatter();
-
-        if(index > sheet.getLastRowNum())
-            throw new IndexOutOfBoundsException("The provided row number is outside the sheet data range");
 
         for (Row row : sheet) {
             if (row.getRowNum() + 1 != index)
-                continue; // SKIP until the number of row matches
+                continue; // SKIP until the row number matches
             for (Cell cell : row) {
-                values.add(formatter.formatCellValue(cell));
+                values[0][cell.getColumnIndex()] = formatter.formatCellValue(cell);
             }
+            break;
         }
 
         return values;

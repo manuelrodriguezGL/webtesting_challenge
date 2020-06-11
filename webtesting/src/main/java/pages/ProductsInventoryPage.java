@@ -2,7 +2,6 @@ package pages;
 
 import constants.GlobalPageConstants;
 import constants.InventoryPageConstants;
-import constants.LoginPageConstants;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -72,7 +71,7 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     private ArrayList<InventoryItem> inventoryItems;
 
-    ProductsInventoryPage(WebDriver driver) {
+    public ProductsInventoryPage(WebDriver driver) {
         super(driver);
         super.initElements(driver, this);
     }
@@ -126,23 +125,27 @@ public class ProductsInventoryPage extends BaseProductPage {
         return inventoryItems;
     }
 
-    public String assesInventoryItemValues(ArrayList<ArrayList<String>> values) {
+    public String assesInventoryItemValues(Object[][] values) {
 
-        //TODO: Make it work for a data provider test. Look at "Add to cart by ID" and copy the logic
-        // Read values from parameter
         String errorMessages = "";
-        //ArrayList<InventoryItem> items = generateInventoryList();
 
+        ArrayList<String> items = new ArrayList<>();
         try {
-            for (int row = 0; row < values.size(); row++) {
-                if (itemURLs.get(row).getAttribute("href").contains(values.get(row).get(0))) {
-                    errorMessages += assesElementTextContains(itemURLs.get(row).getAttribute("href"), values.get(row).get(0));
-                    errorMessages += assesElementTextContains(itemImages.get(row).getAttribute("src"), values.get(row).get(1));
-                    errorMessages += assesElementTextContains(itemNames.get(row).getAttribute("innerText"), values.get(row).get(2));
-                    errorMessages += assesElementTextContains(itemDescriptions.get(row).getAttribute("innerText"), values.get(row).get(3));
-                    errorMessages += assesElementTextContains(itemPrices.get(row).getAttribute("innerText"), values.get(row).get(4));
-                    errorMessages += assesElementTextEquals(itemAddToCartButtons.get(row), GlobalPageConstants.ADD_TO_CART_TXT);
+            for (int row = 0; row < values.length; row++) {
+                items.clear();
+                items.add(itemURLs.get(row).getAttribute("href"));
+                items.add(itemImages.get(row).getAttribute("src"));
+                items.add(itemNames.get(row).getAttribute("innerText"));
+                items.add(itemDescriptions.get(row).getAttribute("innerText"));
+                items.add(itemPrices.get(row).getAttribute("innerText"));
+
+                for (int col = 0; col < values[row].length; col++) {
+                    if (itemURLs.get(row).getAttribute("href").contains(values[row][0].toString())) {
+                        errorMessages += assesElementTextContains(items.get(col), values[row][col].toString());
+                    }
                 }
+
+                errorMessages += assesElementTextEquals(itemAddToCartButtons.get(row), GlobalPageConstants.ADD_TO_CART_TXT);
             }
 
             errorMessages += assesElementTextEquals(pageHeader, InventoryPageConstants.INVENTORY_TITLE);
@@ -157,7 +160,7 @@ public class ProductsInventoryPage extends BaseProductPage {
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
         /*
             1. Change the sort
-            2. Get the current first an last item
+            2. Get the current first and last item
             3. Perform the sort action
             4. Compare the old first and last with current first and last
          */

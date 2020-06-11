@@ -32,8 +32,6 @@ public class ProductPage extends BaseProductPage {
 
     private String url = "/inventory-item.html?id=";
 
-    //TODO: Add a separate class for the top bar. It should be invoked only when needed.
-
     public ProductPage(WebDriver driver, String productId) {
         super(driver);
         this.url = url + productId;

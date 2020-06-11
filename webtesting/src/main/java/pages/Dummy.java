@@ -16,10 +16,10 @@ public class Dummy {
             ProductsInventoryPage page = login.login("standard_user", "secret_sauce");
 
 
-            ArrayList<ArrayList<String>> arrayResult = ExcelFileReader.readFile("dataProviders/Inventory.xlsx",
-                    "Inventory");
-
-            System.out.println(page.assesInventoryItemValues(arrayResult));
+//            ArrayList<ArrayList<String>> arrayResult = ExcelFileReader.readFile("dataProviders/Inventory.xlsx",
+//                    "Inventory");
+//
+//            System.out.println(page.assesInventoryItemValues(arrayResult));
 
 
             //page.addToCartByQuantity(4);

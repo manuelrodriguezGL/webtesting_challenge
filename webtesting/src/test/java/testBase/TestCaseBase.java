@@ -1,11 +1,9 @@
 package testBase;
 
 import listeners.ScreenshotListener;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import pages.LoginPage;
+import pages.ProductsInventoryPage;
 import selenium.SeleniumBase;
 
 @Listeners(ScreenshotListener.class)
@@ -33,5 +31,9 @@ public class TestCaseBase extends SeleniumBase {
             loginPage = new LoginPage(getWebDriverInstance());
         }
         return loginPage;
+    }
+
+    public ProductsInventoryPage login(String user, String pwd){
+        return getLoginPage().login(user, pwd);
     }
 }
