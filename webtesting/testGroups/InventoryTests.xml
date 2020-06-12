@@ -1,8 +1,9 @@
 <!--Add your INCLUDED groups here-->
 
 <!--<include name="UI"/>-->
-<include name="inventory"/>
+<include name="test"/>
 
         <!--Add your EXCLUDED groups here-->
 
-<!--<exclude name="login"/>-->
+<exclude name="login"/>
+<exclude name="inventory"/>

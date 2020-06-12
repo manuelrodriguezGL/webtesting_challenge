@@ -12,6 +12,7 @@ import utils.ExcelFileReader;
 
 import java.io.IOException;
 
+import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InventoryTest extends TestCaseBase {
@@ -38,7 +39,7 @@ public class InventoryTest extends TestCaseBase {
         assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + errorMessages);
     }
 
-    @Test(description = "Verify the items can be sorted by sifferent values",
+    @Test(description = "Verify the items can be sorted by different values",
             groups = {"inventory"}, dataProvider = "Sort", dataProviderClass = InventoryDataProvider.class)
     public void verifySortChange(String sortOrder) {
         ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
@@ -53,5 +54,72 @@ public class InventoryTest extends TestCaseBase {
 
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not change product sort!: " + sortOrder);
+    }
+
+    @Test(description = "Verify that all products can be added to cart",
+            groups = {"inventory"})
+    @Parameters({"totalProducts"})
+    public void verifyAddAllToCart(String quantity) {
+        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
+        boolean result = false;
+
+        try {
+            result = page.addToCartByQuantity(Integer.valueOf(quantity));
+        } catch (Exception e) {
+            result = false;
+            e.printStackTrace();
+        }
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                String.format("Could not add all %s items to cart!", quantity));
+    }
+
+    @Test(description = "Verify that every individual product can be added to cart",
+            groups = {"test"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+    public void verifyAddIndividuallyToCart(String productId) {
+        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
+        boolean result = false;
+
+        try {
+            result = page.addToCartById(productId);
+        } catch (Exception e) {
+            result = false;
+            e.printStackTrace();
+        }
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                String.format("Could not add %s to cart!", productId));
+    }
+
+    @Test(description = "Verify that all products can be added to cart",
+            groups = {"inventory"})
+    @Parameters({"totalProducts"})
+    public void verifyRemoveAllFromCart(String quantity) {
+        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
+        boolean result = false;
+
+        try {
+            result = (page.addToCartByQuantity(parseInt(quantity)) &&
+                    page.removeFromCartByQuantity(parseInt(quantity)));
+        } catch (Exception e) {
+            result = false;
+            e.printStackTrace();
+        }
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                String.format("Could not remove all %s items from cart!", quantity));
+    }
+
+    @Test(description = "Verify that every individual product can be added to cart",
+            groups = {"test"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+    public void verifyRemoveIndividuallyToCart(String productId) {
+        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
+        boolean result = false;
+
+        try {
+            result = page.addToCartById(productId);
+        } catch (Exception e) {
+            result = false;
+            e.printStackTrace();
+        }
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                String.format("Could not add %s to cart!", productId));
     }
 }

@@ -267,13 +267,11 @@ public class ProductsInventoryPage extends BaseProductPage {
         return (quantity == headerContainer.getCartItems());
     }
 
-    public boolean addToCartById(int id) {
-
-        String numberToFind = String.valueOf(id);
+    public boolean addToCartById(String id) {
 
         int i = 0;
         for (WebElement e : itemURLs) {
-            if (e.getAttribute("href").contains(numberToFind)) {
+            if (e.getAttribute("href").contains(id)) {
                 itemAddToCartButtons.get(i).click();
                 return (itemRemoveFromCartButtons.get(itemRemoveFromCartButtons.size() - 1)
                         .getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)

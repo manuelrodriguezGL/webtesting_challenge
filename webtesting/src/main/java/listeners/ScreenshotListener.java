@@ -38,6 +38,8 @@ public class ScreenshotListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult failingTest) {
         try {
+            System.out.println(String.format("Failed test name: %s - From class: %s",
+                    failingTest.getName(), failingTest.getTestClass().getName()));
             WebDriver driver = SeleniumBase.getWebDriverInstance();
             String screenshotPath = SCREENSHOT_FOLDER_NAME + File.separator +
                     System.currentTimeMillis() + "_" + failingTest.getName() + ".png";
