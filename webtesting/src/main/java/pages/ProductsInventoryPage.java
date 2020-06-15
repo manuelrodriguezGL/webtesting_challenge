@@ -323,11 +323,11 @@ public class ProductsInventoryPage extends BaseProductPage {
         return false;
     }
 
-    public ProductPage loadProductPageById(int id) throws NoSuchElementException {
-        String numberToFind = String.valueOf(id);
+    public ProductPage loadProductPageById(String id) throws NoSuchElementException {
+
         for (WebElement e : itemURLs) {
             String productId = e.getAttribute("href");
-            if (productId.contains(numberToFind)) {
+            if (productId.contains(id)) {
                 e.click();
                 return new ProductPage(driver, productId);
             }

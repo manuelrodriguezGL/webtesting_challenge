@@ -1,9 +1,12 @@
 package pages;
 
 import constants.GlobalPageConstants;
+import constants.ProductPageConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -58,6 +61,26 @@ public class ProductPage extends BaseProductPage {
         return null;
     }
 
+    public String assesProductValues(String imageUrl, String name, String description, String price) {
+
+        String errorMessages = "";
+
+        ArrayList<String> items = new ArrayList<>();
+        try {
+            errorMessages += assesElementTextContains(productImage.getAttribute("src"), imageUrl);
+            errorMessages += assesElementTextEquals(productName, name);
+            errorMessages += assesElementTextEquals(productDescription, description);
+            errorMessages += assesElementTextEquals(productPrice, price);
+
+            errorMessages += assesElementTextEquals(productAddToCartButton, GlobalPageConstants.ADD_TO_CART_TXT);
+            errorMessages += assesElementTextEquals(backButton, ProductPageConstants.PRODUCT_BACK_BUTTON_TXT);
+
+        } catch (Exception e) {
+            errorMessages = e.getStackTrace().toString();
+        }
+        return errorMessages;
+    }
+
     public boolean clickAddToCartButton() {
         int originalQuantity = headerContainer.getCartItems();
         if (isElementVisible(productAddToCartButton)) {
@@ -77,4 +100,6 @@ public class ProductPage extends BaseProductPage {
         }
         return false;
     }
+
+
 }
