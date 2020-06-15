@@ -64,7 +64,7 @@ public class InventoryTest extends TestCaseBase {
         boolean result = false;
 
         try {
-            result = page.addToCartByQuantity(Integer.valueOf(quantity));
+            result = page.addToCartByQuantity(parseInt(quantity));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
@@ -74,7 +74,7 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be added to cart",
-            groups = {"test"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+            groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyAddIndividuallyToCart(String productId) {
         ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
@@ -86,10 +86,10 @@ public class InventoryTest extends TestCaseBase {
             e.printStackTrace();
         }
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not add %s to cart!", productId));
+                String.format("Could not add product with ID %s to cart!", productId));
     }
 
-    @Test(description = "Verify that all products can be added to cart",
+    @Test(description = "Verify that all products can be removed from cart",
             groups = {"inventory"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
@@ -107,19 +107,20 @@ public class InventoryTest extends TestCaseBase {
                 String.format("Could not remove all %s items from cart!", quantity));
     }
 
-    @Test(description = "Verify that every individual product can be added to cart",
-            groups = {"test"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+    @Test(description = "Verify that every individual product can be removed from cart",
+            groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyRemoveIndividuallyToCart(String productId) {
         ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 
         try {
-            result = page.addToCartById(productId);
+            result = (page.addToCartById(productId) &&
+                    page.removeFromCartById(productId));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
         }
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not add %s to cart!", productId));
+                String.format("Could not remove product with ID %s from cart!", productId));
     }
 }

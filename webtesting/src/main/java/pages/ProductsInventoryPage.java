@@ -302,17 +302,16 @@ public class ProductsInventoryPage extends BaseProductPage {
         return (headerContainer.getCartItems() == 0 || headerContainer.getCartItems() + quantity == originalQuantity);
     }
 
-    public boolean removeFromCartById(int id) {
+    public boolean removeFromCartById(String id) {
 
         if (itemRemoveFromCartButtons.size() == 0) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
 
-        String numberToFind = String.valueOf(id);
         int i = 0;
         for (WebElement e : itemURLs) {
 
-            if (e.getAttribute("href").contains(numberToFind)) {
+            if (e.getAttribute("href").contains(id)) {
                 itemButtonList.get(i).click();
                 return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
                         && (headerContainer.getCartItems() == 0 ||
