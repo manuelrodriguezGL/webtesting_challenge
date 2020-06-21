@@ -20,7 +20,7 @@ public class InventoryTest extends TestCaseBase {
     @BeforeMethod(alwaysRun = true)
     @Parameters({"validUser", "validPassword"})
     public void loadInventoryPage(String user, String pwd) {
-        getLoginPage().login(user, pwd);
+        login(user, pwd);
     }
 
     // Not a real data provider tets per se, but still it's worth using files
