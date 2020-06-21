@@ -9,7 +9,6 @@ import java.io.IOException;
 public class InventoryDataProvider {
     @DataProvider(name = "Inventory")
     public static Object[][] inventoryData() throws IOException {
-        // Thanks StackOverflow https://stackoverflow.com/a/52087820
         return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
                 InventoryPageConstants.INVENTORY_EXCEL_SHEET);
     }

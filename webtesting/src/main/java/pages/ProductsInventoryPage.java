@@ -5,6 +5,7 @@ import constants.InventoryPageConstants;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WrapsDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
@@ -310,7 +311,6 @@ public class ProductsInventoryPage extends BaseProductPage {
 
         int i = 0;
         for (WebElement e : itemURLs) {
-
             if (e.getAttribute("href").contains(id)) {
                 itemButtonList.get(i).click();
                 return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
@@ -325,12 +325,14 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
 
+        int i = 0;
         for (WebElement e : itemURLs) {
             String productId = e.getAttribute("href");
             if (productId.contains(id)) {
-                e.click();
+                itemImages.get(i).click();
                 return new ProductPage(driver, productId);
             }
+            i++;
         }
         return null;
     }

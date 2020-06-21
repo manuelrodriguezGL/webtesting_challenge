@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductPage extends BaseProductPage {
@@ -65,7 +63,6 @@ public class ProductPage extends BaseProductPage {
 
         String errorMessages = "";
 
-        ArrayList<String> items = new ArrayList<>();
         try {
             errorMessages += assesElementTextContains(productImage.getAttribute("src"), imageUrl);
             errorMessages += assesElementTextEquals(productName, name);
