@@ -109,7 +109,7 @@ public class InventoryTest extends TestCaseBase {
 
     @Test(description = "Verify that every individual product can be removed from cart",
             groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
-    public void verifyRemoveIndividuallyToCart(String productId) {
+    public void verifyRemoveIndividuallyFromCart(String productId) {
         ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 

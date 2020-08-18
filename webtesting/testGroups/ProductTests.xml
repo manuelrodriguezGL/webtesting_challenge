@@ -1,9 +1,6 @@
 <!--Add your INCLUDED groups here-->
 
-<!--<include name="UI"/>-->
-<include name="test"/>
+<include name="product"/>
 
         <!--Add your EXCLUDED groups here-->
-
-<exclude name="product"/>
 <exclude name="login"/>
