@@ -1,5 +1,6 @@
 package pages;
 
+import constants.ShoppingCartPageConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,6 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ShoppingCartPage extends BaseProductPage {
 
     private static final String URL = "/cart.html";
+
+    @FindBy(className = "cart_quantity_label")
+    private WebElement cartQuantityLabel;
+
+    @FindBy(className = "cart_desc_label")
+    private WebElement cartDescLabel;
 
     @FindBy(className = "cart_quantity")
     private WebElement cartQuantity;
@@ -51,6 +58,22 @@ public class ShoppingCartPage extends BaseProductPage {
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
         assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+    }
+
+    public String verifyUIElements() {
+
+        String errorMessages = "";
+
+        try {
+            errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
+            errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
+            errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
+            errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
+        } catch (Exception e) {
+            errorMessages = e.getStackTrace().toString();
+        }
+
+        return errorMessages;
     }
 
     public boolean removeFromCartById(int id) {
