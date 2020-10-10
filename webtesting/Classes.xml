@@ -2,4 +2,5 @@
     <class name="loginTests.LoginTest"/>
     <class name="inventoryTests.InventoryTest"/>
     <class name="productTests.ProductTest"/>
+    <class name="shoppingCartTests.ShoppingCartTest"/>
 </classes>

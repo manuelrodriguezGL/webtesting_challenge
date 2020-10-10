@@ -69,6 +69,9 @@ public class ProductsInventoryPage extends BaseProductPage {
     @FindBy(xpath = "//div[@class='inventory_item']/div[@class='pricebar']/div[@class='inventory_item_price']/following-sibling::button")
     private List<WebElement> itemButtonList;
 
+    @FindBy(css = "a.shopping_cart_link.fa-layers.fa-fw")
+    private WebElement shoppingCartButton;
+
     private ArrayList<InventoryItem> inventoryItems;
 
     public ProductsInventoryPage(WebDriver driver) {
@@ -334,5 +337,10 @@ public class ProductsInventoryPage extends BaseProductPage {
             i++;
         }
         return null;
+    }
+
+    public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
+        shoppingCartButton.click();
+        return new ShoppingCartPage(driver);
     }
 }
