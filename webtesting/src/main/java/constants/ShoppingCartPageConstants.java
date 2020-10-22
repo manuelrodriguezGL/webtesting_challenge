@@ -7,4 +7,7 @@ public class ShoppingCartPageConstants {
 
     public static final String CONTINUE_SHOPPING_BUTTON_TXT = "CONTINUE SHOPPING";
     public static final String CHECKOUT_BUTTON_TXT = "CHECKOUT";
+
+    public static final String CART_EXCEL_PATH = "dataProviders/Inventory.xlsx";
+    public static final String CART_EXCEL_SHEET = "Cart";
 }

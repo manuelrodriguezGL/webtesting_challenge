@@ -60,17 +60,21 @@ public class ShoppingCartPage extends BaseProductPage {
         assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
     }
 
-    public String verifyUIElements() {
+    public String verifyEmptyCartUIElements() {
 
         String errorMessages = "";
 
-        try {
-            errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
-            errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
-            errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
-            errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
-        } catch (Exception e) {
-            errorMessages = e.getStackTrace().toString();
+        if (isCartEmpty()) {
+            try {
+                errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
+                errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
+                errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
+                errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
+            } catch (Exception e) {
+                errorMessages = e.getStackTrace().toString();
+            }
+        } else {
+            errorMessages = "Cart is not empty!";
         }
 
         return errorMessages;
