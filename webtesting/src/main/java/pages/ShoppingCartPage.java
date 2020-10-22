@@ -20,17 +20,23 @@ public class ShoppingCartPage extends BaseProductPage {
     @FindBy(className = "cart_desc_label")
     private WebElement cartDescLabel;
 
-    @FindBy(className = "cart_quantity")
-    private WebElement cartQuantity;
-
     @FindBy(className = "cart_item")
     private List<WebElement> cartItemsList;
 
-    @FindBy(css = ".cart_item_label>a")
-    private List<WebElement> inventoryItemLinkList;
+    @FindBy(className = "cart_quantity")
+    private List<WebElement> cartQuantityList;
 
-    @FindBy(css = ".item_pricebar>div")
-    private List<WebElement> itemPricesList;
+    @FindBy(css = ".cart_item_label>a")
+    private List<WebElement> cartItemLinkList;
+
+    @FindBy(css = ".cart_item_label>a>.inventory_item_name")
+    private List<WebElement> cartItemNameList;
+
+    @FindBy(css = ".cart_item_label>.inventory_item_desc")
+    private List<WebElement> cartItemDescList;
+
+    @FindBy(css = ".item_pricebar>.inventory_item_price")
+    private List<WebElement> cartItemPricesList;
 
     @FindBy(className = "inventory_item_price")
     private WebElement itemPrice;
@@ -80,6 +86,35 @@ public class ShoppingCartPage extends BaseProductPage {
         return errorMessages;
     }
 
+    public String verifyProductCartUIElements(int qty, String imageUrl, String name, String description, String price) {
+
+        String errorMessages = "";
+
+        if (!isCartEmpty()) {
+            try {
+                errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
+                errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
+                errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
+                errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
+                errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
+
+                errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), imageUrl);
+                errorMessages += assesElementTextEquals(cartItemNameList.get(0), name);
+                errorMessages += assesElementTextEquals(cartItemDescList.get(0), description);
+                errorMessages += assesElementTextEquals(cartItemPricesList.get(0), price);
+
+                errorMessages += assesElementTextEquals(removeFromCartButtonsList.get(0), ShoppingCartPageConstants.REMOVE_BUTTON_TXT);
+
+            } catch (Exception e) {
+                errorMessages = e.getStackTrace().toString();
+            }
+        } else {
+            errorMessages = "Cart is empty!";
+        }
+
+        return errorMessages;
+    }
+
     public boolean removeFromCartById(int id) {
 
         if (isCartEmpty()) {
@@ -88,7 +123,7 @@ public class ShoppingCartPage extends BaseProductPage {
 
         String numberToFind = String.valueOf(id);
         int i = 0;
-        for (WebElement e : inventoryItemLinkList) {
+        for (WebElement e : cartItemLinkList) {
             if (e.getAttribute("href").contains(numberToFind)) {
                 removeFromCartButtonsList.get(i).click();
                 return (removeFromCartButtonsList.size() == headerContainer.getCartItems());

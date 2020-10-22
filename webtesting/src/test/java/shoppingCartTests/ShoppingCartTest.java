@@ -23,7 +23,7 @@ public class ShoppingCartTest extends TestCaseBase {
         shoppingCartPage = login(user, pwd).loadShoppingCart();
     }
 
-    @Test(description = "Verify the shopping cart is empty", groups = {"shoppingCart"})
+    @Test(description = "Verify the shopping cart is empty", groups = {"login"})
     public void verifyEmptyShoppingCart() {
         String errorMessage = "";
         try {
@@ -36,17 +36,19 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"product"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
+            groups = {"shoppingCart"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
     public void verifyProductUI(String id, String imageUrl, String name, String description, String price) {
 
         ProductsInventoryPage inventory = shoppingCartPage.clickContinueShoppingButton();
         String errorMessages = "";
         try {
             inventory.addToCartById(id);
-            errorMessages += product.assesProductValues(imageUrl, name, description, price);
+            inventory.loadShoppingCart();
+            errorMessages += shoppingCartPage.verifyProductCartUIElements(1, imageUrl, name, description, price);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        System.out.println("Error message: " + errorMessages);
         assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + errorMessages);
     }
 
