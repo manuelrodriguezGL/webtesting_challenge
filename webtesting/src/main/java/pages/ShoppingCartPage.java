@@ -98,6 +98,7 @@ public class ShoppingCartPage extends BaseProductPage {
                 errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
                 errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
 
+                errorMessages += assesElementTextEquals(cartQuantityList.get(0), String.valueOf(qty));
                 errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), imageUrl);
                 errorMessages += assesElementTextEquals(cartItemNameList.get(0), name);
                 errorMessages += assesElementTextEquals(cartItemDescList.get(0), description);
@@ -115,18 +116,19 @@ public class ShoppingCartPage extends BaseProductPage {
         return errorMessages;
     }
 
-    public boolean removeFromCartById(int id) {
+    public boolean removeFromCartById(String id) {
 
         if (isCartEmpty()) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
 
-        String numberToFind = String.valueOf(id);
         int i = 0;
         for (WebElement e : cartItemLinkList) {
-            if (e.getAttribute("href").contains(numberToFind)) {
+            int currentQty = cartItemLinkList.size();
+            if (e.getAttribute("href").contains(id)) {
                 removeFromCartButtonsList.get(i).click();
-                return (removeFromCartButtonsList.size() == headerContainer.getCartItems());
+                return (removeFromCartButtonsList.size() == headerContainer.getCartItems()
+                    && cartItemLinkList.size() == --currentQty);
             }
             i++;
         }
@@ -144,7 +146,8 @@ public class ShoppingCartPage extends BaseProductPage {
             e.click();
         }
 
-        return (removeFromCartButtonsList.size() == headerContainer.getCartItems());
+        return (removeFromCartButtonsList.size() == headerContainer.getCartItems()
+            && cartItemsList.size() == 0);
     }
 
     public boolean isCartEmpty() {
