@@ -27,7 +27,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the shopping cart is empty",
-            groups = {"login"})
+            groups = {"shoppingCart"})
     public void verifyEmptyShoppingCart() {
         String errorMessage = "";
         try {
@@ -41,7 +41,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"login"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
+            groups = {"shoppingCart"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
     public void verifyProductUI(String id, String imageUrl, String name, String description, String price) {
 
         String errorMessages = "";
@@ -57,7 +57,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
-            groups = {"login"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+            groups = {"shoppingCart"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductRemoveFromCart(String productId) {
         boolean result = false;
 
@@ -74,7 +74,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that all products can be removed from cart",
-            groups = {"login"})
+            groups = {"shoppingCart"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
         boolean result = false;
