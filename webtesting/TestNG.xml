@@ -6,6 +6,7 @@
         <!ENTITY inventoryTests SYSTEM "testGroups/InventoryTests.xml">
         <!ENTITY productTests SYSTEM "testGroups/ProductTests.xml">
         <!ENTITY shoppingCartTests SYSTEM "testGroups/ShoppingCartTests.xml">
+        <!ENTITY checkoutInformationTests SYSTEM "testGroups/CheckoutInformationTests.xml">
         ]>
 
 <!--NOTE: There's a known TestNG bug. Add this param to the JVM [-Dtestng.dtd.http=true]-->
@@ -16,7 +17,7 @@
     <test name="Login Tests">
         <groups>
             <run>
-                &shoppingCartTests;
+                &checkoutInformationTests;
             </run>
         </groups>
         &classes;
