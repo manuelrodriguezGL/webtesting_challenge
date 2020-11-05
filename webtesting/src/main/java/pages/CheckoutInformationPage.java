@@ -1,5 +1,6 @@
 package pages;
 
+import constants.CheckoutInformationConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,6 +29,7 @@ public class CheckoutInformationPage extends BaseProductPage {
     public static final String LAST_NAME_ERROR = "LAST";
     public static final String POSTAL_CODE_ERROR = "POSTAL";
     private static final String URL = "//checkout-step-one.html";
+
     @FindBy(id = "first-name")
     private WebElement firstNameInput;
 
@@ -60,6 +62,25 @@ public class CheckoutInformationPage extends BaseProductPage {
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
         assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+    }
+
+    public String verifyUIElements() {
+        String errorMessages = "";
+
+        try {
+            errorMessages += assesElementTextContains(firstNameInput.getAttribute("placeholder"),
+                    CheckoutInformationConstants.NAME_PLACEHOLDER);
+            errorMessages += assesElementTextContains(lastNameInput.getAttribute("placeholder"),
+                    CheckoutInformationConstants.LAST_NAME_PLACEHOLDER);
+            errorMessages += assesElementTextContains(postalCodeInput.getAttribute("placeholder"),
+                    CheckoutInformationConstants.ZIP_PLACEHOLDER);
+            errorMessages += assesElementTextEquals(cancelButton, CheckoutInformationConstants.CANCEL_BUTTON_TXT);
+            errorMessages += assesElementTextEquals(continueButton, CheckoutInformationConstants.CONTINUE_BUTTON_TXT);
+        } catch (Exception e) {
+            errorMessages += e.getStackTrace().toString();
+        }
+
+        return errorMessages;
     }
 
     public ProductsInventoryPage cancelCheckout() {

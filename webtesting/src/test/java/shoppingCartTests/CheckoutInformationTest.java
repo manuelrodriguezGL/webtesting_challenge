@@ -1,5 +1,6 @@
 package shoppingCartTests;
 
+import Constants.GlobalTestConstants;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -7,7 +8,9 @@ import pages.CheckoutInformationPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
 
-public class CheckoutInformationTest  extends TestCaseBase {
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class CheckoutInformationTest extends TestCaseBase {
 
     private CheckoutInformationPage checkoutPage;
     private ProductsInventoryPage inventory;
@@ -20,7 +23,17 @@ public class CheckoutInformationTest  extends TestCaseBase {
         checkoutPage = inventory.loadShoppingCart().clickCheckoutButton();
     }
 
-    @Test(description = "Verify the UI elements for every individual product",
+    @Test(description = "Verify the UI elements for checkout information page",
             groups = {"checkoutInformation"})
-    public void verifyUIElements(){}
+    public void verifyUIElements() {
+        String errorMessages = "";
+        try {
+            errorMessages = checkoutPage.verifyUIElements();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Checkout Information page has wrong elements on UI or is not loaded!");
+    }
 }
