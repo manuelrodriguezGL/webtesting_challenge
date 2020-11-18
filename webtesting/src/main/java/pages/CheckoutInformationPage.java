@@ -1,6 +1,7 @@
 package pages;
 
 import constants.CheckoutInformationConstants;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -64,6 +65,11 @@ public class CheckoutInformationPage extends BaseProductPage {
         assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
     }
 
+    private boolean areFieldsVisible() {
+        return (isElementVisible(firstNameInput) && isElementVisible(lastNameInput) &&
+                isElementVisible(postalCodeInput));
+    }
+
     public String verifyUIElements() {
         String errorMessages = "";
 
@@ -83,7 +89,35 @@ public class CheckoutInformationPage extends BaseProductPage {
         return errorMessages;
     }
 
-    public ProductsInventoryPage cancelCheckout() {
+    public String verifyErrorMessages(String firstName, String lastName, String zipCode) {
+        String errorMessages = "";
+        try {
+            if (areFieldsVisible()) {
+
+                enterCustomerData("", lastName, zipCode);
+                clickContinue();
+                errorMessages += checkErrorMessage(FIRST_NAME_ERROR) ? "" : "First name error message not found! ";
+                clearCustomerData();
+
+                enterCustomerData(firstName, "", zipCode);
+                clickContinue();
+                errorMessages += checkErrorMessage(LAST_NAME_ERROR) ? "" : "Last name error message not found! ";
+                clearCustomerData();
+
+                enterCustomerData(firstName, lastName, "");
+                clickContinue();
+                errorMessages += checkErrorMessage(POSTAL_CODE_ERROR) ? "" : "Postal code error message not found! ";
+                clearCustomerData();
+            } else {
+                errorMessages += "Fields are not visible!";
+            }
+        } catch (Exception e) {
+            throw e;
+        }
+        return errorMessages;
+    }
+
+    public ProductsInventoryPage clickCancel() {
 
         if (isElementVisible(cancelButton)) {
             cancelButton.click();
@@ -92,7 +126,7 @@ public class CheckoutInformationPage extends BaseProductPage {
         return null;
     }
 
-    public CheckoutOverviewPage continueCheckout() {
+    public CheckoutOverviewPage clickContinue() {
 
         if (isElementVisible(continueButton)) {
             continueButton.click();
@@ -102,11 +136,26 @@ public class CheckoutInformationPage extends BaseProductPage {
     }
 
     public void enterCustomerData(String firstName, String lastName, String postalCode) {
-        if (isElementVisible(firstNameInput) && isElementVisible(lastNameInput) && isElementVisible(postalCodeInput)) {
-            firstNameInput.sendKeys(firstName);
-            lastNameInput.sendKeys(lastName);
-            postalCodeInput.sendKeys(postalCode);
-        }
+        firstNameInput.sendKeys(firstName);
+        lastNameInput.sendKeys(lastName);
+        postalCodeInput.sendKeys(postalCode);
+    }
+
+    public void clearCustomerData() {
+        // Interestingly, after the clear() method was used, then the values were back on fields.
+        // SO I had to use a safer sendKeys()
+        // Based on the Oracle of knowledge:
+        // https://stackoverflow.com/questions/50677760/selenium-clear-command-doesnt-clear-the-element
+        //TODO: Find the OS so it detects if Windows or MacOS keyboard
+        firstNameInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
+        firstNameInput.sendKeys(Keys.BACK_SPACE);
+
+        lastNameInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
+        lastNameInput.sendKeys(Keys.BACK_SPACE);
+
+        postalCodeInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
+        postalCodeInput.sendKeys(Keys.BACK_SPACE);
+
     }
 
     public boolean checkErrorMessage(String errorCode) {

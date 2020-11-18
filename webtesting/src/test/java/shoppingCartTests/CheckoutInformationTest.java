@@ -24,7 +24,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout information page",
-            groups = {"checkoutInformation"})
+            groups = {"login"})
     public void verifyUIElements() {
         String errorMessages = "";
         try {
@@ -35,5 +35,20 @@ public class CheckoutInformationTest extends TestCaseBase {
 
         assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Checkout Information page has wrong elements on UI or is not loaded!");
+    }
+
+    @Test(description = "Verify the error messages on all input fields for checkout information page",
+            groups = {"checkoutInformation"})
+    @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
+    public void verifyErrorMessages(String firstName, String lastName, String zipCode) {
+        String errorMessages = "";
+        try {
+            errorMessages = checkoutPage.verifyErrorMessages(firstName, lastName, zipCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Checkout information error messages are not displayed or they have changed!");
     }
 }

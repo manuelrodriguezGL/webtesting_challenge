@@ -46,3 +46,7 @@
 <parameter name="item3Price" value="$15.99"/>
 
 <parameter name = "totalProducts" value="6"/>
+
+<parameter name = "customerFirstName" value="John" />
+<parameter name = "customerLastName" value="Doe" />
+<parameter name = "customerZipCode" value="33122" />
