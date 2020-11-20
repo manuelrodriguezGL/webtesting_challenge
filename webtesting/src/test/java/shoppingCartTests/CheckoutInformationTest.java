@@ -24,7 +24,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout information page",
-            groups = {"login"})
+            groups = {"checkoutInformation"})
     public void verifyUIElements() {
         String errorMessages = "";
         try {
@@ -38,7 +38,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the error messages on all input fields for checkout information page",
-            groups = {"login"})
+            groups = {"checkoutInformation"})
     @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
     public void verifyErrorMessages(String firstName, String lastName, String zipCode) {
         String errorMessages = "";
@@ -59,6 +59,17 @@ public class CheckoutInformationTest extends TestCaseBase {
         boolean result = checkoutPage.clickCancel().isPageLoaded();
 
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "Could not click cancel button, or Inventory page was not loaded!");
+                "Could not click cancel button, or Cart page was not loaded!");
+    }
+
+
+    @Test(description = "Verify that user can click Continue button and is taken to order overview page",
+            groups = {"checkoutInformation"})
+    public void verifyClickContinueButton()
+    {
+        boolean result = checkoutPage.clickContinue().isPageLoaded();
+
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Could not click continue button, or Overview page was not loaded!");
     }
 }
