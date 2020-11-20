@@ -13,6 +13,9 @@ public class CheckoutOverviewPage extends BaseProductPage {
 
     private static final String URL = "/checkout-step-two.html";
 
+    @FindBy(className = "subheader")
+    private WebElement pageHeader;
+
     @FindBy(className = "cart_item")
     private List<WebElement> cartItemsList;
 
@@ -50,7 +53,13 @@ public class CheckoutOverviewPage extends BaseProductPage {
     @Override
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        assertTrue(isPageLoaded() &&
+                currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+    }
+
+    @Override
+    public boolean isPageLoaded() {
+        return isElementVisible(pageHeader);
     }
 
     private ArrayList<Double> getPricesList(List<WebElement> list) {

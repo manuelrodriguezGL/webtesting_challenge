@@ -14,6 +14,9 @@ public class ShoppingCartPage extends BaseProductPage {
 
     private static final String URL = "/cart.html";
 
+    @FindBy(className = "subheader")
+    private WebElement pageHeader;
+
     @FindBy(className = "cart_quantity_label")
     private WebElement cartQuantityLabel;
 
@@ -63,7 +66,14 @@ public class ShoppingCartPage extends BaseProductPage {
     @Override
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        assertTrue(isPageLoaded() &&
+                currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+    }
+
+    @Override
+    public boolean isPageLoaded()
+    {
+        return isElementVisible(pageHeader);
     }
 
     public String verifyEmptyCartUIElements() {

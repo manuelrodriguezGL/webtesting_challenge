@@ -38,7 +38,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the error messages on all input fields for checkout information page",
-            groups = {"checkoutInformation"})
+            groups = {"login"})
     @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
     public void verifyErrorMessages(String firstName, String lastName, String zipCode) {
         String errorMessages = "";
@@ -50,5 +50,15 @@ public class CheckoutInformationTest extends TestCaseBase {
 
         assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Checkout information error messages are not displayed or they have changed!");
+    }
+
+    @Test(description = "Verify that user can click Cancel button and is taken back to cart page",
+            groups = {"checkoutInformation"})
+    public void verifyClickCancelButton()
+    {
+        boolean result = checkoutPage.clickCancel().isPageLoaded();
+
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Could not click cancel button, or Inventory page was not loaded!");
     }
 }

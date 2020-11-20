@@ -117,11 +117,11 @@ public class CheckoutInformationPage extends BaseProductPage {
         return errorMessages;
     }
 
-    public ProductsInventoryPage clickCancel() {
+    public ShoppingCartPage clickCancel() {
 
         if (isElementVisible(cancelButton)) {
             cancelButton.click();
-            return new ProductsInventoryPage(driver);
+            return new ShoppingCartPage(driver);
         }
         return null;
     }
