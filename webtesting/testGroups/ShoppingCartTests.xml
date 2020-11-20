@@ -3,4 +3,4 @@
 <include name="shoppingCart"/>
 
         <!--Add your EXCLUDED groups here-->
-<exclude name="login"/>
+<exclude name="excluded"/>

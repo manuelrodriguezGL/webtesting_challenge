@@ -3,4 +3,4 @@
 <include name="product"/>
 
         <!--Add your EXCLUDED groups here-->
-<exclude name="login"/>
+<exclude name="excluded"/>

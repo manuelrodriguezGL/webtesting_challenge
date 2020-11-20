@@ -5,5 +5,5 @@
 
         <!--Add your EXCLUDED groups here-->
 
-<exclude name="login"/>
+<exclude name="excluded"/>
 <!--<exclude name="inventory"/>-->
