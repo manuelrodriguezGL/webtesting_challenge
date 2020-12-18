@@ -1,11 +1,15 @@
 package pages;
 
+import constants.CheckoutInformationConstants;
+import constants.CheckoutOverviewPageConstants;
+import constants.ShoppingCartPageConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,14 +20,35 @@ public class CheckoutOverviewPage extends BaseProductPage {
     @FindBy(className = "subheader")
     private WebElement pageHeader;
 
+    @FindBy(className = "cart_quantity_label")
+    private WebElement cartQuantityLabel;
+
+    @FindBy(className = "cart_desc_label")
+    private WebElement cartDescLabel;
+
     @FindBy(className = "cart_item")
     private List<WebElement> cartItemsList;
 
+    @FindBy(className = "summary_quantity")
+    private List<WebElement> cartQuantityList;
+
     @FindBy(css = ".cart_item_label>a")
-    private List<WebElement> cartItemLinksList;
+    private List<WebElement> cartItemLinkList;
+
+    @FindBy(css = ".cart_item_label>a>.inventory_item_name")
+    private List<WebElement> cartItemNameList;
+
+    @FindBy(css = ".cart_item_label>.inventory_item_desc")
+    private List<WebElement> cartItemDescList;
 
     @FindBy(className = "inventory_item_price")
-    private List<WebElement> cartItemsPricesList;
+    private List<WebElement> cartItemPricesList;
+
+    @FindBy(className = "summary_info_label")
+    private List<WebElement> summaryInfoLabelList;
+
+    @FindBy(className = "summary_value_label")
+    private List<WebElement> summaryValueLabelList;
 
     @FindBy(className = "summary_subtotal_label")
     private WebElement subtotalLabel;
@@ -62,6 +87,43 @@ public class CheckoutOverviewPage extends BaseProductPage {
         return isElementVisible(pageHeader);
     }
 
+    public String verifyUIElements(int qty, String imageUrl, String name, String description, String price) {
+        String errorMessages = "";
+
+        if (!isCartEmpty()) {
+            try {
+                errorMessages += assesElementTextEquals(cartQuantityLabel, CheckoutOverviewPageConstants.CART_QUANTITY_LABEL);
+                errorMessages += assesElementTextEquals(cartDescLabel, CheckoutOverviewPageConstants.CART_DESC_LABEL);
+                errorMessages += assesElementTextEquals(finishButton, CheckoutOverviewPageConstants.FINISH_BUTTON_TXT);
+                errorMessages += assesElementTextEquals(cancelButton, CheckoutOverviewPageConstants.CANCEL_BUTTON_TXT);
+
+                errorMessages += assesElementTextEquals(cartQuantityList.get(0), String.valueOf(qty));
+                errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), imageUrl);
+                errorMessages += assesElementTextEquals(cartItemNameList.get(0), name);
+                errorMessages += assesElementTextEquals(cartItemDescList.get(0), description);
+                errorMessages += assesElementTextEquals(cartItemPricesList.get(0), price);
+
+                //TODO: Include payment and shipping info
+                // We need to iterate thru web elements, since they share same css class
+
+            } catch (Exception e) {
+                errorMessages = e.getStackTrace().toString();
+            }
+        } else {
+            errorMessages = "Cart is empty!";
+        }
+
+        return errorMessages;
+    }
+
+    public boolean isCartEmpty() {
+        try {
+            return cartItemsList.size() == 0;
+        } catch (NoSuchElementException e) {
+            return true;
+        }
+    }
+
     private ArrayList<Double> getPricesList(List<WebElement> list) {
         ArrayList<Double> pricesList = new ArrayList<>();
         for (WebElement e : list) {
@@ -91,7 +153,7 @@ public class CheckoutOverviewPage extends BaseProductPage {
             throw new IndexOutOfBoundsException("There are no elements in the cart!");
 
         try {
-            double subtotal = getPriceAmountFromList(cartItemsPricesList);
+            double subtotal = getPriceAmountFromList(cartItemPricesList);
             double tax = getPriceAmountFromElement(taxLabel);
             return subtotal + tax;
         } catch (Exception e) {

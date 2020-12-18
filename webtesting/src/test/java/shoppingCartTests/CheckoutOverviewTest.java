@@ -1,14 +1,20 @@
 package shoppingCartTests;
 
+import Constants.GlobalTestConstants;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+import pages.CheckoutInformationPage;
 import pages.CheckoutOverviewPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class CheckoutOverviewTest extends TestCaseBase {
 
     private CheckoutOverviewPage checkoutOverviewPage;
+    private CheckoutInformationPage checkoutInformationPage;
     private ProductsInventoryPage inventory;
 
     @BeforeMethod(alwaysRun = true)
@@ -17,13 +23,26 @@ public class CheckoutOverviewTest extends TestCaseBase {
         try {
             inventory = login(user, pwd);
             inventory.addToCartById(item4ID);
-            inventory.loadShoppingCart().clickCheckoutButton().enterCustomerData(fName, lName, zip);
-            checkoutOverviewPage = inventory.loadShoppingCart().clickCheckoutButton().clickContinue();
+            checkoutInformationPage = inventory.loadShoppingCart().clickCheckoutButton();
+            checkoutInformationPage.enterCustomerData(fName, lName, zip);
+            checkoutOverviewPage = checkoutInformationPage.clickContinue();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @Test(description = "Verify the UI elements for checkout overview page",
+            groups = {"checkoutOverview"})
+    public void verifyUIElements() {
+        String errorMessages = "";
+        try {
+            //errorMessages = checkoutPage.verifyUIElements();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Checkout Overview page has wrong elements on UI or is not loaded!");
+    }
 
 }

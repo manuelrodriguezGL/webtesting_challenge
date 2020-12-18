@@ -103,7 +103,6 @@ public class ShoppingCartPage extends BaseProductPage {
         if (!isCartEmpty()) {
             try {
                 errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
-                errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
                 errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
                 errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
                 errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
