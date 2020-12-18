@@ -8,6 +8,7 @@
         <!ENTITY productTests SYSTEM "testGroups/ProductTests.xml">
         <!ENTITY shoppingCartTests SYSTEM "testGroups/ShoppingCartTests.xml">
         <!ENTITY checkoutInformationTests SYSTEM "testGroups/CheckoutInformationTests.xml">
+        <!ENTITY checkoutOverviewTests SYSTEM "testGroups/CheckoutOverviewTests.xml">
         ]>
 
 <!--NOTE: There's a known TestNG bug. Add this param to the JVM [-Dtestng.dtd.http=true]-->
@@ -19,7 +20,7 @@
         <groups>
             <run>
                 &excludedTests;
-                &checkoutInformationTests;
+                &checkoutOverviewTests;
             </run>
         </groups>
         &classes;
