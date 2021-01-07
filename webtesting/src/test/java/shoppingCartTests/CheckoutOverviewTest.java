@@ -33,10 +33,11 @@ public class CheckoutOverviewTest extends TestCaseBase {
 
     @Test(description = "Verify the UI elements for checkout overview page",
             groups = {"checkoutOverview"})
-    public void verifyUIElements() {
+    @Parameters({"qtyOne", "item4URL", "item4Name", "item4Desc", "item4Price"})
+    public void verifyUIElements(String qtyOne, String itemURL, String name, String description, String price) {
         String errorMessages = "";
         try {
-            //errorMessages = checkoutPage.verifyUIElements();
+            errorMessages = checkoutOverviewPage.verifyUIElements(Integer.valueOf(qtyOne), itemURL, name, description, price);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -10,6 +10,7 @@
 
 <!--Inventory Page Parameters-->
 <parameter name="item4ID" value="4"/>
+<parameter name="item4URL" value="https://www.saucedemo.com/inventory-item.html?id=4"/>
 <parameter name="item4Image" value="https://www.saucedemo.com/img/sauce-backpack-1200x1500.jpg"/>
 <parameter name="item4Name" value="Sauce Labs Backpack"/>
 <parameter name="item4Desc" value="carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection."/>
@@ -46,6 +47,7 @@
 <parameter name="item3Price" value="$15.99"/>
 
 <parameter name = "totalProducts" value="6"/>
+<parameter name = "qtyOne" value="1"/>
 
 <parameter name = "customerFirstName" value="John" />
 <parameter name = "customerLastName" value="Doe" />

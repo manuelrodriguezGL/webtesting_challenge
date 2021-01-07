@@ -87,7 +87,7 @@ public class CheckoutOverviewPage extends BaseProductPage {
         return isElementVisible(pageHeader);
     }
 
-    public String verifyUIElements(int qty, String imageUrl, String name, String description, String price) {
+    public String verifyUIElements(int qty, String itemUrl, String name, String description, String price) {
         String errorMessages = "";
 
         if (!isCartEmpty()) {
@@ -98,13 +98,22 @@ public class CheckoutOverviewPage extends BaseProductPage {
                 errorMessages += assesElementTextEquals(cancelButton, CheckoutOverviewPageConstants.CANCEL_BUTTON_TXT);
 
                 errorMessages += assesElementTextEquals(cartQuantityList.get(0), String.valueOf(qty));
-                errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), imageUrl);
+                errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), itemUrl);
                 errorMessages += assesElementTextEquals(cartItemNameList.get(0), name);
                 errorMessages += assesElementTextEquals(cartItemDescList.get(0), description);
                 errorMessages += assesElementTextEquals(cartItemPricesList.get(0), price);
 
-                //TODO: Include payment and shipping info
-                // We need to iterate thru web elements, since they share same css class
+                // Payment info
+                errorMessages += assesElementTextEquals(summaryInfoLabelList.get(0),
+                        CheckoutOverviewPageConstants.PAYMENT_INFORMATION_LABEL);
+                errorMessages += assesElementTextEquals(summaryValueLabelList.get(0),
+                        CheckoutOverviewPageConstants.PAYMENT_INFORMATION);
+
+                // Shipment info
+                errorMessages += assesElementTextEquals(summaryInfoLabelList.get(1),
+                        CheckoutOverviewPageConstants.SHIPPING_INFORMATION_LABEL);
+                errorMessages += assesElementTextEquals(summaryValueLabelList.get(1),
+                        CheckoutOverviewPageConstants.SHIPPING_INFORMATION);
 
             } catch (Exception e) {
                 errorMessages = e.getStackTrace().toString();
