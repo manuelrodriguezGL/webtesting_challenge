@@ -22,7 +22,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     public void loadShoppingCartPage(String user, String pwd, String item4ID, String fName, String lName, String zip) {
         try {
             inventory = login(user, pwd);
-            inventory.addToCartById(item4ID);
+            inventory.addToCartByQuantity(6);
             checkoutInformationPage = inventory.loadShoppingCart().clickCheckoutButton();
             checkoutInformationPage.enterCustomerData(fName, lName, zip);
             checkoutOverviewPage = checkoutInformationPage.clickContinue();
@@ -32,7 +32,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout overview page",
-            groups = {"checkoutOverview"})
+            groups = {"login"})
     @Parameters({"qtyOne", "item4URL", "item4Name", "item4Desc", "item4Price"})
     public void verifyUIElements(String qtyOne, String itemURL, String name, String description, String price) {
         String errorMessages = "";
@@ -46,4 +46,31 @@ public class CheckoutOverviewTest extends TestCaseBase {
                 "Checkout Overview page has wrong elements on UI or is not loaded!");
     }
 
+    @Test(description = "Verify the subtotal without tax value for the items on cart",
+            groups = {"login"})
+    public void verifyCartSubtotal() {
+        boolean result = false;
+        try {
+            result = checkoutOverviewPage.itemSubtotalMatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "The following values don't match: Item total (subtotal without tax)!");
+    }
+
+    @Test(description = "Verify the total values for the items on cart",
+            groups = {"checkoutOverview"})
+    public void verifyCartTotal() {
+        boolean result = false;
+        try {
+            result = checkoutOverviewPage.itemTotalMatch();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "The following values don't match: Total and Item total plus Tax!");
+    }
 }

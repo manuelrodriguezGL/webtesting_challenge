@@ -1,8 +1,6 @@
 package pages;
 
-import constants.CheckoutInformationConstants;
 import constants.CheckoutOverviewPageConstants;
-import constants.ShoppingCartPageConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -157,8 +155,12 @@ public class CheckoutOverviewPage extends BaseProductPage {
         return Double.parseDouble(valueText.substring(valueText.indexOf("$") + 1));
     }
 
+    /***
+     * Sum all the values from the list, plus the tax
+     * @return A double with the result of the sum
+     */
     public double sumTotalAmount() {
-        if (cartItemsList.size() <= 0)
+        if (isCartEmpty())
             throw new IndexOutOfBoundsException("There are no elements in the cart!");
 
         try {
@@ -170,8 +172,27 @@ public class CheckoutOverviewPage extends BaseProductPage {
         }
     }
 
+    /***
+     * Sum all the values from the Item total label
+     * @return A double with the value from Item total label
+     */
+    public double getSubtotalAmount() {
+        if (isCartEmpty())
+            throw new IndexOutOfBoundsException("There are no elements in the cart!");
+
+        try {
+            return getPriceAmountFromElement(subtotalLabel);
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+
+    /***
+     * Get ths value from the Total label (elements + tax)
+     * @return A double with the value from Total label
+     */
     public double getTotalAmount() {
-        if (cartItemsList.size() <= 0)
+        if (isCartEmpty())
             throw new IndexOutOfBoundsException("There are no elements in the cart!");
 
         try {
@@ -179,6 +200,34 @@ public class CheckoutOverviewPage extends BaseProductPage {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    public boolean itemSubtotalMatch() {
+        boolean result = false;
+        if (isCartEmpty())
+            throw new IndexOutOfBoundsException("There are no elements in the cart!");
+
+        try {
+            result = getPriceAmountFromList(cartItemPricesList) == getSubtotalAmount();
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return result;
+    }
+
+    public boolean itemTotalMatch() {
+        boolean result = false;
+        if (isCartEmpty())
+            throw new IndexOutOfBoundsException("There are no elements in the cart!");
+
+        try {
+            result = getTotalAmount() == sumTotalAmount();
+        } catch (Exception e) {
+            throw e;
+        }
+
+        return result;
     }
 
     public ProductsInventoryPage cancelCheckout() {
