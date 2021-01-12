@@ -34,13 +34,17 @@ public class BasePage extends LoadableComponent {
     protected void isLoaded() throws Error {
     }
 
-    public boolean isPageLoaded(){
+    public boolean isPageLoaded() {
         return false;
     }
 
     protected boolean isElementVisible(WebElement e) throws NoSuchElementException {
-        WebDriverWait wait = new WebDriverWait(driver, GlobalPageConstants.GLOBAL_TIMEOUT);
-        return wait.until(driver -> e.isDisplayed());
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, GlobalPageConstants.GLOBAL_TIMEOUT);
+            return wait.until(driver -> e.isDisplayed());
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
     protected boolean isTextEquals(WebElement e, String text) {
@@ -51,8 +55,7 @@ public class BasePage extends LoadableComponent {
         return e.contains(text);
     }
 
-    protected String assesElementTextContains(String e, String text)
-    {
+    protected String assesElementTextContains(String e, String text) {
         String errorMessage = "";
 
         try {

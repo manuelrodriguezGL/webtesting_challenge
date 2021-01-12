@@ -72,6 +72,12 @@ public class ProductsInventoryPage extends BaseProductPage {
     @FindBy(css = "a.shopping_cart_link.fa-layers.fa-fw")
     private WebElement shoppingCartButton;
 
+    @FindBy(css = ".bm-burger-button>button")
+    private WebElement burgerMenu;
+
+    @FindBy(id = "logout_sidebar_link")
+    private WebElement logoutOption;
+
     private ArrayList<InventoryItem> inventoryItems;
 
     public ProductsInventoryPage(WebDriver driver) {
@@ -81,13 +87,14 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Inventory page...");
         driver.get(BASE_URL + URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(isPageLoaded() && currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        if(!isPageLoaded())
+            throw new Error("Inventory page was not loaded!");
     }
 
     @Override
@@ -342,5 +349,11 @@ public class ProductsInventoryPage extends BaseProductPage {
     public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
         shoppingCartButton.click();
         return new ShoppingCartPage(driver);
+    }
+
+    public LoginPage logout() throws NoSuchElementException {
+        burgerMenu.click();
+        logoutOption.click();
+        return new LoginPage(driver);
     }
 }

@@ -49,6 +49,9 @@ public class CheckoutInformationPage extends BaseProductPage {
     @FindBy(css = "h3[data-test]")
     private WebElement errorMessage;
 
+    @FindBy(className = "checkout_info_container")
+    private WebElement checkoutInfoContainer;
+
     public CheckoutInformationPage(WebDriver driver) {
         super(driver);
         super.initElements(driver, this);
@@ -56,13 +59,18 @@ public class CheckoutInformationPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Checkout Information page...");
         driver.get(BASE_URL + URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        if(!isPageLoaded())
+            throw new Error("Checkout Information page was not loaded!");
+    }
+
+    public boolean isPageLoaded() {
+        return isElementVisible(checkoutInfoContainer);
     }
 
     private boolean areFieldsVisible() {

@@ -20,12 +20,14 @@ public class CheckoutFinishedPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Checkout Finished page...");
         driver.get(BASE_URL + URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        assertTrue(isElementVisible(pageHeader));
+        if(!isPageLoaded())
+            throw new Error("Checkout Finished page was not loaded!");
     }
 
     @Override

@@ -70,14 +70,14 @@ public class CheckoutOverviewPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Checkout Overview page...");
         driver.get(BASE_URL + URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(isPageLoaded() &&
-                currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        if(!isPageLoaded())
+            throw new Error("Checkout Overview page was not loaded!");
     }
 
     @Override

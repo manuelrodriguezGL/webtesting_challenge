@@ -43,13 +43,21 @@ public class LoginPage extends BasePage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Login page...");
         driver.get(BASE_URL + URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+
+        if(!isPageLoaded())
+            throw new Error("Login page was not loaded!");
+    }
+
+    @Override
+    public boolean isPageLoaded(){
+        return isElementVisible(loginLogo);
     }
 
     private void enterUserName(String user) throws NoSuchElementException {

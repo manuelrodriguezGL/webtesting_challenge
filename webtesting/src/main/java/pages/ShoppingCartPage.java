@@ -60,14 +60,14 @@ public class ShoppingCartPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Shopping Cart page...");
         driver.get(BASE_URL + URL);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(isPageLoaded() &&
-                currentUrl.endsWith(URL), "The page could not be loaded! Found URL: " + currentUrl);
+        if(!isPageLoaded())
+            throw new Error("Shopping cart page was not loaded!");
     }
 
     @Override

@@ -42,13 +42,19 @@ public class ProductPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        System.out.println("Attempting to load Product detail page...");
         driver.get(BASE_URL + this.url);
     }
 
     @Override
     protected void isLoaded() throws Error {
-        String currentUrl = driver.getCurrentUrl();
-        assertTrue(currentUrl.endsWith(this.url), "The page could not be loaded! Found URL: " + currentUrl);
+        if(!isPageLoaded())
+            throw new Error("Product detail page was not loaded!");
+    }
+
+    @Override
+    public boolean isPageLoaded() {
+        return isElementVisible(productName);
     }
 
     public ProductsInventoryPage goBack() {
