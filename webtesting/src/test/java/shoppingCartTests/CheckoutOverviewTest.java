@@ -32,7 +32,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout overview page",
-            groups = {"login"})
+            groups = {"checkoutOverview"})
     @Parameters({"qtyOne", "item4URL", "item4Name", "item4Desc", "item4Price"})
     public void verifyUIElements(String qtyOne, String itemURL, String name, String description, String price) {
         String errorMessages = "";
@@ -47,7 +47,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the subtotal without tax value for the items on cart",
-            groups = {"login"})
+            groups = {"checkoutOverview"})
     public void verifyCartSubtotal() {
         boolean result = false;
         try {
@@ -61,7 +61,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the total values for the items on cart",
-            groups = {"login"})
+            groups = {"checkoutOverview"})
     public void verifyCartTotal() {
         boolean result = false;
         try {
@@ -100,6 +100,34 @@ public class CheckoutOverviewTest extends TestCaseBase {
 
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "The following values don't match: Total before and after removing one element");
+    }
+
+    @Test(description = "Verify the Cancel button works and user is taken back to inventory page",
+            groups = {"checkoutOverview"})
+    public void verifyCancelButton() {
+        boolean result = false;
+        try {
+            result = checkoutOverviewPage.cancelCheckout().isPageLoaded();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "The Inventory page could not be loaded");
+    }
+
+    @Test(description = "Verify the Finish button works and user is taken to final page",
+            groups = {"checkoutOverview"})
+    public void verifyFinishButton() {
+        boolean result = false;
+        try {
+            result = checkoutOverviewPage.finishCheckout().isPageLoaded();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "The Finish page could not be loaded");
     }
 
     private CheckoutOverviewPage reloadCartOverview(String fName, String lName, String zip) {

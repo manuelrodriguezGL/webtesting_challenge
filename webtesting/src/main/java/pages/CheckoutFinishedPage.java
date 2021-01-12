@@ -10,7 +10,7 @@ public class CheckoutFinishedPage extends BaseProductPage {
 
     private static final String URL = "/checkout-complete.html";
 
-    @FindBy(className = "subheader")
+    @FindBy(className = "complete-header")
     private WebElement pageHeader;
 
     public CheckoutFinishedPage(WebDriver driver) {
@@ -26,5 +26,10 @@ public class CheckoutFinishedPage extends BaseProductPage {
     @Override
     protected void isLoaded() throws Error {
         assertTrue(isElementVisible(pageHeader));
+    }
+
+    @Override
+    public boolean isPageLoaded() {
+        return isElementVisible(pageHeader);
     }
 }
