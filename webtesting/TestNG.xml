@@ -3,6 +3,7 @@
         <!ENTITY classes SYSTEM "Classes.xml">
         <!ENTITY parameters SYSTEM "Parameters.xml">
         <!ENTITY excludedTests SYSTEM "ExcludedTests.xml">
+        <!ENTITY debugTests SYSTEM "DebugTests.xml">
         <!ENTITY loginTests SYSTEM "testGroups/LoginTests.xml">
         <!ENTITY inventoryTests SYSTEM "testGroups/InventoryTests.xml">
         <!ENTITY productTests SYSTEM "testGroups/ProductTests.xml">
@@ -20,7 +21,13 @@
         <groups>
             <run>
                 &excludedTests;
-                &checkoutOverviewTests;
+                &debugTests;
+<!--                &loginTests;-->
+<!--                &inventoryTests;-->
+<!--                &productTests;-->
+<!--                &shoppingCartTests;-->
+<!--                &checkoutInformationTests;-->
+<!--                &checkoutOverviewTests;-->
             </run>
         </groups>
         &classes;

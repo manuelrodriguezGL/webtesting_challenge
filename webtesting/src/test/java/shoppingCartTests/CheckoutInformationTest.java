@@ -24,7 +24,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout information page",
-            groups = {"excluded"})
+            groups = {"checkoutInformation"})
     public void verifyUIElements() {
         String errorMessages = "";
         try {
@@ -38,7 +38,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the error messages on all input fields for checkout information page",
-            groups = {"excluded"})
+            groups = {"checkoutInformation"})
     @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
     public void verifyErrorMessages(String firstName, String lastName, String zipCode) {
         String errorMessages = "";
@@ -53,7 +53,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that user can click Cancel button and is taken back to cart page",
-            groups = {"excluded"})
+            groups = {"checkoutInformation"})
     public void verifyClickCancelButton()
     {
         boolean result = checkoutPage.clickCancel().isPageLoaded();

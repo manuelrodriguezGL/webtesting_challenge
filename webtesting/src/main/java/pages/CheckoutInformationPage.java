@@ -89,7 +89,8 @@ public class CheckoutInformationPage extends BaseProductPage {
             errorMessages += assesElementTextContains(postalCodeInput.getAttribute("placeholder"),
                     CheckoutInformationConstants.ZIP_PLACEHOLDER);
             errorMessages += assesElementTextEquals(cancelButton, CheckoutInformationConstants.CANCEL_BUTTON_TXT);
-            errorMessages += assesElementTextEquals(continueButton, CheckoutInformationConstants.CONTINUE_BUTTON_TXT);
+            errorMessages += assesElementTextContains(continueButton.getAttribute("value"),
+                    CheckoutInformationConstants.CONTINUE_BUTTON_TXT);
         } catch (Exception e) {
             errorMessages += e.getStackTrace().toString();
         }

@@ -3,4 +3,4 @@
 <include name="checkoutInformation"/>
 
         <!--Add your EXCLUDED groups here-->
-<!-- <exclude name="excluded"/> -->
+<exclude name="excluded"/>

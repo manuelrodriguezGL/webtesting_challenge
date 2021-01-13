@@ -2,5 +2,5 @@
 
 <include name="checkoutOverview"/>
 
-        <!--Add your EXCLUDED groups here-->
-        <!-- <exclude name="excluded"/> -->
+<!--Add your EXCLUDED groups here-->
+<exclude name="excluded"/>

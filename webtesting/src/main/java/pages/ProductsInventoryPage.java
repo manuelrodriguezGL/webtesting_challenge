@@ -353,7 +353,10 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     public LoginPage logout() throws NoSuchElementException {
         burgerMenu.click();
-        logoutOption.click();
+        if(isElementVisible(logoutOption))
+            logoutOption.click();
+        else
+            throw new NoSuchElementException("Could not load logout option from menu!");
         return new LoginPage(driver);
     }
 }
