@@ -21,13 +21,13 @@
         <groups>
             <run>
                 &excludedTests;
-                &debugTests;
-<!--                &loginTests;-->
-<!--                &inventoryTests;-->
-<!--                &productTests;-->
-<!--                &shoppingCartTests;-->
-<!--                &checkoutInformationTests;-->
-<!--                &checkoutOverviewTests;-->
+<!--                &debugTests;-->
+                &loginTests;
+                &inventoryTests;
+                &productTests;
+                &shoppingCartTests;
+                &checkoutInformationTests;
+                &checkoutOverviewTests;
             </run>
         </groups>
         &classes;
