@@ -1,0 +1,6 @@
+<!--Add your INCLUDED groups here-->
+
+<include name="product"/>
+
+        <!--Add your EXCLUDED groups here-->
+<exclude name="excluded"/>

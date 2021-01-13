@@ -8,9 +8,9 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class SeleniumBae {
+public class SeleniumBase {
 
-    private WebDriver driver;
+    private static WebDriver driver;
 
     /**
      * Method to initialize the web driver
@@ -54,5 +54,10 @@ public class SeleniumBae {
      */
     public void quit(){
         driver.quit();
+    }
+
+    public static WebDriver getWebDriverInstance()
+    {
+        return driver;
     }
 }
