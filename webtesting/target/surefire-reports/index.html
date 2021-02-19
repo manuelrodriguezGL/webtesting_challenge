@@ -59,7 +59,7 @@
                 </li>
                 <li>
                   <a href="#" panel-name="group-MainSuite" class="navigator-link ">
-                    <span>1 group</span>
+                    <span>2 groups</span>
                   </a> <!-- navigator-link  -->
                 </li>
                 <li>
@@ -91,7 +91,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">1 method,   1 passed</span>
+                    <span class="method-stats">6 methods,   6 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -102,7 +102,32 @@
                     <div class="method-list-content passed suite-MainSuite">
                       <span>
                         <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="validLogin(test, test)">validLogin(test, test)</a> <!-- method navigator-link -->
+                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="logout(standard_user, secret_sauce)">logout(standard_user, secret_sauce)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="validLogin(standard_user, secret_sauce)">validLogin(standard_user, secret_sauce)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="verifyEmptyPasswordErrorMessage(test)">verifyEmptyPasswordErrorMessage(test)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="verifyEmptyUserNameErrorMessage(test)">verifyEmptyUserNameErrorMessage(test)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="verifyInvalidLoginErrorMessage(test, test)">verifyInvalidLoginErrorMessage(test, test)</a> <!-- method navigator-link -->
+                      </span>
+                      <br/>
+                      <span>
+                        <img src="passed.png" width="3%"/>
+                        <a href="#" panel-name="suite-MainSuite" title="loginTests.LoginTest" class="method navigator-link" hash-for-method="verifyLoginUI">verifyLoginUI</a> <!-- method navigator-link -->
                       </span>
                       <br/>
                     </div> <!-- method-list-content passed suite-MainSuite -->
@@ -125,12 +150,61 @@
             <div class="main-panel-content rounded-window-bottom">
               <div class="method">
                 <div class="method-content">
-                  <a name="validLogin(test, test)">
-                  </a> <!-- validLogin(test, test) -->
+                  <a name="logout(standard_user, secret_sauce)">
+                  </a> <!-- logout(standard_user, secret_sauce) -->
+                  <span class="method-name">logout</span>
+                  <span class="parameters">(standard_user, secret_sauce)</span>
+                  <em>
+(Perform a logout action)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="validLogin(standard_user, secret_sauce)">
+                  </a> <!-- validLogin(standard_user, secret_sauce) -->
                   <span class="method-name">validLogin</span>
-                  <span class="parameters">(test, test)</span>
+                  <span class="parameters">(standard_user, secret_sauce)</span>
                   <em>
 (Perform a valid login action)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyEmptyPasswordErrorMessage(test)">
+                  </a> <!-- verifyEmptyPasswordErrorMessage(test) -->
+                  <span class="method-name">verifyEmptyPasswordErrorMessage</span>
+                  <span class="parameters">(test)</span>
+                  <em>
+(Verify the error message for empty password)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyEmptyUserNameErrorMessage(test)">
+                  </a> <!-- verifyEmptyUserNameErrorMessage(test) -->
+                  <span class="method-name">verifyEmptyUserNameErrorMessage</span>
+                  <span class="parameters">(test)</span>
+                  <em>
+(Verify the error message for empty username)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyInvalidLoginErrorMessage(test, test)">
+                  </a> <!-- verifyInvalidLoginErrorMessage(test, test) -->
+                  <span class="method-name">verifyInvalidLoginErrorMessage</span>
+                  <span class="parameters">(test, test)</span>
+                  <em>
+(Verify the error message for wrong credentials)                  </em>
+                </div> <!-- method-content -->
+              </div> <!-- method -->
+              <div class="method">
+                <div class="method-content">
+                  <a name="verifyLoginUI">
+                  </a> <!-- verifyLoginUI -->
+                  <span class="method-name">verifyLoginUI</span>
+                  <em>
+(Verify items on login page)                  </em>
                 </div> <!-- method-content -->
               </div> <!-- method -->
             </div> <!-- main-panel-content rounded-window-bottom -->
@@ -145,18 +219,63 @@
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!DOCTYPE suite SYSTEM &quot;https://testng.org/testng-1.0.dtd&quot;&gt;
 &lt;suite name=&quot;MainSuite&quot; guice-stage=&quot;DEVELOPMENT&quot; verbose=&quot;5&quot;&gt;
-  &lt;parameter name=&quot;headless&quot; value=&quot;true&quot;/&gt;
-  &lt;parameter name=&quot;validUser&quot; value=&quot;test&quot;/&gt;
+  &lt;parameter name=&quot;item0Image&quot; value=&quot;https://www.saucedemo.com/img/bike-light-1200x1500.jpg&quot;/&gt;
+  &lt;parameter name=&quot;item3Image&quot; value=&quot;https://www.saucedemo.com/img/red-tatt-1200x1500.jpg&quot;/&gt;
+  &lt;parameter name=&quot;invalidPassword&quot; value=&quot;test&quot;/&gt;
+  &lt;parameter name=&quot;item0Price&quot; value=&quot;$9.99&quot;/&gt;
+  &lt;parameter name=&quot;item3Name&quot; value=&quot;Test.allTheThings() T-Shirt (Red)&quot;/&gt;
+  &lt;parameter name=&quot;item5Desc&quot; value=&quot;It&amp;#039;s not every day that you come across a midweight quarter-zip fleece jacket capable of handling everything from a relaxing day outdoors to a busy day at the office.&quot;/&gt;
+  &lt;parameter name=&quot;item3Price&quot; value=&quot;$15.99&quot;/&gt;
+  &lt;parameter name=&quot;item4URL&quot; value=&quot;https://www.saucedemo.com/inventory-item.html?id=4&quot;/&gt;
+  &lt;parameter name=&quot;item4Price&quot; value=&quot;$29.99&quot;/&gt;
+  &lt;parameter name=&quot;item0Name&quot; value=&quot;Sauce Labs Bike Light&quot;/&gt;
+  &lt;parameter name=&quot;item5Image&quot; value=&quot;https://www.saucedemo.com/img/sauce-pullover-1200x1500.jpg&quot;/&gt;
+  &lt;parameter name=&quot;invalidUser&quot; value=&quot;test&quot;/&gt;
+  &lt;parameter name=&quot;item1Price&quot; value=&quot;$15.99&quot;/&gt;
+  &lt;parameter name=&quot;item5Name&quot; value=&quot;Sauce Labs Fleece Jacket&quot;/&gt;
+  &lt;parameter name=&quot;item2Image&quot; value=&quot;https://www.saucedemo.com/img/red-onesie-1200x1500.jpg&quot;/&gt;
   &lt;parameter name=&quot;browserName&quot; value=&quot;Chrome&quot;/&gt;
-  &lt;parameter name=&quot;validPassword&quot; value=&quot;test&quot;/&gt;
+  &lt;parameter name=&quot;validPassword&quot; value=&quot;secret_sauce&quot;/&gt;
+  &lt;parameter name=&quot;item0Desc&quot; value=&quot;A red light isn&amp;#039;t the desired state in testing but it sure helps when riding your bike at night. Water-resistant with 3 lighting modes, 1 AAA battery included.&quot;/&gt;
+  &lt;parameter name=&quot;customerLastName&quot; value=&quot;Doe&quot;/&gt;
+  &lt;parameter name=&quot;item4Name&quot; value=&quot;Sauce Labs Backpack&quot;/&gt;
+  &lt;parameter name=&quot;item4Desc&quot; value=&quot;carry.allTheThings() with the sleek, streamlined Sly Pack that melds uncompromising style with unequaled laptop and tablet protection.&quot;/&gt;
+  &lt;parameter name=&quot;customerZipCode&quot; value=&quot;33122&quot;/&gt;
+  &lt;parameter name=&quot;item2Desc&quot; value=&quot;Rib snap infant onesie for the junior automation engineer in development. Reinforced 3-snap bottom closure, two-needle hemmed sleeved and bottom won&amp;#039;t unravel.&quot;/&gt;
+  &lt;parameter name=&quot;item2Price&quot; value=&quot;$7.99&quot;/&gt;
+  &lt;parameter name=&quot;item4Image&quot; value=&quot;https://www.saucedemo.com/img/sauce-backpack-1200x1500.jpg&quot;/&gt;
+  &lt;parameter name=&quot;item1Image&quot; value=&quot;https://www.saucedemo.com/img/bolt-shirt-1200x1500.jpg&quot;/&gt;
+  &lt;parameter name=&quot;item5Price&quot; value=&quot;$49.99&quot;/&gt;
+  &lt;parameter name=&quot;item1Desc&quot; value=&quot;Get your testing superhero on with the Sauce Labs bolt T-shirt. From American Apparel, 100% ringspun combed cotton, heather gray with red bolt.&quot;/&gt;
+  &lt;parameter name=&quot;item1Name&quot; value=&quot;Sauce Labs Bolt T-Shirt&quot;/&gt;
+  &lt;parameter name=&quot;item3Desc&quot; value=&quot;This classic Sauce Labs t-shirt is perfect to wear when cozying up to your keyboard to automate a few tests. Super-soft and comfy ringspun combed cotton.&quot;/&gt;
+  &lt;parameter name=&quot;headless&quot; value=&quot;false&quot;/&gt;
+  &lt;parameter name=&quot;validUser&quot; value=&quot;standard_user&quot;/&gt;
+  &lt;parameter name=&quot;totalProducts&quot; value=&quot;6&quot;/&gt;
+  &lt;parameter name=&quot;customerFirstName&quot; value=&quot;John&quot;/&gt;
+  &lt;parameter name=&quot;item2ID&quot; value=&quot;2&quot;/&gt;
+  &lt;parameter name=&quot;item3ID&quot; value=&quot;3&quot;/&gt;
+  &lt;parameter name=&quot;item0ID&quot; value=&quot;0&quot;/&gt;
+  &lt;parameter name=&quot;item1ID&quot; value=&quot;1&quot;/&gt;
+  &lt;parameter name=&quot;item4ID&quot; value=&quot;4&quot;/&gt;
+  &lt;parameter name=&quot;item2Name&quot; value=&quot;Sauce Labs Onesie&quot;/&gt;
+  &lt;parameter name=&quot;qtyOne&quot; value=&quot;1&quot;/&gt;
+  &lt;parameter name=&quot;item5ID&quot; value=&quot;5&quot;/&gt;
   &lt;test thread-count=&quot;5&quot; name=&quot;Login Tests&quot; verbose=&quot;5&quot;&gt;
     &lt;groups&gt;
       &lt;run&gt;
+        &lt;include name=&quot;UI&quot;/&gt;
         &lt;include name=&quot;login&quot;/&gt;
+        &lt;exclude name=&quot;excluded&quot;/&gt;
       &lt;/run&gt;
     &lt;/groups&gt;
     &lt;classes&gt;
       &lt;class name=&quot;loginTests.LoginTest&quot;/&gt;
+      &lt;class name=&quot;inventoryTests.InventoryTest&quot;/&gt;
+      &lt;class name=&quot;productTests.ProductTest&quot;/&gt;
+      &lt;class name=&quot;shoppingCartTests.ShoppingCartTest&quot;/&gt;
+      &lt;class name=&quot;shoppingCartTests.CheckoutInformationTest&quot;/&gt;
+      &lt;class name=&quot;shoppingCartTests.CheckoutOverviewTest&quot;/&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Login Tests --&gt;
 &lt;/suite&gt; &lt;!-- MainSuite --&gt;
@@ -170,7 +289,7 @@
           <div class="main-panel-content rounded-window-bottom">
             <ul>
               <li>
-                <span class="test-name">Login Tests (1 class)</span>
+                <span class="test-name">Login Tests (6 classes)</span>
               </li>
             </ul>
           </div> <!-- main-panel-content rounded-window-bottom -->
@@ -181,8 +300,32 @@
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
             <div class="test-group">
+              <span class="test-group-name">UI</span>
+              <br/>
+              <div class="method-in-group">
+                <span class="method-in-group-name">verifyEmptyPasswordErrorMessage</span>
+                <br/>
+              </div> <!-- method-in-group -->
+              <div class="method-in-group">
+                <span class="method-in-group-name">verifyEmptyUserNameErrorMessage</span>
+                <br/>
+              </div> <!-- method-in-group -->
+              <div class="method-in-group">
+                <span class="method-in-group-name">verifyInvalidLoginErrorMessage</span>
+                <br/>
+              </div> <!-- method-in-group -->
+              <div class="method-in-group">
+                <span class="method-in-group-name">verifyLoginUI</span>
+                <br/>
+              </div> <!-- method-in-group -->
+            </div> <!-- test-group -->
+            <div class="test-group">
               <span class="test-group-name">login</span>
               <br/>
+              <div class="method-in-group">
+                <span class="method-in-group-name">logout</span>
+                <br/>
+              </div> <!-- method-in-group -->
               <div class="method-in-group">
                 <span class="method-in-group-name">validLogin</span>
                 <br/>
@@ -204,16 +347,36 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(1);
+data.addRows(6);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'validLogin')
+data.setCell(0, 1, 'logout')
 data.setCell(0, 2, 'loginTests.LoginTest')
-data.setCell(0, 3, 1);
+data.setCell(0, 3, 1480);
+data.setCell(1, 0, 1)
+data.setCell(1, 1, 'validLogin')
+data.setCell(1, 2, 'loginTests.LoginTest')
+data.setCell(1, 3, 866);
+data.setCell(2, 0, 2)
+data.setCell(2, 1, 'verifyInvalidLoginErrorMessage')
+data.setCell(2, 2, 'loginTests.LoginTest')
+data.setCell(2, 3, 320);
+data.setCell(3, 0, 3)
+data.setCell(3, 1, 'verifyEmptyUserNameErrorMessage')
+data.setCell(3, 2, 'loginTests.LoginTest')
+data.setCell(3, 3, 313);
+data.setCell(4, 0, 4)
+data.setCell(4, 1, 'verifyEmptyPasswordErrorMessage')
+data.setCell(4, 2, 'loginTests.LoginTest')
+data.setCell(4, 3, 311);
+data.setCell(5, 0, 5)
+data.setCell(5, 1, 'verifyLoginUI')
+data.setCell(5, 2, 'loginTests.LoginTest')
+data.setCell(5, 3, 118);
 window.suiteTableData['MainSuite']= { tableData: data, tableDiv: 'times-div-MainSuite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 1 ms</span>
+              <span class="suite-total-time">Total running time: 3 seconds</span>
               <div id="times-div-MainSuite">
               </div> <!-- times-div-MainSuite -->
             </div> <!-- times-div -->
@@ -228,9 +391,84 @@ return data;
         </div> <!-- panel -->
         <div panel-name="ignored-methods-MainSuite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">25 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">shoppingCartTests.ShoppingCartTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">verifyRemoveAllFromCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyProductUI</span>
+                <br/>
+                <span class="ignored-method-name">verifyProductRemoveFromCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyContinueShoppingButton</span>
+                <br/>
+                <span class="ignored-method-name">verifyEmptyShoppingCart</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">shoppingCartTests.CheckoutOverviewTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">verifyCartTotal</span>
+                <br/>
+                <span class="ignored-method-name">verifyCancelButton</span>
+                <br/>
+                <span class="ignored-method-name">verifyCartSubtotal</span>
+                <br/>
+                <span class="ignored-method-name">verifyCartTotalChanges</span>
+                <br/>
+                <span class="ignored-method-name">verifyFinishButton</span>
+                <br/>
+                <span class="ignored-method-name">verifyUIElements</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">productTests.ProductTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">verifyProductAddToCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyProductUI</span>
+                <br/>
+                <span class="ignored-method-name">verifyProductRemoveFromCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyProductGoBackButton</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">shoppingCartTests.CheckoutInformationTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">verifyClickCancelButton</span>
+                <br/>
+                <span class="ignored-method-name">verifyErrorMessages</span>
+                <br/>
+                <span class="ignored-method-name">verifyUIElements</span>
+                <br/>
+                <span class="ignored-method-name">verifyClickContinueButton</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">inventoryTests.InventoryTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">verifyAddIndividuallyToCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyRemoveAllFromCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyAddAllToCart</span>
+                <br/>
+                <span class="ignored-method-name">verifyInventoryUI</span>
+                <br/>
+                <span class="ignored-method-name">verifyRemoveIndividuallyFromCart</span>
+                <br/>
+                <span class="ignored-method-name">verifySortChange</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-MainSuite" class="panel">
@@ -241,16 +479,76 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">loginTests.LoginTest</div> <!-- chronological-class-name -->
               <div class="configuration-method before">
-                <span class="method-name">setUp(Chrome, true)</span>
+                <span class="method-name">setUp(Chrome, false)</span>
                 <span class="method-start">0 ms</span>
               </div> <!-- configuration-method before -->
               <div class="test-method">
-                <span class="method-name">validLogin(test, test)</span>
-                <span class="method-start">1171 ms</span>
+                <span class="method-name">logout(standard_user, secret_sauce)</span>
+                <span class="method-start">7894 ms</span>
               </div> <!-- test-method -->
               <div class="configuration-method after">
                 <span class="method-name">quitBrowser</span>
-                <span class="method-start">1174 ms</span>
+                <span class="method-start">9377 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp(Chrome, false)</span>
+                <span class="method-start">9469 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">validLogin(standard_user, secret_sauce)</span>
+                <span class="method-start">16185 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">quitBrowser</span>
+                <span class="method-start">17051 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp(Chrome, false)</span>
+                <span class="method-start">17138 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyEmptyPasswordErrorMessage(test)</span>
+                <span class="method-start">23768 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">quitBrowser</span>
+                <span class="method-start">24080 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp(Chrome, false)</span>
+                <span class="method-start">24164 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyEmptyUserNameErrorMessage(test)</span>
+                <span class="method-start">30941 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">quitBrowser</span>
+                <span class="method-start">31254 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp(Chrome, false)</span>
+                <span class="method-start">31335 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyInvalidLoginErrorMessage(test, test)</span>
+                <span class="method-start">38105 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">quitBrowser</span>
+                <span class="method-start">38426 ms</span>
+              </div> <!-- configuration-method after -->
+              <div class="configuration-method before">
+                <span class="method-name">setUp(Chrome, false)</span>
+                <span class="method-start">38513 ms</span>
+              </div> <!-- configuration-method before -->
+              <div class="test-method">
+                <span class="method-name">verifyLoginUI</span>
+                <span class="method-start">45167 ms</span>
+              </div> <!-- test-method -->
+              <div class="configuration-method after">
+                <span class="method-name">quitBrowser</span>
+                <span class="method-start">45286 ms</span>
               </div> <!-- configuration-method after -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
