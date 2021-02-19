@@ -1,2 +1,8 @@
-loginTests/LoginTest.class
+Constants/GlobalTestConstants.class
 testBase/TestCaseBase.class
+inventoryTests/InventoryTest.class
+shoppingCartTests/CheckoutOverviewTest.class
+productTests/ProductTest.class
+loginTests/LoginTest.class
+shoppingCartTests/ShoppingCartTest.class
+shoppingCartTests/CheckoutInformationTest.class
