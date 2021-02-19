@@ -10,11 +10,11 @@ pipeline{
         {
             steps{
                 dir("webtesting"){
-                    sh "mvn clean install -Dtestng.dtd.http=true"
+                    sh 'mvn clean install -Dtestng.dtd.http=true'
                 }
                 dir("webtesting/target")
                 {
-                    sh "java -jar webtesting-1.0-SNAPSHOT.jar"
+                    sh 'java -jar webtesting-1.0-SNAPSHOT.jar'
                 }
             }
         }
