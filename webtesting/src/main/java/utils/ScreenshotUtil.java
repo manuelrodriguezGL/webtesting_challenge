@@ -12,9 +12,10 @@ import java.io.IOException;
 
 public class ScreenshotUtil {
 
+    // TODO move to a configurations file
     private static final String SCREENSHOT_FOLDER_NAME = "screenshots";
 
-    private boolean createFile(File screenshot) throws IOException {
+    private static boolean createFile(File screenshot) throws IOException {
         boolean fileCreated = false;
         if (screenshot.exists()) {
             fileCreated = true;
@@ -27,13 +28,13 @@ public class ScreenshotUtil {
         return fileCreated;
     }
 
-    private void writeScreenshotToFile(WebDriver driver, File screenshot) throws IOException {
+    private static void writeScreenshotToFile(WebDriver driver, File screenshot) throws IOException {
         FileOutputStream stream = new FileOutputStream(screenshot);
         stream.write(((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES));
         stream.close();
     }
 
-    public boolean takeScreenshot(String failedTestName) {
+    public static boolean takeScreenshot(String failedTestName) {
         boolean result = false;
         try {
             WebDriver driver = SeleniumBase.getWebDriverInstance();
