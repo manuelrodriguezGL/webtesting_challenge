@@ -1,12 +1,12 @@
 package testBase;
 
-import listeners.ScreenshotListener;
+import listeners.TestExecutionListener;
 import org.testng.annotations.*;
 import pages.LoginPage;
 import pages.ProductsInventoryPage;
 import selenium.SeleniumBase;
 
-@Listeners(ScreenshotListener.class)
+@Listeners(TestExecutionListener.class)
 public class TestCaseBase extends SeleniumBase {
     private static LoginPage loginPage = null;
 

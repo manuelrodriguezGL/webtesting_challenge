@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ScreenshotListener extends TestListenerAdapter {
+public class TestExecutionListener extends TestListenerAdapter {
 
     private static final String SCREENSHOT_FOLDER_NAME = "screenshots";
 
