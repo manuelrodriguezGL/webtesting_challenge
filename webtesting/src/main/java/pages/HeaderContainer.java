@@ -30,6 +30,7 @@ public class HeaderContainer extends BasePage {
         super.initElements(driver, this);
     }
 
+    // It seems like this method is not being used, remove unused code, not just here, but in all the project.
     public ShoppingCartPage clickShoppingCartLink() {
         if (isElementVisible(shoppingCartLink)) {
             shoppingCartLink.click();
@@ -38,6 +39,7 @@ public class HeaderContainer extends BasePage {
         return null;
     }
 
+    // here you can remove the throws clause because you have the try/catch statement
     public int getCartItems() throws NoSuchElementException {
         try {
             return (Integer.parseInt(cartItemsIcon.getAttribute("innerText")));

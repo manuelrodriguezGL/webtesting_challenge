@@ -28,6 +28,8 @@ public class InventoryTest extends TestCaseBase {
             groups = {"inventory"})
     @Parameters({"validUser", "validPassword"})
     public void verifyInventoryUI(String user, String pwd) {
+        // I think that this line can be reused since it is replicated on all test cases in this testsuite,
+        // in the beforemethod for example
         ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         String errorMessages = "";
         try {

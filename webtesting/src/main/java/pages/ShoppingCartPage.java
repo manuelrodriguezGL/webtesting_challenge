@@ -146,7 +146,9 @@ public class ShoppingCartPage extends BaseProductPage {
     }
 
     public boolean removeAllFromCart() {
-
+        // As mentioned in other section, the method say that it remove all items from the cart, I would say that
+        // the validations should not be here in the responsability of this method, it would be better to have it
+        // in other methods and then call them from the test case and do the validation in the test case.
         if (isCartEmpty()) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }

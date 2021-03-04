@@ -66,6 +66,8 @@ public class ProductsInventoryPage extends BaseProductPage {
     @FindBy(css = ".btn_secondary.btn_inventory")
     private List<WebElement> itemRemoveFromCartButtons;
 
+    // not sure if there could be a better selector because I have not used the page, but this xpath is a kind of
+    // semi-absolute xpath, and we need to avoid that, and used as much relative xpath as possible
     @FindBy(xpath = "//div[@class='inventory_item']/div[@class='pricebar']/div[@class='inventory_item_price']/following-sibling::button")
     private List<WebElement> itemButtonList;
 
@@ -87,6 +89,8 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     @Override
     protected void load() {
+        // This loads can be implemented in the parent class, using "this" in the parent class
+        // like "driver.get(BASE_URL + this.URL)", will refer to the
         System.out.println("Attempting to load Inventory page...");
         driver.get(BASE_URL + URL);
     }

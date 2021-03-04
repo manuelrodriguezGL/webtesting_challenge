@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// it seems like this one is not a page object, so maybe it can be moved to another package?
 public class InventoryItem  {
 
     private String itemURL;

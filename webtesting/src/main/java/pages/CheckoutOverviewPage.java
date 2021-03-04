@@ -24,6 +24,9 @@ public class CheckoutOverviewPage extends BaseProductPage {
     @FindBy(className = "cart_desc_label")
     private WebElement cartDescLabel;
 
+    // All this elements that creates a List<WebElement> should use @FindBys, with an "s" at the end, that is the
+    // equivalent to the findElements with an "s", @FindBy will return the first match found.
+    // If this happens on other pages, please fix on all all afected pages
     @FindBy(className = "cart_item")
     private List<WebElement> cartItemsList;
 
@@ -90,6 +93,7 @@ public class CheckoutOverviewPage extends BaseProductPage {
 
         if (!isCartEmpty()) {
             try {
+                // Use Softasserts as we talked in our meeting
                 errorMessages += assesElementTextEquals(cartQuantityLabel, CheckoutOverviewPageConstants.CART_QUANTITY_LABEL);
                 errorMessages += assesElementTextEquals(cartDescLabel, CheckoutOverviewPageConstants.CART_DESC_LABEL);
                 errorMessages += assesElementTextEquals(finishButton, CheckoutOverviewPageConstants.FINISH_BUTTON_TXT);
