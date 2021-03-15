@@ -19,19 +19,10 @@ public abstract class BasePage extends LoadableComponent {
     protected WebDriver driver;
 
     // TODO Considerar una interfaz
+
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
-    }
-
-    protected void initElements(WebDriver driver, Object page) {
-        // this method can be removed and pass this line of code to the constructor, that way theh new PageObject
-        // will be created using PageFactory automatically when the instance of the page is created instead of repeating
-        // this code over and over all pageobjects
-        //
-        //  super(driver);
-        //  super.initElements(driver, this);
-        PageFactory.initElements(driver, page);
     }
 
     @Override
