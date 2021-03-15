@@ -182,6 +182,9 @@ public class ProductsInventoryPage extends BaseProductPage {
         // A workaround since enums are case sensitive, as well as Select values.
         String switchOption = sortValue.toUpperCase();
 
+        // TODO Considerar collections
+        // TODO Refactor para dividir responsabilidades entre metodos
+        // TODO Clean code, Uncle Bob
         switch (SortValues.valueOf(switchOption)) {
             case AZ:
                 itemNames.sort(Comparator.comparing(item -> item.getAttribute("innerText")));
@@ -318,6 +321,7 @@ public class ProductsInventoryPage extends BaseProductPage {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
 
+        // TODO Naming conventions en los contadores
         int i = 0;
         for (WebElement e : itemURLs) {
             if (e.getAttribute("href").contains(id)) {

@@ -65,6 +65,7 @@ public class ProductPage extends BaseProductPage {
         return null;
     }
 
+    //TODO Usar listas en lugar de una concatenacion
     public String assesProductValues(String imageUrl, String name, String description, String price) {
 
         String errorMessages = "";

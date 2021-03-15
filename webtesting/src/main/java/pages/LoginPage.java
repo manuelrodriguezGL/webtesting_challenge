@@ -70,6 +70,8 @@ public class LoginPage extends BasePage {
         }
     }
 
+    // TODO Patron de diseno Botstyle
+    // TODO https://github.com/SeleniumHQ/selenium/wiki/Bot-Style-Tests
     private void enterPwd(String pwd) throws NoSuchElementException {
         if (isElementVisible(userNameText)) {
             //WebElement e = waitElement(passwordText);

@@ -18,6 +18,7 @@ public class BasePage extends LoadableComponent {
     protected static final String BASE_URL = "https://www.saucedemo.com";
     protected WebDriver driver;
 
+    // TODO Considerar una interfaz
     public BasePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -55,6 +56,8 @@ public class BasePage extends LoadableComponent {
         return e.contains(text);
     }
 
+    //TODO Podria usarse un soft assertion en lugar de una funcion
+    // Usar TestNG https://www.seleniumeasy.com/testng-tutorials/soft-asserts-in-testng-example
     protected String assesElementTextContains(String e, String text) {
         String errorMessage = "";
 

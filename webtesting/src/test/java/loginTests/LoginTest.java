@@ -9,6 +9,7 @@ import testBase.TestCaseBase;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+//TODO Parametro para el headless en el mvn
 public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify items on login page",
