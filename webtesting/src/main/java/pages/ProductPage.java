@@ -31,6 +31,8 @@ public class ProductPage extends BaseProductPage {
     @FindBy(css = ".btn_secondary.btn_inventory")
     private WebElement productRemoveFromCartButton;
 
+    // you are defining this variables as final and constant in other pages,
+    // use the same way as an standard on all pages :)
     private String url = "/inventory-item.html?id=";
 
     public ProductPage(WebDriver driver, String productId) {
@@ -66,7 +68,7 @@ public class ProductPage extends BaseProductPage {
 
     //TODO Usar listas en lugar de una concatenacion
     public String assesProductValues(String imageUrl, String name, String description, String price) {
-
+        // Use of softasserts and move the validations to the test cases instead of the Page object.
         String errorMessages = "";
 
         try {
@@ -95,6 +97,9 @@ public class ProductPage extends BaseProductPage {
     }
 
     public boolean clickRemoveButton() {
+        // I think this method is to click on the Remove button, and other methods should be created to get the
+        // productAddToCartButton.getAttribute("innerText") and headerContainer.getCartItems(), and do the validation
+        // on the test case. It would apply on several PageObjects in the project
         int originalQuantity = headerContainer.getCartItems();
         if (isElementVisible(productRemoveFromCartButton)) {
             productRemoveFromCartButton.click();

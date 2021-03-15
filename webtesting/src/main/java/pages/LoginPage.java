@@ -63,6 +63,8 @@ public class LoginPage extends BasePage {
     private void enterUserName(String user) throws NoSuchElementException {
         if (isElementVisible(userNameText)) {
             //WebElement e = waitElement(userNameText);
+            // Use Botstyle test to remove this lines since they are duplicated on several methods:
+            // https://github.com/SeleniumHQ/selenium/wiki/Bot-Style-Tests
             userNameText.clear();
             userNameText.sendKeys(user);
         } else {
@@ -74,6 +76,7 @@ public class LoginPage extends BasePage {
     // TODO https://github.com/SeleniumHQ/selenium/wiki/Bot-Style-Tests
     private void enterPwd(String pwd) throws NoSuchElementException {
         if (isElementVisible(userNameText)) {
+            // Remove this kind of commented code, to keep you code clean :D
             //WebElement e = waitElement(passwordText);
             passwordText.clear();
             passwordText.sendKeys(pwd);
@@ -92,6 +95,9 @@ public class LoginPage extends BasePage {
     }
 
     public String assesPageElements() {
+        // Here use softasserts, and I would say to move this validations to the test case.
+        // Despite here we don't have asserts, the validations are here, and it is a responsability of the test case
+        // and not the page object.
         String errorMessages = "";
 
         errorMessages += assesElementTextEquals(title, LoginPageConstants.LOGIN_TITLE);

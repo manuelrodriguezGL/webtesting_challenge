@@ -34,8 +34,10 @@ public class HeaderContainer extends BasePage {
 
     @Override
     protected void isLoaded(){}
-
-    public ShoppingCartPage clickShoppingCartLink() {
+  
+//<<<<<<< feedback_oscar_valerio
+    // It seems like this method is not being used, remove unused code, not just here, but in all the project.
+  public ShoppingCartPage clickShoppingCartLink() {
         if (isElementVisible(shoppingCartLink)) {
             shoppingCartLink.click();
             return new ShoppingCartPage(driver);
@@ -43,6 +45,7 @@ public class HeaderContainer extends BasePage {
         return null;
     }
 
+    // here you can remove the throws clause because you have the try/catch statement
     public int getCartItems() throws NoSuchElementException {
         try {
             return (Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
