@@ -27,11 +27,17 @@ public class HeaderContainer extends BasePage {
 
     public HeaderContainer(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
     }
 
+    @Override
+    protected void load(){}
+
+    @Override
+    protected void isLoaded(){}
+  
+//<<<<<<< feedback_oscar_valerio
     // It seems like this method is not being used, remove unused code, not just here, but in all the project.
-    public ShoppingCartPage clickShoppingCartLink() {
+  public ShoppingCartPage clickShoppingCartLink() {
         if (isElementVisible(shoppingCartLink)) {
             shoppingCartLink.click();
             return new ShoppingCartPage(driver);

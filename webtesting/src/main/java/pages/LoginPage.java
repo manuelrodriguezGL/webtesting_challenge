@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginPage extends BasePage {
 
-    private static final String URL = "/index.html";
+    private static final String URL = "";
 
     @FindBy(tagName = "title")
     private WebElement title;
@@ -38,7 +38,7 @@ public class LoginPage extends BasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
+        //super.initElements(driver, this);
     }
 
     @Override

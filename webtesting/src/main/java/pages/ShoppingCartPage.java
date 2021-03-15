@@ -55,7 +55,6 @@ public class ShoppingCartPage extends BaseProductPage {
 
     public ShoppingCartPage(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
     }
 
     @Override

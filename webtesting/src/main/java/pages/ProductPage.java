@@ -38,7 +38,6 @@ public class ProductPage extends BaseProductPage {
     public ProductPage(WebDriver driver, String productId) {
         super(driver);
         this.url = url + productId;
-        super.initElements(driver, this);
     }
 
 

@@ -54,7 +54,6 @@ public class CheckoutInformationPage extends BaseProductPage {
 
     public CheckoutInformationPage(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
     }
 
     @Override

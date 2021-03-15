@@ -76,7 +76,7 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be added to cart",
-            groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+            groups = {"debug"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyAddIndividuallyToCart(String productId) {
         ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
