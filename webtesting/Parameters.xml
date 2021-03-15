@@ -2,6 +2,8 @@
 <parameter name="browserName" value="Chrome"/>
 <parameter name="headless" value="false"/>
 
+<parameter name="baseUrl" value="https://www.saucedemo.com" />
+
         <!--Login Page Parameters-->
 <parameter name="validUser" value="standard_user"/>
 <parameter name="validPassword" value="secret_sauce"/>

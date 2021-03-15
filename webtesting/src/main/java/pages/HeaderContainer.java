@@ -27,8 +27,13 @@ public class HeaderContainer extends BasePage {
 
     public HeaderContainer(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
     }
+
+    @Override
+    protected void load(){}
+
+    @Override
+    protected void isLoaded(){}
 
     public ShoppingCartPage clickShoppingCartLink() {
         if (isElementVisible(shoppingCartLink)) {

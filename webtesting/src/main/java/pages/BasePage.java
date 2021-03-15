@@ -13,7 +13,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.function.Function;
 
-public class BasePage extends LoadableComponent {
+public abstract class BasePage extends LoadableComponent {
 
     protected static final String BASE_URL = "https://www.saucedemo.com";
     protected WebDriver driver;
@@ -21,6 +21,7 @@ public class BasePage extends LoadableComponent {
     // TODO Considerar una interfaz
     public BasePage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
     protected void initElements(WebDriver driver, Object page) {
@@ -28,12 +29,10 @@ public class BasePage extends LoadableComponent {
     }
 
     @Override
-    protected void load() {
-    }
+    protected abstract void load();
 
     @Override
-    protected void isLoaded() throws Error {
-    }
+    protected abstract void isLoaded() throws Error;
 
     public boolean isPageLoaded() {
         return false;

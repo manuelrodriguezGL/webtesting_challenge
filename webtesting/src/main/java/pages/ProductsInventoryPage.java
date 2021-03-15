@@ -82,7 +82,6 @@ public class ProductsInventoryPage extends BaseProductPage {
 
     public ProductsInventoryPage(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
     }
 
     @Override

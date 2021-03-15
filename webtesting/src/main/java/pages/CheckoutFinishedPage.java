@@ -15,7 +15,6 @@ public class CheckoutFinishedPage extends BaseProductPage {
 
     public CheckoutFinishedPage(WebDriver driver) {
         super(driver);
-        super.initElements(driver, this);
     }
 
     @Override
