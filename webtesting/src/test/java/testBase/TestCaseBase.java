@@ -2,6 +2,7 @@ package testBase;
 
 import listeners.TestExecutionListener;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
 import pages.ProductsInventoryPage;
 import selenium.SeleniumBase;
@@ -9,6 +10,7 @@ import selenium.SeleniumBase;
 @Listeners(TestExecutionListener.class)
 public class TestCaseBase extends SeleniumBase {
     private static LoginPage loginPage = null;
+    protected SoftAssert softAssert;
     protected String baseUrl = "";
 
     @BeforeMethod(alwaysRun = true)
@@ -17,6 +19,9 @@ public class TestCaseBase extends SeleniumBase {
         System.out.println("Setting up Selenium driver for browser: " + browserName);
         super.setup(browserName, Boolean.valueOf(headless));
         System.out.println("Loading login page...");
+
+        softAssert = new SoftAssert();
+
         baseUrl = _baseUrl;
         loginPage = new LoginPage(getWebDriverInstance(), baseUrl);
         loginPage.get();

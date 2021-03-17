@@ -30,6 +30,10 @@ public abstract class BasePage extends LoadableComponent {
         PageFactory.initElements(driver, this);
     }
 
+    public String getPageTitle(){
+        return driver.getTitle();
+    }
+
     @Override
     protected abstract void load();
 
@@ -47,6 +51,11 @@ public abstract class BasePage extends LoadableComponent {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    protected String getElementInnerText(WebElement e)
+    {
+        return e.getAttribute("innerText");
     }
 
     protected boolean isTextEquals(WebElement e, String text) {

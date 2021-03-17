@@ -6,8 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class LoginPage extends BasePage {
 
     private static final String URL = "";
@@ -50,13 +48,18 @@ public class LoginPage extends BasePage {
     protected void isLoaded() throws Error {
         String currentUrl = driver.getCurrentUrl();
 
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Login page was not loaded!");
     }
 
     @Override
-    public boolean isPageLoaded(){
-        return isElementVisible(loginLogo);
+    public boolean isPageLoaded() {
+        return (isElementVisible(loginLogo)
+                && isElementVisible(loginLogo)
+                && isElementVisible(botLogo)
+                && isElementVisible(userNameText)
+                && isElementVisible(passwordText)
+                && isElementVisible(loginButton));
     }
 
     private void enterUserName(String user) throws NoSuchElementException {
@@ -91,22 +94,6 @@ public class LoginPage extends BasePage {
         loginButton.click();
 
         return new ProductsInventoryPage(driver, BASE_URL);
-    }
-
-    public String assesPageElements() {
-        // Here use softasserts, and I would say to move this validations to the test case.
-        // Despite here we don't have asserts, the validations are here, and it is a responsability of the test case
-        // and not the page object.
-        String errorMessages = "";
-
-        errorMessages += assesElementTextEquals(title, LoginPageConstants.LOGIN_TITLE);
-        errorMessages += assesUIElement(loginLogo);
-        errorMessages += assesUIElement(botLogo);
-        errorMessages += assesUIElement(userNameText);
-        errorMessages += assesUIElement(passwordText);
-        errorMessages += assesUIElement(loginButton);
-
-        return errorMessages;
     }
 
     public boolean checkEmptyUserErrorMessage(String pwd) {

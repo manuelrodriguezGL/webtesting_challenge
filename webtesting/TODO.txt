@@ -23,3 +23,4 @@ you can use environemnt variables instead.
 ---
 
 Remove InventoryItem class
+//TODO Parametro para el headless en el mvn

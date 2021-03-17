@@ -31,7 +31,7 @@ public class InventoryTest extends TestCaseBase {
      * This is for educational purposes only.
      */
     @Test(description = "Verify items on inventory page",
-            groups = {"debug"})
+            groups = {"inventory"})
     public void verifyInventoryUI() {
         String errorMessages = "";
         try {

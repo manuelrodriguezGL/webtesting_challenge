@@ -3,21 +3,24 @@ package loginTests;
 import Constants.GlobalTestConstants;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-//TODO Parametro para el headless en el mvn
 public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify items on login page",
-            groups = {"UI"})
-    @Parameters({"validUser", "validPassword"})
-    public void verifyLoginUI() {
-        String errorMessages = getLoginPage().assesPageElements();
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + errorMessages);
+            groups = {"debug"})
+    @Parameters({"loginPageTitle"})
+    public void verifyLoginUI(String loginPageTitle) {
+
+        softAssert.assertEquals(getLoginPage().getPageTitle(), loginPageTitle);
+        softAssert.assertTrue(getLoginPage().isPageLoaded());
+
+        softAssert.assertAll("Login page has some missing elements!");
     }
 
     @Test(description = "Verify the error message for wrong credentials",
