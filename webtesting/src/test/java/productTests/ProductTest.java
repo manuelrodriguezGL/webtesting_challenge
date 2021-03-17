@@ -6,6 +6,7 @@ import dataProviders.ProductsDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.ProductPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
@@ -27,6 +28,11 @@ public class ProductTest extends TestCaseBase {
             groups = {"product"}, dataProvider = "Products", dataProviderClass = ProductsDataProvider.class)
     public void verifyProductUI(String id, String imageUrl, String name, String description, String price) {
         ProductPage product = inventoryPage.loadProductPageById(id);
+
+        SoftAssert softAssert = new SoftAssert();
+
+        //softAssert.assertEquals();
+
         String errorMessages = "";
         try {
             errorMessages += product.assesProductValues(imageUrl, name, description, price);

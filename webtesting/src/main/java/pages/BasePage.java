@@ -19,8 +19,6 @@ public abstract class BasePage extends LoadableComponent {
 
     protected WebDriver driver;
 
-    // TODO Considerar una interfaz
-
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -31,7 +29,6 @@ public abstract class BasePage extends LoadableComponent {
         BASE_URL = baseUrl;
         PageFactory.initElements(driver, this);
     }
-
 
     @Override
     protected abstract void load();

@@ -64,9 +64,8 @@ public class ProductPage extends BaseStorePage {
         return null;
     }
 
-    //TODO Usar listas en lugar de una concatenacion
+    //TODO Use of softasserts and move the validations to the test cases instead of the Page object.
     public String assesProductValues(String imageUrl, String name, String description, String price) {
-        // Use of softasserts and move the validations to the test cases instead of the Page object.
         String errorMessages = "";
 
         try {
