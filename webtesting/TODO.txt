@@ -1,8 +1,7 @@
 # Oscar Valerio's Feedback
 DONE 1. I think it could be better to have the jenkinsfile and the .gitignore files into the project, webtesting folder in this case.
 DONE 2. There are several screenshots in the repository, it seems like the .gitignore is not working for that folder.
-? 4. BASE_URL = "https://www.saucedemo.com": it could be in the TestNG xmls files.
-How to do this with PageFactory?
+DONE 4. BASE_URL = "https://www.saucedemo.com": it could be in the TestNG xmls files.
 
 5. We can take methods in the BasePage like: assesElementTextEquals, assesElementTextContains, textContains,
 etc to another class in charged of manage this utilities.
