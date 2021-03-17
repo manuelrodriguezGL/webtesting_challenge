@@ -87,11 +87,11 @@ public class ProductPage extends BaseProductPage {
     }
 
     public boolean clickAddToCartButton() {
-        int originalQuantity = headerContainer.getCartItems();
+        int originalQuantity = getCartItems();
         if (isElementVisible(productAddToCartButton)) {
             productAddToCartButton.click();
             return (productRemoveFromCartButton.getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)
-                    && (headerContainer.getCartItems() == originalQuantity + 1));
+                    && (getCartItems() == originalQuantity + 1));
         }
         return false;
     }
@@ -100,11 +100,11 @@ public class ProductPage extends BaseProductPage {
         // I think this method is to click on the Remove button, and other methods should be created to get the
         // productAddToCartButton.getAttribute("innerText") and headerContainer.getCartItems(), and do the validation
         // on the test case. It would apply on several PageObjects in the project
-        int originalQuantity = headerContainer.getCartItems();
+        int originalQuantity = getCartItems();
         if (isElementVisible(productRemoveFromCartButton)) {
             productRemoveFromCartButton.click();
             return (productAddToCartButton.getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
-                    && (headerContainer.getCartItems() == originalQuantity - 1));
+                    && (getCartItems() == originalQuantity - 1));
         }
         return false;
     }

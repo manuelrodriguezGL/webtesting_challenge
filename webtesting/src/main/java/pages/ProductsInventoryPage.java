@@ -249,7 +249,7 @@ public class ProductsInventoryPage extends BaseProductPage {
             i++;
         }
 
-        return (quantity == headerContainer.getCartItems());
+        return (quantity == getCartItems());
     }
 
     public boolean addToCartById(String id) {
@@ -260,7 +260,7 @@ public class ProductsInventoryPage extends BaseProductPage {
                 itemAddToCartButtons.get(i).click();
                 return (itemRemoveFromCartButtons.get(itemRemoveFromCartButtons.size() - 1)
                         .getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)
-                        && itemRemoveFromCartButtons.size() == headerContainer.getCartItems());
+                        && itemRemoveFromCartButtons.size() == getCartItems());
             }
             i++;
         }
@@ -274,7 +274,7 @@ public class ProductsInventoryPage extends BaseProductPage {
             throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products added to cart");
         }
 
-        int originalQuantity = headerContainer.getCartItems();
+        int originalQuantity = getCartItems();
         int i = 1;
         for (WebElement e : itemRemoveFromCartButtons) {
             if (i > quantity) {
@@ -284,7 +284,7 @@ public class ProductsInventoryPage extends BaseProductPage {
             i++;
         }
 
-        return (headerContainer.getCartItems() == 0 || headerContainer.getCartItems() + quantity == originalQuantity);
+        return (getCartItems() == 0 || getCartItems() + quantity == originalQuantity);
     }
 
     public boolean removeFromCartById(String id) {
@@ -299,8 +299,8 @@ public class ProductsInventoryPage extends BaseProductPage {
             if (e.getAttribute("href").contains(id)) {
                 itemButtonList.get(i).click();
                 return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
-                        && (headerContainer.getCartItems() == 0 ||
-                        itemRemoveFromCartButtons.size() == headerContainer.getCartItems()));
+                        && (getCartItems() == 0 ||
+                        itemRemoveFromCartButtons.size() == getCartItems()));
             }
             i++;
         }

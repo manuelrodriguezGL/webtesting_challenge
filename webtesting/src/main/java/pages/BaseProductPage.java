@@ -4,7 +4,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 public class BaseProductPage extends BasePage {
 
@@ -26,14 +25,6 @@ public class BaseProductPage extends BasePage {
     @FindBy(css = ".fa-layers-counter.shopping_cart_badge")
     private WebElement cartItemsIcon;
 
-//<<<<<<< feedback_oscar_valerio
-    // Consider using dependency injection, or also this BaseProductPage class can inheritance from HeaderContainer
-    // since HeaderContainer extends from BasePage, in that way you can access HeaderContainer and Base page by inheritance
-//=======
-    //TODO Move common locators here
-
-    HeaderContainer headerContainer;
-
     public BaseProductPage(WebDriver driver) {
         super(driver);
     }
@@ -43,9 +34,12 @@ public class BaseProductPage extends BasePage {
     }
 
     @Override
-    protected void load(){}
+    protected void load() {
+    }
+
     @Override
-    protected void isLoaded(){}
+    protected void isLoaded() {
+    }
 
     public int getCartItems() {
         try {

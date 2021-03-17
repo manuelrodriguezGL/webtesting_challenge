@@ -135,7 +135,7 @@ public class ShoppingCartPage extends BaseProductPage {
             int currentQty = cartItemLinkList.size();
             if (e.getAttribute("href").contains(id)) {
                 removeFromCartButtonsList.get(i).click();
-                return (removeFromCartButtonsList.size() == headerContainer.getCartItems()
+                return (removeFromCartButtonsList.size() == getCartItems()
                     && cartItemLinkList.size() == --currentQty);
             }
             i++;
@@ -156,7 +156,7 @@ public class ShoppingCartPage extends BaseProductPage {
             e.click();
         }
 
-        return (removeFromCartButtonsList.size() == headerContainer.getCartItems()
+        return (removeFromCartButtonsList.size() == getCartItems()
             && cartItemsList.size() == 0);
     }
 
