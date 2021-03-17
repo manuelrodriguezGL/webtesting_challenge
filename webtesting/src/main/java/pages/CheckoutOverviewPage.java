@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class CheckoutOverviewPage extends BaseProductPage {
 
     private static final String URL = "/checkout-step-two.html";
@@ -66,8 +64,8 @@ public class CheckoutOverviewPage extends BaseProductPage {
     @FindBy(css = ".btn_action.cart_button")
     private WebElement finishButton;
 
-    public CheckoutOverviewPage(WebDriver driver) {
-        super(driver);
+    public CheckoutOverviewPage(WebDriver driver, String baseUrl) {
+        super(driver, baseUrl);
     }
 
     @Override
@@ -78,7 +76,7 @@ public class CheckoutOverviewPage extends BaseProductPage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Checkout Overview page was not loaded!");
     }
 
@@ -236,7 +234,7 @@ public class CheckoutOverviewPage extends BaseProductPage {
     public ProductsInventoryPage cancelCheckout() {
         if (isElementVisible(cancelButton)) {
             cancelButton.click();
-            return new ProductsInventoryPage(driver);
+            return new ProductsInventoryPage(driver, BASE_URL);
         }
         return null;
     }
@@ -244,7 +242,7 @@ public class CheckoutOverviewPage extends BaseProductPage {
     public CheckoutFinishedPage finishCheckout() {
         if (isElementVisible(finishButton)) {
             finishButton.click();
-            return new CheckoutFinishedPage(driver);
+            return new CheckoutFinishedPage(driver, BASE_URL);
         }
         return null;
     }

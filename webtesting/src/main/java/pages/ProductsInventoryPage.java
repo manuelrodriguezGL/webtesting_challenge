@@ -80,10 +80,12 @@ public class ProductsInventoryPage extends BaseProductPage {
     @FindBy(id = "logout_sidebar_link")
     private WebElement logoutOption;
 
-    private ArrayList<InventoryItem> inventoryItems;
-
     public ProductsInventoryPage(WebDriver driver) {
         super(driver);
+    }
+
+    public ProductsInventoryPage(WebDriver driver, String baseUrl) {
+        super(driver, baseUrl);
     }
 
     @Override
@@ -103,39 +105,6 @@ public class ProductsInventoryPage extends BaseProductPage {
     @Override
     public boolean isPageLoaded() {
         return isElementVisible(pageHeader);
-    }
-
-    private ArrayList<InventoryItem> generateInventoryList() throws IndexOutOfBoundsException {
-        // Check if there are items on the inventory
-        inventoryItems = new ArrayList<InventoryItem>();
-
-        if (!inventoryList.isEmpty()) {
-            // Set the default product sort
-            changeValueProductSortSelect(DEFAULT_SORT);
-            //Go thru the list and add items
-
-            for (int i = 0; i < inventoryList.size(); i++) {
-                String itemURL;
-                String itemImage;
-                String itemName;
-                String itemDescription;
-                String itemPrice;
-                WebElement itemButton;
-
-                itemURL = itemURLs.get(i).getAttribute("href");
-                itemImage = itemImages.get(i).getAttribute("src");
-                itemName = itemNames.get(i).getAttribute("innerText");
-                itemDescription = itemDescriptions.get(i).getAttribute("innerText");
-                itemPrice = itemPrices.get(i).getAttribute("innerText");
-                itemButton = itemAddToCartButtons.get(i);
-                inventoryItems.add(new InventoryItem(itemURL, itemImage,
-                        itemName, itemDescription, itemPrice, itemButton));
-            }
-        } else {
-            throw new IndexOutOfBoundsException("Could not load inventory list! ");
-        }
-
-        return inventoryItems;
     }
 
     public String assesInventoryItemValues(Object[][] values) {
@@ -346,7 +315,7 @@ public class ProductsInventoryPage extends BaseProductPage {
             String productId = e.getAttribute("href");
             if (productId.contains(id)) {
                 itemImages.get(i).click();
-                return new ProductPage(driver, productId);
+                return new ProductPage(driver, productId, BASE_URL);
             }
             i++;
         }
@@ -364,6 +333,6 @@ public class ProductsInventoryPage extends BaseProductPage {
             logoutOption.click();
         else
             throw new NoSuchElementException("Could not load logout option from menu!");
-        return new LoginPage(driver);
+        return new LoginPage(driver, BASE_URL);
     }
 }

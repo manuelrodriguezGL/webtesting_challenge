@@ -36,9 +36,8 @@ public class LoginPage extends BasePage {
     @FindBy(css = "h3[data-test=\"error\"")
     private WebElement errorMessage;
 
-    public LoginPage(WebDriver driver) {
-        super(driver);
-        //super.initElements(driver, this);
+    public LoginPage(WebDriver driver, String baseUrl) {
+        super(driver, baseUrl);
     }
 
     @Override
@@ -91,7 +90,7 @@ public class LoginPage extends BasePage {
         enterPwd(pwd);
         loginButton.click();
 
-        return new ProductsInventoryPage(driver);
+        return new ProductsInventoryPage(driver, BASE_URL);
     }
 
     public String assesPageElements() {

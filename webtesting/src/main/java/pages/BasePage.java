@@ -15,7 +15,8 @@ import java.util.function.Function;
 
 public abstract class BasePage extends LoadableComponent {
 
-    protected static final String BASE_URL = "https://www.saucedemo.com";
+    protected String BASE_URL = "";
+
     protected WebDriver driver;
 
     // TODO Considerar una interfaz
@@ -24,6 +25,13 @@ public abstract class BasePage extends LoadableComponent {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
+    public BasePage(WebDriver driver, String baseUrl) {
+        this.driver = driver;
+        BASE_URL = baseUrl;
+        PageFactory.initElements(driver, this);
+    }
+
 
     @Override
     protected abstract void load();

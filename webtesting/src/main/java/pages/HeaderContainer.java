@@ -29,37 +29,24 @@ public class HeaderContainer extends BasePage {
         super(driver);
     }
 
+    //TODO Could this be an abstract class?
+    public HeaderContainer(WebDriver driver, String baseUrl) {
+        super(driver);
+        BASE_URL = baseUrl;
+    }
+
     @Override
     protected void load(){}
 
     @Override
     protected void isLoaded(){}
-  
-//<<<<<<< feedback_oscar_valerio
-    // It seems like this method is not being used, remove unused code, not just here, but in all the project.
-  public ShoppingCartPage clickShoppingCartLink() {
-        if (isElementVisible(shoppingCartLink)) {
-            shoppingCartLink.click();
-            return new ShoppingCartPage(driver);
-        }
-        return null;
-    }
 
-    // here you can remove the throws clause because you have the try/catch statement
-    public int getCartItems() throws NoSuchElementException {
+    public int getCartItems() {
         try {
             return (Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
         } catch (NoSuchElementException e) {
             return 0;
         }
-    }
-
-    public LoginPage logout() throws NoSuchElementException {
-        if (isElementVisible(logoutLink)) {
-            logoutLink.click();
-            return new LoginPage(driver);
-        }
-        return null;
     }
 
 }

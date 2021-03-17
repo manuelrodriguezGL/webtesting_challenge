@@ -17,23 +17,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InventoryTest extends TestCaseBase {
 
+    private ProductsInventoryPage inventoryPage;
+
     @BeforeMethod(alwaysRun = true)
     @Parameters({"validUser", "validPassword"})
     public void loadInventoryPage(String user, String pwd) {
         login(user, pwd);
+        inventoryPage = new ProductsInventoryPage(getWebDriverInstance(), baseUrl);
     }
 
-    // Not a real data provider tets per se, but still it's worth using files
+    /**
+     * This test makes use of a direct file reader, instead of a Data provider.
+     * This is for educational purposes only.
+     */
     @Test(description = "Verify items on inventory page",
-            groups = {"inventory"})
-    @Parameters({"validUser", "validPassword"})
-    public void verifyInventoryUI(String user, String pwd) {
-        // I think that this line can be reused since it is replicated on all test cases in this testsuite,
-        // in the beforemethod for example
-        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
+            groups = {"debug"})
+    public void verifyInventoryUI() {
         String errorMessages = "";
         try {
-            errorMessages = page.assesInventoryItemValues(ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
+            errorMessages = inventoryPage.assesInventoryItemValues(
+                    ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
                     InventoryPageConstants.INVENTORY_EXCEL_SHEET));
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,11 +47,10 @@ public class InventoryTest extends TestCaseBase {
     @Test(description = "Verify the items can be sorted by different values",
             groups = {"inventory"}, dataProvider = "Sort", dataProviderClass = InventoryDataProvider.class)
     public void verifySortChange(String sortOrder) {
-        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 
         try {
-            result = page.changeProductSort(sortOrder);
+            result = inventoryPage.changeProductSort(sortOrder);
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
@@ -62,11 +64,10 @@ public class InventoryTest extends TestCaseBase {
             groups = {"inventory"})
     @Parameters({"totalProducts"})
     public void verifyAddAllToCart(String quantity) {
-        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 
         try {
-            result = page.addToCartByQuantity(parseInt(quantity));
+            result = inventoryPage.addToCartByQuantity(parseInt(quantity));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
@@ -76,13 +77,12 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be added to cart",
-            groups = {"debug"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+            groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyAddIndividuallyToCart(String productId) {
-        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 
         try {
-            result = page.addToCartById(productId);
+            result = inventoryPage.addToCartById(productId);
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
@@ -95,12 +95,11 @@ public class InventoryTest extends TestCaseBase {
             groups = {"inventory"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
-        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 
         try {
-            result = (page.addToCartByQuantity(parseInt(quantity)) &&
-                    page.removeFromCartByQuantity(parseInt(quantity)));
+            result = (inventoryPage.addToCartByQuantity(parseInt(quantity)) &&
+                    inventoryPage.removeFromCartByQuantity(parseInt(quantity)));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
@@ -112,12 +111,11 @@ public class InventoryTest extends TestCaseBase {
     @Test(description = "Verify that every individual product can be removed from cart",
             groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyRemoveIndividuallyFromCart(String productId) {
-        ProductsInventoryPage page = new ProductsInventoryPage(getWebDriverInstance());
         boolean result = false;
 
         try {
-            result = (page.addToCartById(productId) &&
-                    page.removeFromCartById(productId));
+            result = (inventoryPage.addToCartById(productId) &&
+                    inventoryPage.removeFromCartById(productId));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();

@@ -13,8 +13,8 @@ public class CheckoutFinishedPage extends BaseProductPage {
     @FindBy(className = "complete-header")
     private WebElement pageHeader;
 
-    public CheckoutFinishedPage(WebDriver driver) {
-        super(driver);
+    public CheckoutFinishedPage(WebDriver driver, String baseUrl) {
+        super(driver, baseUrl);
     }
 
     @Override

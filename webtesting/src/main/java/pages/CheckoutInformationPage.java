@@ -52,8 +52,8 @@ public class CheckoutInformationPage extends BaseProductPage {
     @FindBy(className = "checkout_info_container")
     private WebElement checkoutInfoContainer;
 
-    public CheckoutInformationPage(WebDriver driver) {
-        super(driver);
+    public CheckoutInformationPage(WebDriver driver, String baseUrl) {
+        super(driver, baseUrl);
     }
 
     @Override
@@ -138,7 +138,7 @@ public class CheckoutInformationPage extends BaseProductPage {
 
         if (isElementVisible(continueButton)) {
             continueButton.click();
-            return new CheckoutOverviewPage(driver);
+            return new CheckoutOverviewPage(driver, BASE_URL);
         }
         return null;
     }

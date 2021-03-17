@@ -171,7 +171,7 @@ public class ShoppingCartPage extends BaseProductPage {
     public ProductsInventoryPage clickContinueShoppingButton() {
         if (isElementVisible(continueShoppingButton)) {
             continueShoppingButton.click();
-            return new ProductsInventoryPage(driver);
+            return new ProductsInventoryPage(driver, BASE_URL);
         }
         return null;
     }
@@ -179,7 +179,7 @@ public class ShoppingCartPage extends BaseProductPage {
     public CheckoutInformationPage clickCheckoutButton() {
         if (isElementVisible(checkoutButton)) {
             checkoutButton.click();
-            return new CheckoutInformationPage(driver);
+            return new CheckoutInformationPage(driver, BASE_URL);
         }
         return null;
     }

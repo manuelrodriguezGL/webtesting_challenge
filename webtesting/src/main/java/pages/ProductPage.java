@@ -35,8 +35,8 @@ public class ProductPage extends BaseProductPage {
     // use the same way as an standard on all pages :)
     private String url = "/inventory-item.html?id=";
 
-    public ProductPage(WebDriver driver, String productId) {
-        super(driver);
+    public ProductPage(WebDriver driver, String productId, String baseUrl) {
+        super(driver, baseUrl);
         this.url = url + productId;
     }
 
@@ -61,7 +61,7 @@ public class ProductPage extends BaseProductPage {
     public ProductsInventoryPage goBack() {
         if (isElementVisible(backButton)) {
             backButton.click();
-            return new ProductsInventoryPage(driver);
+            return new ProductsInventoryPage(driver, BASE_URL);
         }
         return null;
     }
