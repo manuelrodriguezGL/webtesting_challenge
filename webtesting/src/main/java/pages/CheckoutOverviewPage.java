@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class CheckoutOverviewPage extends BaseProductPage {
+public class CheckoutOverviewPage extends BaseStorePage {
 
     private static final String URL = "/checkout-step-two.html";
 

@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ShoppingCartPage extends BaseProductPage {
+public class ShoppingCartPage extends BaseStorePage {
 
     private static final String URL = "/cart.html";
 

@@ -31,7 +31,7 @@ enum SortValues {
     }
 }
 
-public class ProductsInventoryPage extends BaseProductPage {
+public class ProductsInventoryPage extends BaseStorePage {
 
     private static final String URL = "/inventory.html";
     private static final String DEFAULT_SORT = "az";

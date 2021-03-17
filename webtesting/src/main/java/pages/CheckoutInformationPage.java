@@ -24,7 +24,7 @@ enum ErrorValues {
     }
 }
 
-public class CheckoutInformationPage extends BaseProductPage {
+public class CheckoutInformationPage extends BaseStorePage {
 
     public static final String FIRST_NAME_ERROR = "FIRST";
     public static final String LAST_NAME_ERROR = "LAST";

@@ -6,9 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-public class ProductPage extends BaseProductPage {
+public class ProductPage extends BaseStorePage {
 
     @FindBy(className = "inventory_details_back_button")
     private WebElement backButton;
@@ -49,7 +47,7 @@ public class ProductPage extends BaseProductPage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Product detail page was not loaded!");
     }
 

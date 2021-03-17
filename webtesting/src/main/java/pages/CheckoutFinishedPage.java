@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CheckoutFinishedPage extends BaseProductPage {
+public class CheckoutFinishedPage extends BaseStorePage {
 
     private static final String URL = "/checkout-complete.html";
 
