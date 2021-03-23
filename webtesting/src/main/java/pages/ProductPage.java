@@ -1,7 +1,6 @@
 package pages;
 
 import constants.GlobalPageConstants;
-import constants.ProductPageConstants;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,15 +28,13 @@ public class ProductPage extends BaseStorePage {
     @FindBy(css = ".btn_secondary.btn_inventory")
     private WebElement productRemoveFromCartButton;
 
-    // you are defining this variables as final and constant in other pages,
-    // use the same way as an standard on all pages :)
+    // In this case, the URL is not a constant, since it changes based on product id
     private String url = "/inventory-item.html?id=";
 
     public ProductPage(WebDriver driver, String productId, String baseUrl) {
         super(driver, baseUrl);
         this.url = url + productId;
     }
-
 
     @Override
     protected void load() {
@@ -64,23 +61,20 @@ public class ProductPage extends BaseStorePage {
         return null;
     }
 
-    //TODO Use of softasserts and move the validations to the test cases instead of the Page object.
-    public String assesProductValues(String imageUrl, String name, String description, String price) {
-        String errorMessages = "";
+    public String getProductImageUrl() {
+        return productImage.getAttribute("src");
+    }
 
-//        try {
-//            errorMessages += assesElementTextContains(productImage.getAttribute("src"), imageUrl);
-//            errorMessages += assesElementTextEquals(productName, name);
-//            errorMessages += assesElementTextEquals(productDescription, description);
-//            errorMessages += assesElementTextEquals(productPrice, price);
-//
-//            errorMessages += assesElementTextEquals(productAddToCartButton, GlobalPageConstants.ADD_TO_CART_TXT);
-//            errorMessages += assesElementTextEquals(backButton, ProductPageConstants.PRODUCT_BACK_BUTTON_TXT);
-//
-//        } catch (Exception e) {
-//            errorMessages = e.getStackTrace().toString();
-//        }
-        return errorMessages;
+    public String getProductName() {
+        return productName.getText();
+    }
+
+    public String getProductDescription() {
+        return productDescription.getText();
+    }
+
+    public String getProductPrice() {
+        return productPrice.getText();
     }
 
     public boolean clickAddToCartButton() {

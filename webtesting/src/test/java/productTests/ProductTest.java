@@ -31,15 +31,16 @@ public class ProductTest extends TestCaseBase {
 
         SoftAssert softAssert = new SoftAssert();
 
-        //softAssert.assertEquals();
+        softAssert.assertTrue(product.getProductImageUrl().contains(imageUrl),
+                "Product image not present or URL is not the same, for ID: " + id);
+        softAssert.assertEquals(product.getProductName(), name,
+                "Product name not present or value is not the same, for ID: " + id);
+        softAssert.assertEquals(product.getProductDescription(), description,
+                "Product description not present or value is not the same, for ID: " + id);
+        softAssert.assertEquals(product.getProductPrice(), price,
+                "Product price not present or value is not the same, for ID: " + id);
+        softAssert.assertAll("Product information does not match the values on file for ID: " + id);
 
-        String errorMessages = "";
-        try {
-            errorMessages += product.assesProductValues(imageUrl, name, description, price);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + errorMessages);
     }
 
     @Test(description = "Verify that the Back button works on every product page",
