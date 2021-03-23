@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import utils.CommonUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -86,27 +87,20 @@ public class ProductsInventoryPage extends BaseStorePage {
         super(driver, baseUrl);
     }
 
-    ///////////////
-
-    //TODO move to utils class
-    private String formatLocator(String pattern, String text) {
-        return MessageFormat.format(pattern, text);
-    }
-
     private By getInventoryItemLink(String id) {
-        return By.cssSelector(formatLocator("#item_{0}_title_link", id));
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id));
     }
 
     private By getInventoryItemImage(String id) {
-        return By.cssSelector(formatLocator("#item_{0}_img_link", id) + ">img");
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_img_link", id) + ">img");
     }
 
     private By getInventoryItemName(String id) {
-        return By.cssSelector(formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
     }
 
     private By getInventoryItemDescription(String id) {
-        return By.cssSelector(formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
     }
 
     @Override
@@ -275,7 +269,7 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     public boolean addToCartById(String id) {
-
+        //TODO refactor with new IDs
         int i = 0;
         for (WebElement e : itemURLs) {
             if (e.getAttribute("href").contains(id)) {
@@ -311,6 +305,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public boolean removeFromCartById(String id) {
 
+        //TODO refactor with new IDs
         if (itemRemoveFromCartButtons.size() == 0) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
