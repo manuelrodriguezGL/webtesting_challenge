@@ -6,6 +6,7 @@ import dataProviders.InventoryDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
 import utils.ExcelFileReader;
@@ -33,6 +34,8 @@ public class InventoryTest extends TestCaseBase {
     @Test(description = "Verify items on inventory page",
             groups = {"inventory"})
     public void verifyInventoryUI() {
+        SoftAssert softAssert = new SoftAssert();
+
         String errorMessages = "";
         try {
             errorMessages = inventoryPage.assesInventoryItemValues(

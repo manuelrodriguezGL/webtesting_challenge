@@ -1,10 +1,13 @@
 package pages;
 
 import constants.GlobalPageConstants;
+import org.apache.xmlbeans.impl.common.GlobalLock;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -52,6 +55,28 @@ public abstract class BasePage extends LoadableComponent {
             return false;
         }
     }
+
+    //TODO These go into bot
+    /**
+     * Explicit wait, that expects for a Web Element to appear on page body
+     * @param element Web Element representing page element
+     * @return The WebElement found after wait
+     */
+    public WebElement waitByWebElement(WebElement element){
+        return (new WebDriverWait(this.driver, GlobalPageConstants.GLOBAL_TIMEOUT))
+                .until(ExpectedConditions.visibilityOf(element));
+    }
+
+    /**
+     * Explicit wait, that expects for an element to appear on page body
+     * @param locator By locator taken from page
+     * @return A WebElement found using By locator
+     */
+    public WebElement waitByLocator(By locator) {
+        return (new WebDriverWait(this.driver, GlobalPageConstants.GLOBAL_TIMEOUT))
+                .until(ExpectedConditions.presenceOfElementLocated(locator));
+    }
+    /////
 
     protected String getElementInnerText(WebElement e)
     {

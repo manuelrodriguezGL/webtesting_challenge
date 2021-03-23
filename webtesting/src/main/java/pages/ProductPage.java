@@ -68,18 +68,18 @@ public class ProductPage extends BaseStorePage {
     public String assesProductValues(String imageUrl, String name, String description, String price) {
         String errorMessages = "";
 
-        try {
-            errorMessages += assesElementTextContains(productImage.getAttribute("src"), imageUrl);
-            errorMessages += assesElementTextEquals(productName, name);
-            errorMessages += assesElementTextEquals(productDescription, description);
-            errorMessages += assesElementTextEquals(productPrice, price);
-
-            errorMessages += assesElementTextEquals(productAddToCartButton, GlobalPageConstants.ADD_TO_CART_TXT);
-            errorMessages += assesElementTextEquals(backButton, ProductPageConstants.PRODUCT_BACK_BUTTON_TXT);
-
-        } catch (Exception e) {
-            errorMessages = e.getStackTrace().toString();
-        }
+//        try {
+//            errorMessages += assesElementTextContains(productImage.getAttribute("src"), imageUrl);
+//            errorMessages += assesElementTextEquals(productName, name);
+//            errorMessages += assesElementTextEquals(productDescription, description);
+//            errorMessages += assesElementTextEquals(productPrice, price);
+//
+//            errorMessages += assesElementTextEquals(productAddToCartButton, GlobalPageConstants.ADD_TO_CART_TXT);
+//            errorMessages += assesElementTextEquals(backButton, ProductPageConstants.PRODUCT_BACK_BUTTON_TXT);
+//
+//        } catch (Exception e) {
+//            errorMessages = e.getStackTrace().toString();
+//        }
         return errorMessages;
     }
 

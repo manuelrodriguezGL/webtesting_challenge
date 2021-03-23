@@ -13,9 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify items on login page",
-            groups = {"debug"})
+            groups = {"UI"})
     @Parameters({"loginPageTitle"})
     public void verifyLoginUI(String loginPageTitle) {
+
+        SoftAssert softAssert = new SoftAssert();
 
         softAssert.assertEquals(getLoginPage().getPageTitle(), loginPageTitle);
         softAssert.assertTrue(getLoginPage().isPageLoaded());

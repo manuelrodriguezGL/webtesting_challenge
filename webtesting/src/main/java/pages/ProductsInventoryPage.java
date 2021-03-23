@@ -2,17 +2,17 @@ package pages;
 
 import constants.GlobalPageConstants;
 import constants.InventoryPageConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 enum SortValues {
     AZ("az"),
@@ -48,6 +48,9 @@ public class ProductsInventoryPage extends BaseStorePage {
     @FindBy(css = ".inventory_item_img>a")
     private List<WebElement> itemURLs;
 
+    @FindBy(css = ".inventory_item_img>a[id]")
+    private List<WebElement> productUniqueIds;
+
     @FindBy(css = ".inventory_item_img>a>img")
     private List<WebElement> itemImages;
 
@@ -66,11 +69,6 @@ public class ProductsInventoryPage extends BaseStorePage {
     @FindBy(css = ".btn_secondary.btn_inventory")
     private List<WebElement> itemRemoveFromCartButtons;
 
-    // not sure if there could be a better selector because I have not used the page, but this xpath is a kind of
-    // semi-absolute xpath, and we need to avoid that, and used as much relative xpath as possible
-    @FindBy(xpath = "//div[@class='inventory_item']/div[@class='pricebar']/div[@class='inventory_item_price']/following-sibling::button")
-    private List<WebElement> itemButtonList;
-
     @FindBy(css = "a.shopping_cart_link.fa-layers.fa-fw")
     private WebElement shoppingCartButton;
 
@@ -88,8 +86,32 @@ public class ProductsInventoryPage extends BaseStorePage {
         super(driver, baseUrl);
     }
 
+    ///////////////
+
+    //TODO move to utils class
+    private String formatLocator(String pattern, String text) {
+        return MessageFormat.format(pattern, text);
+    }
+
+    private By getInventoryItemLink(String id) {
+        return By.cssSelector(formatLocator("#item_{0}_title_link", id));
+    }
+
+    private By getInventoryItemImage(String id) {
+        return By.cssSelector(formatLocator("#item_{0}_img_link", id) + ">img");
+    }
+
+    private By getInventoryItemName(String id) {
+        return By.cssSelector(formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+    }
+
+    private By getInventoryItemDescription(String id) {
+        return By.cssSelector(formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+    }
+
     @Override
     protected void load() {
+        //TODO
         // This loads can be implemented in the parent class, using "this" in the parent class
         // like "driver.get(BASE_URL + this.URL)", will refer to the
         System.out.println("Attempting to load Inventory page...");
@@ -98,7 +120,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Inventory page was not loaded!");
     }
 
@@ -297,7 +319,7 @@ public class ProductsInventoryPage extends BaseStorePage {
         int i = 0;
         for (WebElement e : itemURLs) {
             if (e.getAttribute("href").contains(id)) {
-                itemButtonList.get(i).click();
+                itemAddToCartButtons.get(i).click();
                 return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
                         && (getCartItems() == 0 ||
                         itemRemoveFromCartButtons.size() == getCartItems()));
@@ -310,16 +332,9 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
 
-        int i = 0;
-        for (WebElement e : itemURLs) {
-            String productId = e.getAttribute("href");
-            if (productId.contains(id)) {
-                itemImages.get(i).click();
-                return new ProductPage(driver, productId, BASE_URL);
-            }
-            i++;
-        }
-        return null;
+        waitByLocator(getInventoryItemLink(id)).click();
+        return new ProductPage(driver, id, BASE_URL);
+
     }
 
     public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
@@ -329,7 +344,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public LoginPage logout() throws NoSuchElementException {
         burgerMenu.click();
-        if(isElementVisible(logoutOption))
+        if (isElementVisible(logoutOption))
             logoutOption.click();
         else
             throw new NoSuchElementException("Could not load logout option from menu!");
