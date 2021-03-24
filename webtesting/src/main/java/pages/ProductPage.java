@@ -88,6 +88,7 @@ public class ProductPage extends BaseStorePage {
     }
 
     public boolean clickRemoveButton() {
+        //TODO
         // I think this method is to click on the Remove button, and other methods should be created to get the
         // productAddToCartButton.getAttribute("innerText") and headerContainer.getCartItems(), and do the validation
         // on the test case. It would apply on several PageObjects in the project

@@ -53,8 +53,8 @@ public class ShoppingCartPage extends BaseStorePage {
     @FindBy(css = ".btn_action.checkout_button")
     private WebElement checkoutButton;
 
-    public ShoppingCartPage(WebDriver driver) {
-        super(driver);
+    public ShoppingCartPage(WebDriver driver, String base_url) {
+        super(driver, base_url);
     }
 
     @Override

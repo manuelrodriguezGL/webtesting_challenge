@@ -10,7 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import utils.CommonUtils;
 
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -79,28 +78,34 @@ public class ProductsInventoryPage extends BaseStorePage {
     @FindBy(id = "logout_sidebar_link")
     private WebElement logoutOption;
 
-    public ProductsInventoryPage(WebDriver driver) {
-        super(driver);
-    }
-
     public ProductsInventoryPage(WebDriver driver, String baseUrl) {
         super(driver, baseUrl);
     }
 
-    private By getInventoryItemLink(String id) {
+    private By getInventoryItemLinkLocator(String id) {
         return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id));
     }
 
-    private By getInventoryItemImage(String id) {
+    private By getInventoryItemImageLocator(String id) {
         return By.cssSelector(CommonUtils.formatLocator("#item_{0}_img_link", id) + ">img");
     }
 
-    private By getInventoryItemName(String id) {
+    private By getInventoryItemNameLocator(String id) {
         return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
     }
 
-    private By getInventoryItemDescription(String id) {
+    private By getInventoryItemDescriptionLocator(String id) {
         return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+    }
+
+    /**
+     * There was no way to select the specific price, so I had to use Xpath to find the ancestor of an element with ID
+     * and from there, navigate thru the DOM
+     */
+    private By getInventoryItemPriceLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
+        return By.xpath(CommonUtils.formatLocator(
+                "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"inventory_item_label\"]" +
+                        "/following-sibling::div[@class=\"pricebar\"]/div[@class=\"inventory_item_price\"]", id));
     }
 
     @Override
@@ -123,36 +128,23 @@ public class ProductsInventoryPage extends BaseStorePage {
         return isElementVisible(pageHeader);
     }
 
-    public String assesInventoryItemValues(Object[][] values) {
+    public String getProductImageUrl(String id) {
+        return waitByLocator(getInventoryItemImageLocator(id)).getAttribute("src");
 
-        String errorMessages = "";
+    }
 
-        ArrayList<String> items = new ArrayList<>();
-        try {
-            for (int row = 0; row < values.length; row++) {
-                items.clear();
-                items.add(itemURLs.get(row).getAttribute("href"));
-                items.add(itemImages.get(row).getAttribute("src"));
-                items.add(itemNames.get(row).getAttribute("innerText"));
-                items.add(itemDescriptions.get(row).getAttribute("innerText"));
-                items.add(itemPrices.get(row).getAttribute("innerText"));
+    public String getProductName(String id) {
+        return waitByLocator((getInventoryItemNameLocator(id))).getText();
+    }
 
-                for (int col = 0; col < values[row].length; col++) {
-                    if (itemURLs.get(row).getAttribute("href").contains(values[row][0].toString())) {
-                        errorMessages += assesElementTextContains(items.get(col), values[row][col].toString());
-                    }
-                }
+    public String getProductDescription(String id)
+    {
+        return waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
+    }
 
-                errorMessages += assesElementTextEquals(itemAddToCartButtons.get(row), GlobalPageConstants.ADD_TO_CART_TXT);
-            }
-
-            errorMessages += assesElementTextEquals(pageHeader, InventoryPageConstants.INVENTORY_TITLE);
-            errorMessages += assesUIElement(productSortSelect);
-
-        } catch (Exception e) {
-            errorMessages = e.getStackTrace().toString();
-        }
-        return errorMessages;
+    public String getProductPrice(String id)
+    {
+        return waitByLocator(getInventoryItemPriceLocator(id)).getText();
     }
 
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
@@ -327,14 +319,14 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
 
-        waitByLocator(getInventoryItemLink(id)).click();
+        waitByLocator(getInventoryItemLinkLocator(id)).click();
         return new ProductPage(driver, id, BASE_URL);
 
     }
 
     public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
         shoppingCartButton.click();
-        return new ShoppingCartPage(driver);
+        return new ShoppingCartPage(driver, BASE_URL);
     }
 
     public LoginPage logout() throws NoSuchElementException {

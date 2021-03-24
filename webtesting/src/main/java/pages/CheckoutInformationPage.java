@@ -129,7 +129,7 @@ public class CheckoutInformationPage extends BaseStorePage {
 
         if (isElementVisible(cancelButton)) {
             cancelButton.click();
-            return new ShoppingCartPage(driver);
+            return new ShoppingCartPage(driver, BASE_URL);
         }
         return null;
     }

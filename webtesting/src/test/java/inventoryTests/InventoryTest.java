@@ -1,17 +1,14 @@
 package inventoryTests;
 
 import Constants.GlobalTestConstants;
-import constants.InventoryPageConstants;
 import dataProviders.InventoryDataProvider;
+import dataProviders.ProductsDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
-import utils.ExcelFileReader;
-
-import java.io.IOException;
 
 import static java.lang.Integer.parseInt;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -27,24 +24,21 @@ public class InventoryTest extends TestCaseBase {
         inventoryPage = new ProductsInventoryPage(getWebDriverInstance(), baseUrl);
     }
 
-    /**
-     * This test makes use of a direct file reader, instead of a Data provider.
-     * This is for educational purposes only.
-     */
     @Test(description = "Verify items on inventory page",
-            groups = {"inventory"})
-    public void verifyInventoryUI() {
+            groups = {"inventory"}, dataProvider = "Products", dataProviderClass = ProductsDataProvider.class)
+    public void verifyInventoryUI(String id, String imageUrl, String name, String description, String price) {
         SoftAssert softAssert = new SoftAssert();
 
-        String errorMessages = "";
-        try {
-            errorMessages = inventoryPage.assesInventoryItemValues(
-                    ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
-                    InventoryPageConstants.INVENTORY_EXCEL_SHEET));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + errorMessages);
+        softAssert.assertTrue(inventoryPage.getProductImageUrl(id).contains(imageUrl),
+                "Product image not present or URL is not the same, for ID: " + id);
+        softAssert.assertEquals(inventoryPage.getProductName(id), name,
+                "Product name not present or value is not the same, for ID: " + id);
+        softAssert.assertEquals(inventoryPage.getProductDescription(id), description,
+                "Product description not present or value is not the same, for ID: " + id);
+        softAssert.assertEquals(inventoryPage.getProductPrice(id), price,
+                "Product price not present or value is not the same, for ID: " + id);
+        softAssert.assertAll("Product information does not match the values on file for ID: " + id);
+
     }
 
     @Test(description = "Verify the items can be sorted by different values",

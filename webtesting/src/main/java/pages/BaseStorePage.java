@@ -25,12 +25,8 @@ public class BaseStorePage extends BasePage {
     @FindBy(css = ".fa-layers-counter.shopping_cart_badge")
     private WebElement cartItemsIcon;
 
-    public BaseStorePage(WebDriver driver) {
-        super(driver);
-    }
-
     public BaseStorePage(WebDriver driver, String baseUrl) {
-        super(driver);
+        super(driver, baseUrl);
     }
 
     @Override

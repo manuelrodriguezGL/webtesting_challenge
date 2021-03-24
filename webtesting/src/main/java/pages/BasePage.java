@@ -22,11 +22,6 @@ public abstract class BasePage extends LoadableComponent {
 
     protected WebDriver driver;
 
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
-
     public BasePage(WebDriver driver, String baseUrl) {
         this.driver = driver;
         BASE_URL = baseUrl;

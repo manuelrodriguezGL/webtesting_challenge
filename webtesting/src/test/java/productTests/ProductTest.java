@@ -25,7 +25,7 @@ public class ProductTest extends TestCaseBase {
 
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"debug"}, dataProvider = "Products", dataProviderClass = ProductsDataProvider.class)
+            groups = {"product"}, dataProvider = "Products", dataProviderClass = ProductsDataProvider.class)
     public void verifyProductUI(String id, String imageUrl, String name, String description, String price) {
         ProductPage product = inventoryPage.loadProductPageById(id);
 
