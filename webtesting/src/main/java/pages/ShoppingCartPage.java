@@ -1,14 +1,14 @@
 package pages;
 
 import constants.ShoppingCartPageConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.CommonUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartPage extends BaseStorePage {
 
@@ -57,6 +57,24 @@ public class ShoppingCartPage extends BaseStorePage {
         super(driver, base_url);
     }
 
+    private By getProductNameLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+    }
+
+    private By getProductDescriptionLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+    }
+
+    private By getProductPriceLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator(
+                "#item_{0}_title_link~.item_pricebar>.inventory_item_price", id));
+    }
+
+    private By getProductRemoveButton(String id) {
+        return By.cssSelector(CommonUtils.formatLocator(
+                "#item_{0}_title_link~.item_pricebar>.btn_secondary.cart_button", id));
+    }
+
     @Override
     protected void load() {
         System.out.println("Attempting to load Shopping Cart page...");
@@ -65,14 +83,29 @@ public class ShoppingCartPage extends BaseStorePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Shopping cart page was not loaded!");
     }
 
     @Override
-    public boolean isPageLoaded()
-    {
+    public boolean isPageLoaded() {
         return isElementVisible(pageHeader);
+    }
+
+    public String getProductName(String id) {
+        return waitByLocator((getProductNameLocator(id))).getText();
+    }
+
+    public String getProductDescription(String id) {
+        return waitByLocator((getProductDescriptionLocator(id))).getText();
+    }
+
+    public String getProductPrice(String id) {
+        return waitByLocator(getProductPriceLocator(id)).getText();
+    }
+
+    public String getProductRemoveButtonText(String id) {
+        return waitByLocator(getProductRemoveButton(id)).getText();
     }
 
     public String verifyEmptyCartUIElements() {
@@ -136,7 +169,7 @@ public class ShoppingCartPage extends BaseStorePage {
             if (e.getAttribute("href").contains(id)) {
                 removeFromCartButtonsList.get(i).click();
                 return (removeFromCartButtonsList.size() == getCartItems()
-                    && cartItemLinkList.size() == --currentQty);
+                        && cartItemLinkList.size() == --currentQty);
             }
             i++;
         }
@@ -145,7 +178,8 @@ public class ShoppingCartPage extends BaseStorePage {
     }
 
     public boolean removeAllFromCart() {
-        // As mentioned in other section, the method say that it remove all items from the cart, I would say that
+        // TODO:
+        //  As mentioned in other section, the method say that it remove all items from the cart, I would say that
         // the validations should not be here in the responsability of this method, it would be better to have it
         // in other methods and then call them from the test case and do the validation in the test case.
         if (isCartEmpty()) {
@@ -157,15 +191,11 @@ public class ShoppingCartPage extends BaseStorePage {
         }
 
         return (removeFromCartButtonsList.size() == getCartItems()
-            && cartItemsList.size() == 0);
+                && cartItemsList.size() == 0);
     }
 
-    public boolean isCartEmpty() {
-        try {
-            return cartItemsList.size() == 0;
-        } catch (NoSuchElementException e) {
-            return true;
-        }
+    public boolean isCartEmpty() throws NoSuchElementException {
+        return cartItemsList.size() == 0;
     }
 
     public ProductsInventoryPage clickContinueShoppingButton() {

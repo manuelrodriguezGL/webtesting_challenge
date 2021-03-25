@@ -1,7 +1,6 @@
 package pages;
 
 import constants.GlobalPageConstants;
-import constants.InventoryPageConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -108,6 +107,12 @@ public class ProductsInventoryPage extends BaseStorePage {
                         "/following-sibling::div[@class=\"pricebar\"]/div[@class=\"inventory_item_price\"]", id));
     }
 
+    private By getInventoryItemAddToCartLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
+        return By.xpath(CommonUtils.formatLocator(
+                "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"inventory_item_label\"]" +
+                        "/following-sibling::div[@class=\"pricebar\"]/button[@class=\"btn_primary btn_inventory\"]", id));
+    }
+
     @Override
     protected void load() {
         //TODO
@@ -137,14 +142,16 @@ public class ProductsInventoryPage extends BaseStorePage {
         return waitByLocator((getInventoryItemNameLocator(id))).getText();
     }
 
-    public String getProductDescription(String id)
-    {
+    public String getProductDescription(String id) {
         return waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
     }
 
-    public String getProductPrice(String id)
-    {
+    public String getProductPrice(String id) {
         return waitByLocator(getInventoryItemPriceLocator(id)).getText();
+    }
+
+    public String getProductAddToCartButtonText(String id) {
+        return waitByLocator(getInventoryItemAddToCartLocator(id)).getText();
     }
 
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
@@ -260,20 +267,10 @@ public class ProductsInventoryPage extends BaseStorePage {
         return (quantity == getCartItems());
     }
 
-    public boolean addToCartById(String id) {
-        //TODO refactor with new IDs
-        int i = 0;
-        for (WebElement e : itemURLs) {
-            if (e.getAttribute("href").contains(id)) {
-                itemAddToCartButtons.get(i).click();
-                return (itemRemoveFromCartButtons.get(itemRemoveFromCartButtons.size() - 1)
-                        .getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)
-                        && itemRemoveFromCartButtons.size() == getCartItems());
-            }
-            i++;
-        }
 
-        return false;
+    public void addToCartById(String id) {
+        //TODO Botstyle
+        waitByLocator(getInventoryItemAddToCartLocator(id)).click();
     }
 
     public boolean removeFromCartByQuantity(int quantity) throws NoSuchElementException {

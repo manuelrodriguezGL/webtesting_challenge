@@ -6,10 +6,12 @@ import dataProviders.InventoryDataProvider;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.ProductsInventoryPage;
 import pages.ShoppingCartPage;
 import testBase.TestCaseBase;
 
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
@@ -20,50 +22,50 @@ public class ShoppingCartTest extends TestCaseBase {
     private ShoppingCartPage shoppingCartPage;
     private ProductsInventoryPage inventory;
 
+    private void loadShoppingCartPage(String id) {
+        inventory.addToCartById(id);
+        shoppingCartPage = inventory.loadShoppingCart();
+    }
+
     @BeforeMethod(alwaysRun = true)
     @Parameters({"validUser", "validPassword"})
-    public void loadShoppingCartPage(String user, String pwd) {
+    public void loadInventoryPage(String user, String pwd) {
         inventory = login(user, pwd);
     }
 
     @Test(description = "Verify the shopping cart is empty",
             groups = {"shoppingCart"})
-    public void verifyEmptyShoppingCart() {
-        String errorMessage = "";
+    public void verifyShoppingCartIsEmpty() {
         try {
-            shoppingCartPage = inventory.loadShoppingCart();
-            errorMessage = shoppingCartPage.verifyEmptyCartUIElements();
-        } catch (Exception e) {
+            assertTrue(shoppingCartPage.isCartEmpty(),
+                    GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + " Shopping cart is not empty!");
+        } catch (NoSuchElementException e) {
             e.printStackTrace();
         }
-        assertTrue(errorMessage.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "Shopping cart is not empty!");
     }
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"shoppingCart"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
-    public void verifyProductUI(String id, String imageUrl, String name, String description, String price) {
+            groups = {"debug"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
+    public void verifyShoppingCartUI(String id, String name, String description, String price) {
 
-        String errorMessages = "";
-        try {
-            inventory.addToCartById(id);
-            shoppingCartPage = inventory.loadShoppingCart();
-            errorMessages += shoppingCartPage.verifyProductCartUIElements(1, imageUrl, name, description, price);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("Error message: " + errorMessages);
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + errorMessages);
+        SoftAssert softAssert = new SoftAssert();
+        loadShoppingCartPage(id);
+
+        softAssert.assertEquals(shoppingCartPage.getProductName(id), name);
+        softAssert.assertEquals(shoppingCartPage.getProductDescription(id), description);
+        softAssert.assertEquals(shoppingCartPage.getProductPrice(id), price);
+        softAssert.assertAll("Product information does not match the values on file for ID: " + id);
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
             groups = {"shoppingCart"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductRemoveFromCart(String productId) {
+        //TODO refactor
         boolean result = false;
 
         try {
-            inventory.addToCartById(productId);
-            shoppingCartPage = inventory.loadShoppingCart();
+            loadShoppingCartPage(productId);
+
             result = (shoppingCartPage.removeFromCartById(productId));
         } catch (Exception e) {
             result = false;
@@ -77,6 +79,7 @@ public class ShoppingCartTest extends TestCaseBase {
             groups = {"shoppingCart"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
+        //TODO refactor
         boolean result = false;
 
         try {
@@ -95,13 +98,14 @@ public class ShoppingCartTest extends TestCaseBase {
     @Test(description = "Verify that every individual product has a Continue Shopping button on cart",
             groups = {"shoppingCart"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyContinueShoppingButton(String productId) {
+        //TODO refactor
         boolean result = false;
 
         try {
-            inventory.addToCartById(productId);
-            shoppingCartPage = inventory.loadShoppingCart();
+            loadShoppingCartPage(productId);
+
             result = (Objects.nonNull(shoppingCartPage.clickContinueShoppingButton())
-                && inventory.removeFromCartById(productId));
+                    && inventory.removeFromCartById(productId));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();

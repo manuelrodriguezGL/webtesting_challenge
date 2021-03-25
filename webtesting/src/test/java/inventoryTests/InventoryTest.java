@@ -62,7 +62,7 @@ public class InventoryTest extends TestCaseBase {
     @Parameters({"totalProducts"})
     public void verifyAddAllToCart(String quantity) {
         boolean result = false;
-
+        //TODO refactor
         try {
             result = inventoryPage.addToCartByQuantity(parseInt(quantity));
         } catch (Exception e) {
@@ -76,10 +76,11 @@ public class InventoryTest extends TestCaseBase {
     @Test(description = "Verify that every individual product can be added to cart",
             groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyAddIndividuallyToCart(String productId) {
+        //TODO refactor
         boolean result = false;
 
         try {
-            result = inventoryPage.addToCartById(productId);
+            //result = inventoryPage.addToCartById(productId);
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
@@ -92,6 +93,7 @@ public class InventoryTest extends TestCaseBase {
             groups = {"inventory"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
+        //TODO refactor
         boolean result = false;
 
         try {
@@ -108,11 +110,12 @@ public class InventoryTest extends TestCaseBase {
     @Test(description = "Verify that every individual product can be removed from cart",
             groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyRemoveIndividuallyFromCart(String productId) {
+        //TODO refactor
         boolean result = false;
 
         try {
-            result = (inventoryPage.addToCartById(productId) &&
-                    inventoryPage.removeFromCartById(productId));
+            //   result = (inventoryPage.addToCartById(productId) &&
+            //         inventoryPage.removeFromCartById(productId));
         } catch (Exception e) {
             result = false;
             e.printStackTrace();
