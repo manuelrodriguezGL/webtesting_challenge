@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import static java.lang.Integer.parseInt;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartTest extends TestCaseBase {
@@ -45,12 +46,13 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"debug"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
+            groups = {"shoppingCart"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
     public void verifyShoppingCartUI(String id, String name, String description, String price) {
 
         SoftAssert softAssert = new SoftAssert();
         loadShoppingCartPage(id);
 
+        softAssert.assertFalse(shoppingCartPage.isCartEmpty());
         softAssert.assertEquals(shoppingCartPage.getProductName(id), name);
         softAssert.assertEquals(shoppingCartPage.getProductDescription(id), description);
         softAssert.assertEquals(shoppingCartPage.getProductPrice(id), price);

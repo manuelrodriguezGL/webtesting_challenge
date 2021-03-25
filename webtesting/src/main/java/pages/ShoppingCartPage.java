@@ -108,54 +108,6 @@ public class ShoppingCartPage extends BaseStorePage {
         return waitByLocator(getProductRemoveButton(id)).getText();
     }
 
-    public String verifyEmptyCartUIElements() {
-
-        String errorMessages = "";
-
-        if (isCartEmpty()) {
-            try {
-                errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
-                errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
-                errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
-                errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
-            } catch (Exception e) {
-                errorMessages = e.getStackTrace().toString();
-            }
-        } else {
-            errorMessages = "Cart is not empty!";
-        }
-
-        return errorMessages;
-    }
-
-    public String verifyProductCartUIElements(int qty, String imageUrl, String name, String description, String price) {
-
-        String errorMessages = "";
-
-        if (!isCartEmpty()) {
-            try {
-                errorMessages += assesElementTextEquals(cartQuantityLabel, ShoppingCartPageConstants.CART_QUANTITY_LABEL);
-                errorMessages += assesElementTextEquals(cartDescLabel, ShoppingCartPageConstants.CART_DESC_LABEL);
-                errorMessages += assesElementTextEquals(continueShoppingButton, ShoppingCartPageConstants.CONTINUE_SHOPPING_BUTTON_TXT);
-                errorMessages += assesElementTextEquals(checkoutButton, ShoppingCartPageConstants.CHECKOUT_BUTTON_TXT);
-
-                errorMessages += assesElementTextEquals(cartQuantityList.get(0), String.valueOf(qty));
-                errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), imageUrl);
-                errorMessages += assesElementTextEquals(cartItemNameList.get(0), name);
-                errorMessages += assesElementTextEquals(cartItemDescList.get(0), description);
-                errorMessages += assesElementTextEquals(cartItemPricesList.get(0), price);
-
-                errorMessages += assesElementTextEquals(removeFromCartButtonsList.get(0), ShoppingCartPageConstants.REMOVE_BUTTON_TXT);
-
-            } catch (Exception e) {
-                errorMessages = e.getStackTrace().toString();
-            }
-        } else {
-            errorMessages = "Cart is empty!";
-        }
-
-        return errorMessages;
-    }
 
     public boolean removeFromCartById(String id) {
 
