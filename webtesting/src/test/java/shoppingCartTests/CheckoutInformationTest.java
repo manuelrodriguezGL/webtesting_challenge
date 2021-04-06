@@ -4,6 +4,7 @@ import Constants.GlobalTestConstants;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.CheckoutInformationPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
@@ -25,37 +26,52 @@ public class CheckoutInformationTest extends TestCaseBase {
 
     @Test(description = "Verify the UI elements for checkout information page",
             groups = {"checkoutInformation"})
-    public void verifyUIElements() {
-        String errorMessages = "";
-        try {
-            errorMessages = checkoutPage.verifyUIElements();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @Parameters({"firstNamePlaceholder", "lastNamePlaceholder", "zipPlaceHolder", "cancelButtonText", "continueButtonText"})
+    public void verifyUIElements(String firstNamePlaceholder, String lastNamePlaceholder, String zipPlaceHolder,
+                                 String cancelButtonText, String continueButtonText) {
 
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "Checkout Information page has wrong elements on UI or is not loaded!");
+        SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertEquals(checkoutPage.getFirstNamePlaceholder(), firstNamePlaceholder);
+        softAssert.assertEquals(checkoutPage.getLastNamePlaceholder(), lastNamePlaceholder);
+        softAssert.assertEquals(checkoutPage.getZipCodePlaceholder(), zipPlaceHolder);
+        softAssert.assertEquals(checkoutPage.getCancelButtonText(), cancelButtonText);
+        softAssert.assertEquals(checkoutPage.getContinueButtonText(), continueButtonText);
+
+        softAssert.assertAll("Checkout Information page has wrong elements on UI or is not loaded!");
+
     }
 
     @Test(description = "Verify the error messages on all input fields for checkout information page",
-            groups = {"checkoutInformation"})
-    @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
-    public void verifyErrorMessages(String firstName, String lastName, String zipCode) {
-        String errorMessages = "";
-        try {
-            errorMessages = checkoutPage.verifyErrorMessages(firstName, lastName, zipCode);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            groups = {"debug"})
+    @Parameters({"customerFirstName", "customerLastName", "customerZipCode",
+            "firstNameError", "lastNameError", "zipCodeError"})
+    public void verifyErrorMessages(String firstName, String lastName, String zipCode,
+                                    String firstNameError, String lastNameError, String zipCodeError) {
 
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "Checkout information error messages are not displayed or they have changed!");
+        SoftAssert softAssert = new SoftAssert();
+
+        checkoutPage.enterCustomerData("", lastName, zipCode);
+        checkoutPage.clickContinue();
+        checkoutPage.clearCustomerData();
+        softAssert.assertEquals(checkoutPage.getErrorMessage(), firstNameError);
+
+        checkoutPage.enterCustomerData(firstName, "", zipCode);
+        checkoutPage.clickContinue();
+        checkoutPage.clearCustomerData();
+        softAssert.assertEquals(checkoutPage.getErrorMessage(), lastNameError);
+
+        checkoutPage.enterCustomerData(firstName, lastName, "");
+        checkoutPage.clickContinue();
+        checkoutPage.clearCustomerData();
+        softAssert.assertEquals(checkoutPage.getErrorMessage(), zipCodeError);
+
+        softAssert.assertAll("Checkout information error messages are not displayed or they have changed!");
     }
 
     @Test(description = "Verify that user can click Cancel button and is taken back to cart page",
             groups = {"checkoutInformation"})
-    public void verifyClickCancelButton()
-    {
+    public void verifyClickCancelButton() {
         boolean result = checkoutPage.clickCancel().isPageLoaded();
 
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
@@ -65,8 +81,7 @@ public class CheckoutInformationTest extends TestCaseBase {
 
     @Test(description = "Verify that user can click Continue button and is taken to order overview page",
             groups = {"checkoutInformation"})
-    public void verifyClickContinueButton()
-    {
+    public void verifyClickContinueButton() {
         boolean result = checkoutPage.clickContinue().isPageLoaded();
 
         assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +

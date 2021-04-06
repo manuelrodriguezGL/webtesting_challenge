@@ -68,7 +68,7 @@ public class ProductsInventoryPage extends BaseStorePage {
     @FindBy(css = ".btn_secondary.btn_inventory")
     private List<WebElement> itemRemoveFromCartButtons;
 
-    @FindBy(css = "a.shopping_cart_link.fa-layers.fa-fw")
+    @FindBy(className = "shopping_cart_link")
     private WebElement shoppingCartButton;
 
     @FindBy(css = ".bm-burger-button>button")
@@ -110,7 +110,8 @@ public class ProductsInventoryPage extends BaseStorePage {
     private By getInventoryItemAddToCartLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
         return By.xpath(CommonUtils.formatLocator(
                 "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"inventory_item_label\"]" +
-                        "/following-sibling::div[@class=\"pricebar\"]/button[@class=\"btn_primary btn_inventory\"]", id));
+                        "/following-sibling::div[@class=\"pricebar\"]" +
+                        "/button[@class=\"btn btn_primary btn_small btn_inventory\"]", id));
     }
 
     @Override

@@ -1,34 +1,11 @@
 package pages;
 
-import constants.CheckoutInformationConstants;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-enum ErrorValues {
-    FIRST("Error: First Name is required"),
-    LAST("Error: Last Name is required"),
-    POSTAL("Error: Postal Code is required");
-
-    private final String errorCode;
-
-    ErrorValues(String errorCode) {
-        this.errorCode = errorCode;
-    }
-
-    public String getErrorCode() {
-        return this.errorCode;
-    }
-}
-
 public class CheckoutInformationPage extends BaseStorePage {
-
-    public static final String FIRST_NAME_ERROR = "FIRST";
-    public static final String LAST_NAME_ERROR = "LAST";
-    public static final String POSTAL_CODE_ERROR = "POSTAL";
     private static final String URL = "//checkout-step-one.html";
 
     @FindBy(id = "first-name")
@@ -49,6 +26,9 @@ public class CheckoutInformationPage extends BaseStorePage {
     @FindBy(css = "h3[data-test]")
     private WebElement errorMessage;
 
+    @FindBy(className = "error-button")
+    private WebElement errorMessageButton;
+
     @FindBy(className = "checkout_info_container")
     private WebElement checkoutInfoContainer;
 
@@ -64,7 +44,7 @@ public class CheckoutInformationPage extends BaseStorePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Checkout Information page was not loaded!");
     }
 
@@ -72,57 +52,32 @@ public class CheckoutInformationPage extends BaseStorePage {
         return isElementVisible(checkoutInfoContainer);
     }
 
-    private boolean areFieldsVisible() {
-        return (isElementVisible(firstNameInput) && isElementVisible(lastNameInput) &&
-                isElementVisible(postalCodeInput));
+    public String getFirstNamePlaceholder() {
+        return firstNameInput.getAttribute("placeholder");
     }
 
-    public String verifyUIElements() {
-        String errorMessages = "";
-
-        try {
-            errorMessages += assesElementTextContains(firstNameInput.getAttribute("placeholder"),
-                    CheckoutInformationConstants.NAME_PLACEHOLDER);
-            errorMessages += assesElementTextContains(lastNameInput.getAttribute("placeholder"),
-                    CheckoutInformationConstants.LAST_NAME_PLACEHOLDER);
-            errorMessages += assesElementTextContains(postalCodeInput.getAttribute("placeholder"),
-                    CheckoutInformationConstants.ZIP_PLACEHOLDER);
-            errorMessages += assesElementTextEquals(cancelButton, CheckoutInformationConstants.CANCEL_BUTTON_TXT);
-            errorMessages += assesElementTextContains(continueButton.getAttribute("value"),
-                    CheckoutInformationConstants.CONTINUE_BUTTON_TXT);
-        } catch (Exception e) {
-            errorMessages += e.getStackTrace().toString();
-        }
-
-        return errorMessages;
+    public String getLastNamePlaceholder() {
+        return lastNameInput.getAttribute("placeholder");
     }
 
-    public String verifyErrorMessages(String firstName, String lastName, String zipCode) {
-        String errorMessages = "";
-        try {
-            if (areFieldsVisible()) {
+    public String getZipCodePlaceholder() {
+        return postalCodeInput.getAttribute("placeholder");
+    }
 
-                enterCustomerData("", lastName, zipCode);
-                clickContinue();
-                errorMessages += checkErrorMessage(FIRST_NAME_ERROR) ? "" : "First name error message not found! ";
-                clearCustomerData();
+    public String getCancelButtonText() {
+        return cancelButton.getAttribute("innerText");
+    }
 
-                enterCustomerData(firstName, "", zipCode);
-                clickContinue();
-                errorMessages += checkErrorMessage(LAST_NAME_ERROR) ? "" : "Last name error message not found! ";
-                clearCustomerData();
+    public String getContinueButtonText() {
+        return continueButton.getAttribute("value");
+    }
 
-                enterCustomerData(firstName, lastName, "");
-                clickContinue();
-                errorMessages += checkErrorMessage(POSTAL_CODE_ERROR) ? "" : "Postal code error message not found! ";
-                clearCustomerData();
-            } else {
-                errorMessages += "Fields are not visible!";
-            }
-        } catch (Exception e) {
-            throw e;
-        }
-        return errorMessages;
+    public String getErrorMessage() {
+        return errorMessage.getAttribute("innerText");
+    }
+
+    public void clickErrorMessageButton() {
+        errorMessageButton.click();
     }
 
     public ShoppingCartPage clickCancel() {
@@ -164,19 +119,5 @@ public class CheckoutInformationPage extends BaseStorePage {
         postalCodeInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
         postalCodeInput.sendKeys(Keys.BACK_SPACE);
 
-    }
-
-    public boolean checkErrorMessage(String errorCode) {
-        String errorMsg = errorMessage.getAttribute("innerText");
-        switch (ErrorValues.valueOf(errorCode)) {
-            case FIRST:
-                return errorMsg.equals(ErrorValues.FIRST.getErrorCode());
-            case LAST:
-                return errorMsg.equals(ErrorValues.LAST.getErrorCode());
-            case POSTAL:
-                return errorMsg.equals(ErrorValues.POSTAL.getErrorCode());
-            default:
-                return false;
-        }
     }
 }

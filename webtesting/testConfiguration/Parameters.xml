@@ -58,6 +58,18 @@
 <parameter name="totalProducts" value="6"/>
 <parameter name="qtyOne" value="1"/>
 
+        <!--Shopping cart parameters -->
+
+<parameter name="firstNamePlaceholder" value="First Name"/>
+<parameter name="lastNamePlaceholder" value="Last Name"/>
+<parameter name="zipPlaceHolder" value="Zip/Postal Code"/>
+<parameter name="cancelButtonText" value="CANCEL"/>
+<parameter name="continueButtonText" value="Continue"/>
+
 <parameter name="customerFirstName" value="John"/>
 <parameter name="customerLastName" value="Doe"/>
 <parameter name="customerZipCode" value="33122"/>
+
+<parameter name="firstNameError" value="Error: First Name is required" />
+<parameter name="lastNameError" value="Error: Last Name is required" />
+<parameter name="zipCodeError" value="Error: Postal Code is required" />
