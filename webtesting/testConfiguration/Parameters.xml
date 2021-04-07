@@ -66,10 +66,10 @@
 <parameter name="cancelButtonText" value="CANCEL"/>
 <parameter name="continueButtonText" value="Continue"/>
 
-<parameter name="customerFirstName" value="John"/>
-<parameter name="customerLastName" value="Doe"/>
-<parameter name="customerZipCode" value="33122"/>
-
 <parameter name="firstNameError" value="Error: First Name is required" />
 <parameter name="lastNameError" value="Error: Last Name is required" />
 <parameter name="zipCodeError" value="Error: Postal Code is required" />
+
+<parameter name="customerFirstName" value="John"/>
+<parameter name="customerLastName" value="Doe"/>
+<parameter name="customerZipCode" value="33122"/>

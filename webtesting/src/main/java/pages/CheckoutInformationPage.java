@@ -76,6 +76,7 @@ public class CheckoutInformationPage extends BaseStorePage {
         return errorMessage.getAttribute("innerText");
     }
 
+    //TODO a test to check for closing error message
     public void clickErrorMessageButton() {
         errorMessageButton.click();
     }

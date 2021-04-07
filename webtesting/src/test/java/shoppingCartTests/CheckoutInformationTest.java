@@ -43,7 +43,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the error messages on all input fields for checkout information page",
-            groups = {"debug"})
+            groups = {"checkoutInformation"})
     @Parameters({"customerFirstName", "customerLastName", "customerZipCode",
             "firstNameError", "lastNameError", "zipCodeError"})
     public void verifyErrorMessages(String firstName, String lastName, String zipCode,
