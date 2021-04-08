@@ -19,13 +19,13 @@ public class CheckoutOverviewTest extends TestCaseBase {
     private ProductsInventoryPage inventory;
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword", "item4ID", "customerFirstName", "customerLastName", "customerZipCode"})
-    public void loadShoppingCartPage(String user, String pwd, String item4ID, String fName, String lName, String zip) {
+    @Parameters({"validUser", "validPassword", "customerFirstName", "customerLastName", "customerZipCode"})
+    public void loadShoppingCartPage(String user, String pwd, String firstName, String lastName, String zipCode) {
         try {
             inventory = login(user, pwd);
             inventory.addToCartByQuantity(6);
             checkoutInformationPage = inventory.loadShoppingCart().clickCheckoutButton();
-            checkoutInformationPage.enterCustomerData(fName, lName, zip);
+            checkoutInformationPage.enterCustomerData(firstName, lastName, zipCode);
             checkoutOverviewPage = checkoutInformationPage.clickContinue();
         } catch (Exception e) {
             e.printStackTrace();
@@ -33,7 +33,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout overview page",
-            groups = {"debug"})
+            groups = {"checkoutOverview"})
     @Parameters({"cartQuantityLabel", "cartDescriptionLabel", "cancelButtonText", "finishButtonText",
             "paymentInformationLabel", "shippingInformationLabel"})
     public void verifyCheckoutOverviewUIElements(String cartQuantityLabel, String cartDescriptionLabel,
@@ -52,7 +52,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for products added to checkout overview page",
-            groups = {"debug"})
+            groups = {"checkoutOverview"})
     @Parameters({"qtyOne", "item4ID", "item4Name", "item4Desc", "item4Price",
             "paymentInformationCard", "shippingInformationMethod"})
     public void verifyProductUIElements(String qtyOne, String itemID, String name, String description, String price,

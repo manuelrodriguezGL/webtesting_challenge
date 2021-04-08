@@ -4,5 +4,6 @@
     <class name="productTests.ProductTest"/>
     <class name="shoppingCartTests.ShoppingCartTest"/>
     <class name="shoppingCartTests.CheckoutInformationTest"/>
-    <class name="shoppingCartTests.CheckoutOverviewTest" />
+    <class name="shoppingCartTests.CheckoutOverviewTest"/>
+    <class name="shoppingCartTests.CheckoutFinishedTest"/>
 </classes>

@@ -4,14 +4,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class CheckoutFinishedPage extends BaseStorePage {
 
     private static final String URL = "/checkout-complete.html";
 
     @FindBy(className = "complete-header")
     private WebElement pageHeader;
+
+    @FindBy(className = "complete-text")
+    private WebElement completeOrderText;
+
+    @FindBy(id = "back-to-products")
+    private WebElement backHomeButton;
 
     public CheckoutFinishedPage(WebDriver driver, String baseUrl) {
         super(driver, baseUrl);
@@ -25,12 +29,25 @@ public class CheckoutFinishedPage extends BaseStorePage {
 
     @Override
     protected void isLoaded() throws Error {
-        if(!isPageLoaded())
+        if (!isPageLoaded())
             throw new Error("Checkout Finished page was not loaded!");
     }
 
     @Override
     public boolean isPageLoaded() {
         return isElementVisible(pageHeader);
+    }
+
+    public String getPageHeaderText() {
+        return pageHeader.getText();
+    }
+
+    public String getOrderCompleteText() {
+        return completeOrderText.getText();
+    }
+
+    public ProductsInventoryPage clickBackHomeButton() {
+        waitByWebElement(backHomeButton).click();
+        return new ProductsInventoryPage(driver, BASE_URL);
     }
 }

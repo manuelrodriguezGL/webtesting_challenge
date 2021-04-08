@@ -10,6 +10,7 @@
         <!ENTITY shoppingCartTests SYSTEM "testGroups/ShoppingCartTests.xml">
         <!ENTITY checkoutInformationTests SYSTEM "testGroups/CheckoutInformationTests.xml">
         <!ENTITY checkoutOverviewTests SYSTEM "testGroups/CheckoutOverviewTests.xml">
+        <!ENTITY checkoutFinishedTests SYSTEM "testGroups/CheckoutFinishedTests.xml">
         ]>
 
 <!--NOTE: There's a known TestNG bug. Add this param to the JVM [-Dtestng.dtd.http=true]-->
@@ -22,13 +23,14 @@
             <run>
                 &excludedTests;
                 &debugTests;
-<!--                &debugTests;-->
-<!--                &loginTests;-->
-<!--                &inventoryTests;-->
-<!--                &productTests;-->
-<!--                &shoppingCartTests;-->
-<!--                &checkoutInformationTests;-->
-<!--                &checkoutOverviewTests;-->
+                <!--                &debugTests;-->
+                <!--                &loginTests;-->
+                <!--                &inventoryTests;-->
+                <!--                &productTests;-->
+                <!--                &shoppingCartTests;-->
+                <!--                &checkoutInformationTests;-->
+                <!--                &checkoutOverviewTests;-->
+                <!--                &checkoutFinishedTests;-->
             </run>
         </groups>
         &classes;

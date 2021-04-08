@@ -83,3 +83,9 @@
 <parameter name="paymentInformationCard" value="SauceCard #31337"/>
 <parameter name="shippingInformationLabel" value="Shipping Information:"/>
 <parameter name="shippingInformationMethod" value="FREE PONY EXPRESS DELIVERY!"/>
+
+        <!--Checkout Finished-->
+<parameter name="pageHeaderText" value="THANK YOU FOR YOUR ORDER"/>
+<parameter name="orderCompleteText"
+           value="Your order has been dispatched, and will arrive just as fast as the pony can get there!"/>
+<parameter name="backHomeButtonText" value="Back Home"/>
