@@ -4,6 +4,7 @@ import Constants.GlobalTestConstants;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import pages.CheckoutInformationPage;
 import pages.CheckoutOverviewPage;
 import pages.ProductsInventoryPage;
@@ -32,18 +33,41 @@ public class CheckoutOverviewTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout overview page",
-            groups = {"checkoutOverview"})
-    @Parameters({"qtyOne", "item4URL", "item4Name", "item4Desc", "item4Price"})
-    public void verifyUIElements(String qtyOne, String itemURL, String name, String description, String price) {
-        String errorMessages = "";
-        try {
-            errorMessages = checkoutOverviewPage.verifyUIElements(Integer.valueOf(qtyOne), itemURL, name, description, price);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            groups = {"debug"})
+    @Parameters({"cartQuantityLabel", "cartDescriptionLabel", "cancelButtonText", "finishButtonText",
+            "paymentInformationLabel", "shippingInformationLabel"})
+    public void verifyCheckoutOverviewUIElements(String cartQuantityLabel, String cartDescriptionLabel,
+                                                 String cancelButtonText, String finishButtonText,
+                                                 String paymentInformationLabel, String shippingInformationLabel) {
+        SoftAssert softAssert = new SoftAssert();
 
-        assertTrue(errorMessages.isEmpty(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "Checkout Overview page has wrong elements on UI or is not loaded!");
+        softAssert.assertEquals(checkoutOverviewPage.getQuantityLabelText(), cartQuantityLabel);
+        softAssert.assertEquals(checkoutOverviewPage.getDescriptionLabelText(), cartDescriptionLabel);
+        softAssert.assertEquals(checkoutOverviewPage.getCancelButtonText(), cancelButtonText);
+        softAssert.assertEquals(checkoutOverviewPage.getFinishButtonText(), finishButtonText);
+        softAssert.assertEquals(checkoutOverviewPage.getPaymentInformationLabelText(), paymentInformationLabel);
+        softAssert.assertEquals(checkoutOverviewPage.getShippingMethodLabelText(), shippingInformationLabel);
+
+        softAssert.assertAll("Checkout Overview page has wrong elements on UI, or is not loaded!");
+    }
+
+    @Test(description = "Verify the UI elements for products added to checkout overview page",
+            groups = {"debug"})
+    @Parameters({"qtyOne", "item4ID", "item4Name", "item4Desc", "item4Price",
+            "paymentInformationCard", "shippingInformationMethod"})
+    public void verifyProductUIElements(String qtyOne, String itemID, String name, String description, String price,
+                                        String paymentInformationCard, String shippingInformationMethod) {
+
+        SoftAssert softAssert = new SoftAssert();
+
+        softAssert.assertEquals(checkoutOverviewPage.getProductName(itemID), name);
+        softAssert.assertEquals(checkoutOverviewPage.getProductDescription(itemID), description);
+        softAssert.assertEquals(checkoutOverviewPage.getProductPrice(itemID), price);
+        softAssert.assertEquals(checkoutOverviewPage.getProductQuantity(itemID), qtyOne);
+        softAssert.assertEquals(checkoutOverviewPage.getPaymentInformationText(), paymentInformationCard);
+        softAssert.assertEquals(checkoutOverviewPage.getShippingMethodText(), shippingInformationMethod);
+
+        softAssert.assertAll("Checkout Overview page has wrong elements on UI for product, or is not loaded!");
     }
 
     @Test(description = "Verify the subtotal without tax value for the items on cart",

@@ -1,9 +1,10 @@
 package pages;
 
-import constants.CheckoutOverviewPageConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
     @FindBy(className = "cart_item")
     private List<WebElement> cartItemsList;
 
-    @FindBy(className = "summary_quantity")
+    @FindBy(className = "cart_quantity")
     private List<WebElement> cartQuantityList;
 
     @FindBy(css = ".cart_item_label>a")
@@ -68,6 +69,29 @@ public class CheckoutOverviewPage extends BaseStorePage {
         super(driver, baseUrl);
     }
 
+    private By getInventoryItemLinkLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id));
+    }
+
+    private By getInventoryItemNameLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+    }
+
+    private By getInventoryItemDescriptionLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+    }
+
+    private By getInventoryItemPriceLocator(String id) {
+        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) +
+                "~.item_pricebar>.inventory_item_price");
+    }
+
+    private By getInventoryItemQuantityLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
+        return By.xpath(CommonUtils.formatLocator(
+                "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"cart_item_label\"]" +
+                        "/preceding-sibling::div[@class=\"cart_quantity\"]", id));
+    }
+
     @Override
     protected void load() {
         System.out.println("Attempting to load Checkout Overview page...");
@@ -85,44 +109,54 @@ public class CheckoutOverviewPage extends BaseStorePage {
         return isElementVisible(pageHeader);
     }
 
-    public String verifyUIElements(int qty, String itemUrl, String name, String description, String price) {
-        String errorMessages = "";
-
-        if (!isCartEmpty()) {
-            try {
-                // Use Softasserts as we talked in our meeting
-                errorMessages += assesElementTextEquals(cartQuantityLabel, CheckoutOverviewPageConstants.CART_QUANTITY_LABEL);
-                errorMessages += assesElementTextEquals(cartDescLabel, CheckoutOverviewPageConstants.CART_DESC_LABEL);
-                errorMessages += assesElementTextEquals(finishButton, CheckoutOverviewPageConstants.FINISH_BUTTON_TXT);
-                errorMessages += assesElementTextEquals(cancelButton, CheckoutOverviewPageConstants.CANCEL_BUTTON_TXT);
-
-                errorMessages += assesElementTextEquals(cartQuantityList.get(0), String.valueOf(qty));
-                errorMessages += assesElementTextContains(cartItemLinkList.get(0).getAttribute("href"), itemUrl);
-                errorMessages += assesElementTextEquals(cartItemNameList.get(0), name);
-                errorMessages += assesElementTextEquals(cartItemDescList.get(0), description);
-                errorMessages += assesElementTextEquals(cartItemPricesList.get(0), price);
-
-                // Payment info
-                errorMessages += assesElementTextEquals(summaryInfoLabelList.get(0),
-                        CheckoutOverviewPageConstants.PAYMENT_INFORMATION_LABEL);
-                errorMessages += assesElementTextEquals(summaryValueLabelList.get(0),
-                        CheckoutOverviewPageConstants.PAYMENT_INFORMATION);
-
-                // Shipment info
-                errorMessages += assesElementTextEquals(summaryInfoLabelList.get(1),
-                        CheckoutOverviewPageConstants.SHIPPING_INFORMATION_LABEL);
-                errorMessages += assesElementTextEquals(summaryValueLabelList.get(1),
-                        CheckoutOverviewPageConstants.SHIPPING_INFORMATION);
-
-            } catch (Exception e) {
-                errorMessages = e.getStackTrace().toString();
-            }
-        } else {
-            errorMessages = "Cart is empty!";
-        }
-
-        return errorMessages;
+    public String getProductName(String id) {
+        return waitByLocator((getInventoryItemNameLocator(id))).getText();
     }
+
+    public String getProductDescription(String id) {
+        return waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
+    }
+
+    public String getProductPrice(String id) {
+        return waitByLocator((getInventoryItemPriceLocator(id))).getText();
+    }
+
+    public String getProductQuantity(String id) {
+        return waitByLocator(getInventoryItemQuantityLocator(id)).getText();
+    }
+
+    public String getPaymentInformationLabelText() {
+        return summaryInfoLabelList.get(0).getText();
+    }
+
+    public String getPaymentInformationText() {
+        return summaryValueLabelList.get(0).getText();
+    }
+
+    public String getShippingMethodLabelText() {
+        return summaryInfoLabelList.get(1).getText();
+    }
+
+    public String getShippingMethodText() {
+        return summaryValueLabelList.get(1).getText();
+    }
+
+    public String getQuantityLabelText() {
+        return cartQuantityLabel.getText();
+    }
+
+    public String getDescriptionLabelText() {
+        return cartDescLabel.getText();
+    }
+
+    public String getCancelButtonText() {
+        return cancelButton.getText();
+    }
+
+    public String getFinishButtonText() {
+        return finishButton.getText();
+    }
+
 
     public boolean isCartEmpty() {
         try {

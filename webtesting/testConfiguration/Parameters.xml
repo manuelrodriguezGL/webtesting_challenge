@@ -66,10 +66,20 @@
 <parameter name="cancelButtonText" value="CANCEL"/>
 <parameter name="continueButtonText" value="Continue"/>
 
-<parameter name="firstNameError" value="Error: First Name is required" />
-<parameter name="lastNameError" value="Error: Last Name is required" />
-<parameter name="zipCodeError" value="Error: Postal Code is required" />
+<parameter name="firstNameError" value="Error: First Name is required"/>
+<parameter name="lastNameError" value="Error: Last Name is required"/>
+<parameter name="zipCodeError" value="Error: Postal Code is required"/>
 
 <parameter name="customerFirstName" value="John"/>
 <parameter name="customerLastName" value="Doe"/>
 <parameter name="customerZipCode" value="33122"/>
+
+        <!--Shopping cart overview-->
+<parameter name="cartQuantityLabel" value="QTY"/>
+<parameter name="cartDescriptionLabel" value="DESCRIPTION"/>
+<parameter name="cancelButtonText" value="CANCEL"/>
+<parameter name="finishButtonText" value="FINISH"/>
+<parameter name="paymentInformationLabel" value="Payment Information:"/>
+<parameter name="paymentInformationCard" value="SauceCard #31337"/>
+<parameter name="shippingInformationLabel" value="Shipping Information:"/>
+<parameter name="shippingInformationMethod" value="FREE PONY EXPRESS DELIVERY!"/>
