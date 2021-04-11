@@ -1,6 +1,7 @@
 package shoppingCartTests;
 
 import Constants.GlobalTestConstants;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -9,8 +10,6 @@ import pages.CheckoutInformationPage;
 import pages.CheckoutOverviewPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckoutOverviewTest extends TestCaseBase {
 
@@ -73,6 +72,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     @Test(description = "Verify the subtotal without tax value for the items on cart",
             groups = {"checkoutOverview"})
     public void verifyCartSubtotal() {
+
         boolean result = false;
         try {
             result = checkoutOverviewPage.itemSubtotalMatch();
@@ -80,7 +80,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             e.printStackTrace();
         }
 
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "The following values don't match: Item total (subtotal without tax)!");
     }
 
@@ -94,7 +94,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             e.printStackTrace();
         }
 
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "The following values don't match: Total and Item total plus Tax!");
     }
 
@@ -122,7 +122,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             e.printStackTrace();
         }
 
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "The following values don't match: Total before and after removing one element");
     }
 
@@ -136,7 +136,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             e.printStackTrace();
         }
 
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "The Inventory page could not be loaded");
     }
 
@@ -150,7 +150,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             e.printStackTrace();
         }
 
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "The Finish page could not be loaded");
     }
 

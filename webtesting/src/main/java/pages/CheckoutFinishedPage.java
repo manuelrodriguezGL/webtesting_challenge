@@ -46,6 +46,11 @@ public class CheckoutFinishedPage extends BaseStorePage {
         return completeOrderText.getText();
     }
 
+    public String getBackHomeButtonText() {
+        return backHomeButton.getText();
+    }
+
+
     public ProductsInventoryPage clickBackHomeButton() {
         waitByWebElement(backHomeButton).click();
         return new ProductsInventoryPage(driver, BASE_URL);

@@ -10,7 +10,7 @@ public class BaseStorePage extends BasePage {
     @FindBy(className = "header_label")
     private WebElement headerLabel;
 
-    @FindBy(css = ".shopping_cart_container>a")
+    @FindBy(className = "shopping_cart_link")
     private WebElement shoppingCartLink;
 
     @FindBy(css = ".bm-item-list>a")
@@ -22,7 +22,7 @@ public class BaseStorePage extends BasePage {
     @FindBy(css = "[data-icon=\"shopping-cart\"]")
     private WebElement shoppingCartIcon;
 
-    @FindBy(css = ".fa-layers-counter.shopping_cart_badge")
+    @FindBy(className = "shopping_cart_badge")
     private WebElement cartItemsIcon;
 
     public BaseStorePage(WebDriver driver, String baseUrl) {
