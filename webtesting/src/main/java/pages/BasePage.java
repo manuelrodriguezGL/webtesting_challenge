@@ -1,7 +1,6 @@
 package pages;
 
 import constants.GlobalPageConstants;
-import org.apache.xmlbeans.impl.common.GlobalLock;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -18,13 +17,13 @@ import java.util.function.Function;
 
 public abstract class BasePage extends LoadableComponent {
 
-    protected String BASE_URL = "";
+    protected String base_url = "";
 
     protected WebDriver driver;
 
     public BasePage(WebDriver driver, String baseUrl) {
         this.driver = driver;
-        BASE_URL = baseUrl;
+        base_url = baseUrl;
         PageFactory.initElements(driver, this);
     }
 

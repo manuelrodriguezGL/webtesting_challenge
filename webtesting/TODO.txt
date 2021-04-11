@@ -6,7 +6,7 @@ DONE 4. BASE_URL = "https://www.saucedemo.com": it could be in the TestNG xmls f
 5. We can take methods in the BasePage like: assesElementTextEquals, assesElementTextContains, textContains,
 etc to another class in charged of manage this utilities.
 
-6. Use of softasserts as we talked in our meeting.
+DONE 6. Use of softasserts as we talked in our meeting.
 
 7. There are some methods with comments and other methods without comments, add comments to missing methods.
 8. Add content to the readme file with instructions about how to run the project.

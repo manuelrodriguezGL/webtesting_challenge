@@ -24,7 +24,7 @@ public class CheckoutFinishedPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Checkout Finished page...");
-        driver.get(BASE_URL + URL);
+        driver.get(base_url + URL);
     }
 
     @Override
@@ -53,6 +53,6 @@ public class CheckoutFinishedPage extends BaseStorePage {
 
     public ProductsInventoryPage clickBackHomeButton() {
         waitByWebElement(backHomeButton).click();
-        return new ProductsInventoryPage(driver, BASE_URL);
+        return new ProductsInventoryPage(driver, base_url);
     }
 }

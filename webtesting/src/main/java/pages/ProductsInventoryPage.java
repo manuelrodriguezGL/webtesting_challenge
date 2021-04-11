@@ -120,7 +120,7 @@ public class ProductsInventoryPage extends BaseStorePage {
         // This loads can be implemented in the parent class, using "this" in the parent class
         // like "driver.get(BASE_URL + this.URL)", will refer to the
         System.out.println("Attempting to load Inventory page...");
-        driver.get(BASE_URL + URL);
+        driver.get(base_url + URL);
     }
 
     @Override
@@ -318,13 +318,13 @@ public class ProductsInventoryPage extends BaseStorePage {
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
 
         waitByLocator(getInventoryItemLinkLocator(id)).click();
-        return new ProductPage(driver, id, BASE_URL);
+        return new ProductPage(driver, id, base_url);
 
     }
 
     public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
         shoppingCartButton.click();
-        return new ShoppingCartPage(driver, BASE_URL);
+        return new ShoppingCartPage(driver, base_url);
     }
 
     public LoginPage logout() throws NoSuchElementException {
@@ -333,6 +333,6 @@ public class ProductsInventoryPage extends BaseStorePage {
             logoutOption.click();
         else
             throw new NoSuchElementException("Could not load logout option from menu!");
-        return new LoginPage(driver, BASE_URL);
+        return new LoginPage(driver, base_url);
     }
 }

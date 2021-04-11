@@ -95,7 +95,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Checkout Overview page...");
-        driver.get(BASE_URL + URL);
+        driver.get(base_url + URL);
     }
 
     @Override
@@ -268,7 +268,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
     public ProductsInventoryPage cancelCheckout() {
         if (isElementVisible(cancelButton)) {
             cancelButton.click();
-            return new ProductsInventoryPage(driver, BASE_URL);
+            return new ProductsInventoryPage(driver, base_url);
         }
         return null;
     }
@@ -276,7 +276,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
     public CheckoutFinishedPage finishCheckout() {
         if (isElementVisible(finishButton)) {
             finishButton.click();
-            return new CheckoutFinishedPage(driver, BASE_URL);
+            return new CheckoutFinishedPage(driver, base_url);
         }
         return null;
     }

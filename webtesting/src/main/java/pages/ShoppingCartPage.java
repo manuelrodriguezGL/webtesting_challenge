@@ -1,6 +1,5 @@
 package pages;
 
-import constants.ShoppingCartPageConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -78,7 +77,7 @@ public class ShoppingCartPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Shopping Cart page...");
-        driver.get(BASE_URL + URL);
+        driver.get(base_url + URL);
     }
 
     @Override
@@ -153,7 +152,7 @@ public class ShoppingCartPage extends BaseStorePage {
     public ProductsInventoryPage clickContinueShoppingButton() {
         if (isElementVisible(continueShoppingButton)) {
             continueShoppingButton.click();
-            return new ProductsInventoryPage(driver, BASE_URL);
+            return new ProductsInventoryPage(driver, base_url);
         }
         return null;
     }
@@ -161,7 +160,7 @@ public class ShoppingCartPage extends BaseStorePage {
     public CheckoutInformationPage clickCheckoutButton() {
         if (isElementVisible(checkoutButton)) {
             checkoutButton.click();
-            return new CheckoutInformationPage(driver, BASE_URL);
+            return new CheckoutInformationPage(driver, base_url);
         }
         return null;
     }

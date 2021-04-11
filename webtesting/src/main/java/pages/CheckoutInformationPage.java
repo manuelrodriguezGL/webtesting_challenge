@@ -39,7 +39,7 @@ public class CheckoutInformationPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Checkout Information page...");
-        driver.get(BASE_URL + URL);
+        driver.get(base_url + URL);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class CheckoutInformationPage extends BaseStorePage {
 
         if (isElementVisible(cancelButton)) {
             cancelButton.click();
-            return new ShoppingCartPage(driver, BASE_URL);
+            return new ShoppingCartPage(driver, base_url);
         }
         return null;
     }
@@ -94,7 +94,7 @@ public class CheckoutInformationPage extends BaseStorePage {
 
         if (isElementVisible(continueButton)) {
             continueButton.click();
-            return new CheckoutOverviewPage(driver, BASE_URL);
+            return new CheckoutOverviewPage(driver, base_url);
         }
         return null;
     }

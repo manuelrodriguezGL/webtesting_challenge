@@ -55,7 +55,7 @@ public class CheckoutFinishedTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that cart icon has no numbers after checkout is finished",
-            groups = {"debug"})
+            groups = {"checkoutFinished"})
     public void verifyCartIconIsCleared() {
         try {
             Assert.assertTrue(checkoutFinishedPage.getCartItems() == 0,
@@ -68,7 +68,7 @@ public class CheckoutFinishedTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that clicking on BACK HOME button takes user to inventory page",
-            groups = {"debug"})
+            groups = {"checkoutFinished"})
     public void verifyBackHomeButton() {
         try {
             Assert.assertNotNull(checkoutFinishedPage.clickBackHomeButton(), "Could not load Inventory Page!");
