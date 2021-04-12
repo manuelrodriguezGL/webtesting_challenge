@@ -116,9 +116,6 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     @Override
     protected void load() {
-        //TODO
-        // This loads can be implemented in the parent class, using "this" in the parent class
-        // like "driver.get(BASE_URL + this.URL)", will refer to the
         System.out.println("Attempting to load Inventory page...");
         driver.get(base_url + URL);
     }
