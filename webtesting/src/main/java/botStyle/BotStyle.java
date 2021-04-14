@@ -16,17 +16,17 @@ public class BotStyle {
     }
 
     public void type(WebElement element, String text) throws NoSuchElementException {
-        if (element.isDisplayed())
-            element.click();
-        else throw new NoSuchElementException("Element could not be clicked!");
+        click(element);
         element.clear();
         element.sendKeys(text);
     }
 
     public void click(WebElement element) throws NoSuchElementException {
-        if (element.isDisplayed())
-            element.click();
-        else throw new NoSuchElementException("Element could not be clicked!");
+        waitByWebElement(element).click();
+    }
+
+    public void click(By locator) throws NoSuchElementException {
+        waitByLocator(locator).click();
     }
 
     //// Waits ////

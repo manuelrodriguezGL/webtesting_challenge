@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class BaseStorePage extends BasePage {
+public abstract class BaseStorePage extends BasePage {
 
     @FindBy(className = "header_label")
     private WebElement headerLabel;
@@ -30,12 +30,13 @@ public class BaseStorePage extends BasePage {
     }
 
     @Override
-    protected void load() {
-    }
+    protected abstract void load();
 
     @Override
-    protected void isLoaded() {
-    }
+    protected abstract void isLoaded();
+
+    @Override
+    protected abstract boolean isPageLoaded();
 
     public int getCartItems() {
         try {

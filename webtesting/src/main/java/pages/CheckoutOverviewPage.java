@@ -110,19 +110,19 @@ public class CheckoutOverviewPage extends BaseStorePage {
     }
 
     public String getProductName(String id) {
-        return waitByLocator((getInventoryItemNameLocator(id))).getText();
+        return botStyle.waitByLocator((getInventoryItemNameLocator(id))).getText();
     }
 
     public String getProductDescription(String id) {
-        return waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
+        return botStyle.waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
     }
 
     public String getProductPrice(String id) {
-        return waitByLocator((getInventoryItemPriceLocator(id))).getText();
+        return botStyle.waitByLocator((getInventoryItemPriceLocator(id))).getText();
     }
 
     public String getProductQuantity(String id) {
-        return waitByLocator(getInventoryItemQuantityLocator(id)).getText();
+        return botStyle.waitByLocator(getInventoryItemQuantityLocator(id)).getText();
     }
 
     public String getPaymentInformationLabelText() {

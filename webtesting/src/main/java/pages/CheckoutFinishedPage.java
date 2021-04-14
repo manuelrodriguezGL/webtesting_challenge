@@ -52,7 +52,7 @@ public class CheckoutFinishedPage extends BaseStorePage {
 
 
     public ProductsInventoryPage clickBackHomeButton() {
-        waitByWebElement(backHomeButton).click();
+        botStyle.click(backHomeButton);
         return new ProductsInventoryPage(driver, base_url);
     }
 }

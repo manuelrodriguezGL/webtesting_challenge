@@ -92,19 +92,19 @@ public class ShoppingCartPage extends BaseStorePage {
     }
 
     public String getProductName(String id) {
-        return waitByLocator((getProductNameLocator(id))).getText();
+        return botStyle.waitByLocator((getProductNameLocator(id))).getText();
     }
 
     public String getProductDescription(String id) {
-        return waitByLocator((getProductDescriptionLocator(id))).getText();
+        return botStyle.waitByLocator((getProductDescriptionLocator(id))).getText();
     }
 
     public String getProductPrice(String id) {
-        return waitByLocator(getProductPriceLocator(id)).getText();
+        return botStyle.waitByLocator(getProductPriceLocator(id)).getText();
     }
 
     public String getProductRemoveButtonText(String id) {
-        return waitByLocator(getProductRemoveButton(id)).getText();
+        return botStyle.waitByLocator(getProductRemoveButton(id)).getText();
     }
 
 
@@ -151,7 +151,7 @@ public class ShoppingCartPage extends BaseStorePage {
 
     public ProductsInventoryPage clickContinueShoppingButton() {
         if (isElementVisible(continueShoppingButton)) {
-            continueShoppingButton.click();
+            botStyle.click(continueShoppingButton);
             return new ProductsInventoryPage(driver, base_url);
         }
         return null;
@@ -159,7 +159,7 @@ public class ShoppingCartPage extends BaseStorePage {
 
     public CheckoutInformationPage clickCheckoutButton() {
         if (isElementVisible(checkoutButton)) {
-            checkoutButton.click();
+            botStyle.click(checkoutButton);
             return new CheckoutInformationPage(driver, base_url);
         }
         return null;

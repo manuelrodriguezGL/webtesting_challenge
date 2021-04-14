@@ -132,24 +132,24 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     public String getProductImageUrl(String id) {
-        return waitByLocator(getInventoryItemImageLocator(id)).getAttribute("src");
+        return botStyle.waitByLocator(getInventoryItemImageLocator(id)).getAttribute("src");
 
     }
 
     public String getProductName(String id) {
-        return waitByLocator((getInventoryItemNameLocator(id))).getText();
+        return botStyle.waitByLocator((getInventoryItemNameLocator(id))).getText();
     }
 
     public String getProductDescription(String id) {
-        return waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
+        return botStyle.waitByLocator((getInventoryItemDescriptionLocator(id))).getText();
     }
 
     public String getProductPrice(String id) {
-        return waitByLocator(getInventoryItemPriceLocator(id)).getText();
+        return botStyle.waitByLocator(getInventoryItemPriceLocator(id)).getText();
     }
 
     public String getProductAddToCartButtonText(String id) {
-        return waitByLocator(getInventoryItemAddToCartLocator(id)).getText();
+        return botStyle.waitByLocator(getInventoryItemAddToCartLocator(id)).getText();
     }
 
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
@@ -233,7 +233,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public void clickProductSortSelect() throws NoSuchElementException {
         if (isElementVisible(productSortSelect)) {
-            productSortSelect.click();
+            botStyle.click(productSortSelect);
         } else {
             throw new NoSuchElementException("Could not find sort field!");
         }
@@ -267,8 +267,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
 
     public void addToCartById(String id) {
-        //TODO Botstyle
-        waitByLocator(getInventoryItemAddToCartLocator(id)).click();
+        botStyle.click(getInventoryItemAddToCartLocator(id));
     }
 
     public boolean removeFromCartByQuantity(int quantity) throws NoSuchElementException {
@@ -313,19 +312,18 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
-
-        waitByLocator(getInventoryItemLinkLocator(id)).click();
+        botStyle.waitByLocator(getInventoryItemLinkLocator(id)).click();
         return new ProductPage(driver, id, base_url);
 
     }
 
     public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
-        shoppingCartButton.click();
+        botStyle.click(shoppingCartButton);
         return new ShoppingCartPage(driver, base_url);
     }
 
     public LoginPage logout() throws NoSuchElementException {
-        burgerMenu.click();
+        botStyle.click(burgerMenu);
         if (isElementVisible(logoutOption))
             logoutOption.click();
         else
