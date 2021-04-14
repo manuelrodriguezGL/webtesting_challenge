@@ -61,6 +61,7 @@ public class LoginPage extends BasePage {
     }
 
     private void enterUserName(String user) throws NoSuchElementException {
+        //TODO Use bot style
         if (isElementVisible(userNameText)) {
             //WebElement e = waitElement(userNameText);
             // Use Botstyle test to remove this lines since they are duplicated on several methods:

@@ -257,8 +257,14 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public void addToCartByQuantity(int quantity) throws NoSuchElementException {
         if (checkQuantityInsideInventorSize(quantity, inventoryList)) {
-            for (int index = 0; index < quantity; index++) {
-                botStyle.click(itemAddToCartButtons.get(index));
+            // The list of add to cart buttons changes dynamically its size
+            int limit = 1;
+            for (WebElement element : itemAddToCartButtons) {
+                if (limit > quantity) {
+                    break;
+                }
+                botStyle.click(element);
+                limit++;
             }
         }
     }
@@ -271,8 +277,13 @@ public class ProductsInventoryPage extends BaseStorePage {
     public void removeFromCartByQuantity(int quantity) throws NoSuchElementException {
 
         if (checkQuantityInsideInventorSize(quantity, itemRemoveFromCartButtons)) {
-            for (int index = 0; index < quantity; index++) {
-                botStyle.click(itemRemoveFromCartButtons.get(index));
+            int limit = 1;
+            for (WebElement element : itemRemoveFromCartButtons) {
+                if (limit > quantity) {
+                    break;
+                }
+                botStyle.click(element);
+                limit++;
             }
         }
 

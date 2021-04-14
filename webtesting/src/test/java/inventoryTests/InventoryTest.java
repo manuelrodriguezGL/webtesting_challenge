@@ -58,7 +58,7 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that all products can be added to cart",
-            groups = {"debug"})
+            groups = {"inventory"})
     @Parameters({"totalProducts"})
     public void verifyAddAllToCart(String quantity) {
 
@@ -89,7 +89,7 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that all products can be removed from cart",
-            groups = {"debug"})
+            groups = {"inventory"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
         int expectedQuantity = parseInt(quantity);

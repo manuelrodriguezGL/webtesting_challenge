@@ -3,6 +3,8 @@ testBase/TestCaseBase.class
 inventoryTests/InventoryTest.class
 shoppingCartTests/CheckoutOverviewTest.class
 productTests/ProductTest.class
+botStyle/BotStyle.class
 loginTests/LoginTest.class
+shoppingCartTests/CheckoutFinishedTest.class
 shoppingCartTests/ShoppingCartTest.class
 shoppingCartTests/CheckoutInformationTest.class
