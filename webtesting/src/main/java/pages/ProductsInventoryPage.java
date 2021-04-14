@@ -114,6 +114,27 @@ public class ProductsInventoryPage extends BaseStorePage {
                         "/button[@class=\"btn btn_primary btn_small btn_inventory\"]", id));
     }
 
+    private ArrayList<Double> getPricesList(List<WebElement> list) {
+        ArrayList<Double> pricesList = new ArrayList<>();
+        for (WebElement e : list) {
+            // Remove the $ character from each price
+            pricesList.add(Double.parseDouble(e.getAttribute("innerText").substring(1)));
+        }
+        return pricesList;
+    }
+
+    private Select getProductSortSelect(WebElement e) {
+        return new Select(e);
+    }
+
+    private boolean checkQuantityInsideInventorySize(int quantity, List<WebElement> inventory)
+            throws IndexOutOfBoundsException {
+        if (quantity < 0 || quantity > inventory.size()) {
+            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products");
+        }
+        return true;
+    }
+
     @Override
     protected void load() {
         System.out.println("Attempting to load Inventory page...");
@@ -218,27 +239,6 @@ public class ProductsInventoryPage extends BaseStorePage {
         return result;
     }
 
-    private ArrayList<Double> getPricesList(List<WebElement> list) {
-        ArrayList<Double> pricesList = new ArrayList<>();
-        for (WebElement e : list) {
-            // Remove the $ character from each price
-            pricesList.add(Double.parseDouble(e.getAttribute("innerText").substring(1)));
-        }
-        return pricesList;
-    }
-
-    private Select getProductSortSelect(WebElement e) {
-        return new Select(e);
-    }
-
-    private boolean checkQuantityInsideInventorSize(int quantity, List<WebElement> inventory)
-            throws IndexOutOfBoundsException {
-        if (quantity < 0 || quantity > inventory.size()) {
-            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products");
-        }
-        return true;
-    }
-
     public void clickProductSortSelect() throws NoSuchElementException {
         if (isElementVisible(productSortSelect)) {
             botStyle.click(productSortSelect);
@@ -256,7 +256,7 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     public void addToCartByQuantity(int quantity) throws NoSuchElementException {
-        if (checkQuantityInsideInventorSize(quantity, inventoryList)) {
+        if (checkQuantityInsideInventorySize(quantity, inventoryList)) {
             // The list of add to cart buttons changes dynamically its size
             int limit = 1;
             for (WebElement element : itemAddToCartButtons) {
@@ -276,7 +276,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public void removeFromCartByQuantity(int quantity) throws NoSuchElementException {
 
-        if (checkQuantityInsideInventorSize(quantity, itemRemoveFromCartButtons)) {
+        if (checkQuantityInsideInventorySize(quantity, itemRemoveFromCartButtons)) {
             int limit = 1;
             for (WebElement element : itemRemoveFromCartButtons) {
                 if (limit > quantity) {
@@ -290,9 +290,10 @@ public class ProductsInventoryPage extends BaseStorePage {
         //return (getCartItemsQuantity() == 0 || getCartItemsQuantity() + quantity == originalQuantity);
     }
 
+    //TODO refactor with new IDs
     public boolean removeFromCartById(String id) {
 
-        //TODO refactor with new IDs
+
         if (itemRemoveFromCartButtons.size() == 0) {
             throw new IndexOutOfBoundsException("There are no products added to cart");
         }
