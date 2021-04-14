@@ -78,13 +78,13 @@ public class CheckoutInformationPage extends BaseStorePage {
 
     //TODO a test to check for closing error message
     public void clickErrorMessageButton() {
-        errorMessageButton.click();
+        botStyle.click(errorMessageButton);
     }
 
     public ShoppingCartPage clickCancel() {
 
         if (isElementVisible(cancelButton)) {
-            cancelButton.click();
+            botStyle.click(cancelButton);
             return new ShoppingCartPage(driver, base_url);
         }
         return null;
@@ -93,7 +93,7 @@ public class CheckoutInformationPage extends BaseStorePage {
     public CheckoutOverviewPage clickContinue() {
 
         if (isElementVisible(continueButton)) {
-            continueButton.click();
+            botStyle.click(continueButton);
             return new CheckoutOverviewPage(driver, base_url);
         }
         return null;

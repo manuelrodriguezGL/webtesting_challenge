@@ -231,6 +231,14 @@ public class ProductsInventoryPage extends BaseStorePage {
         return new Select(e);
     }
 
+    private boolean checkQuantityInsideInventorSize(int quantity, List<WebElement> inventory)
+            throws IndexOutOfBoundsException {
+        if (quantity < 0 || quantity > inventory.size()) {
+            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products");
+        }
+        return true;
+    }
+
     public void clickProductSortSelect() throws NoSuchElementException {
         if (isElementVisible(productSortSelect)) {
             botStyle.click(productSortSelect);
@@ -247,22 +255,12 @@ public class ProductsInventoryPage extends BaseStorePage {
         }
     }
 
-    public boolean addToCartByQuantity(int quantity) throws NoSuchElementException {
-
-        if (quantity > inventoryList.size()) {
-            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products");
-        }
-
-        int i = 1;
-        for (WebElement e : itemAddToCartButtons) {
-            if (i > quantity) {
-                break;
+    public void addToCartByQuantity(int quantity) throws NoSuchElementException {
+        if (checkQuantityInsideInventorSize(quantity, inventoryList)) {
+            for (int index = 0; index < quantity; index++) {
+                botStyle.click(itemAddToCartButtons.get(index));
             }
-            e.click();
-            i++;
         }
-
-        return (quantity == getCartItems());
     }
 
 
@@ -270,23 +268,15 @@ public class ProductsInventoryPage extends BaseStorePage {
         botStyle.click(getInventoryItemAddToCartLocator(id));
     }
 
-    public boolean removeFromCartByQuantity(int quantity) throws NoSuchElementException {
+    public void removeFromCartByQuantity(int quantity) throws NoSuchElementException {
 
-        if (quantity > itemRemoveFromCartButtons.size()) {
-            throw new IndexOutOfBoundsException("Quantity value can't be greater than number of products added to cart");
-        }
-
-        int originalQuantity = getCartItems();
-        int i = 1;
-        for (WebElement e : itemRemoveFromCartButtons) {
-            if (i > quantity) {
-                break;
+        if (checkQuantityInsideInventorSize(quantity, itemRemoveFromCartButtons)) {
+            for (int index = 0; index < quantity; index++) {
+                botStyle.click(itemRemoveFromCartButtons.get(index));
             }
-            e.click();
-            i++;
         }
 
-        return (getCartItems() == 0 || getCartItems() + quantity == originalQuantity);
+        //return (getCartItemsQuantity() == 0 || getCartItemsQuantity() + quantity == originalQuantity);
     }
 
     public boolean removeFromCartById(String id) {
@@ -302,8 +292,8 @@ public class ProductsInventoryPage extends BaseStorePage {
             if (e.getAttribute("href").contains(id)) {
                 itemAddToCartButtons.get(i).click();
                 return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
-                        && (getCartItems() == 0 ||
-                        itemRemoveFromCartButtons.size() == getCartItems()));
+                        && (getCartItemsQuantity() == 0 ||
+                        itemRemoveFromCartButtons.size() == getCartItemsQuantity()));
             }
             i++;
         }

@@ -35,7 +35,7 @@ public class CheckoutFinishedTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout finished page",
-            groups = {"debug"})
+            groups = {"checkoutFinished"})
     @Parameters({"pageHeaderText", "orderCompleteText", "backHomeButtonText"})
     public void verifyCheckoutOverviewUIElements(String pageHeaderText, String orderCompleteText,
                                                  String backHomeButtonText) {
@@ -58,7 +58,7 @@ public class CheckoutFinishedTest extends TestCaseBase {
             groups = {"checkoutFinished"})
     public void verifyCartIconIsCleared() {
         try {
-            Assert.assertTrue(checkoutFinishedPage.getCartItems() == 0,
+            Assert.assertTrue(checkoutFinishedPage.getCartItemsQuantity() == 0,
                     "Cart icon was not updated after checkout finished!");
         } catch (NoSuchElementException e) {
             Assert.fail("Cart icon element not found", e);

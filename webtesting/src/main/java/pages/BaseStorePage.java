@@ -38,7 +38,7 @@ public abstract class BaseStorePage extends BasePage {
     @Override
     protected abstract boolean isPageLoaded();
 
-    public int getCartItems() {
+    public int getCartItemsQuantity() {
         try {
             return (Integer.parseInt(cartItemsIcon.getAttribute("innerText")));
         } catch (NoSuchElementException e) {

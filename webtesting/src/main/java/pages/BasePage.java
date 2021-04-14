@@ -20,7 +20,7 @@ public abstract class BasePage extends LoadableComponent {
         this.driver = driver;
         base_url = baseUrl;
         PageFactory.initElements(driver, this);
-        botStyle = new BotStyle(driver);
+        this.botStyle = new BotStyle(driver);
     }
 
     public String getPageTitle() {

@@ -267,7 +267,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
 
     public ProductsInventoryPage cancelCheckout() {
         if (isElementVisible(cancelButton)) {
-            cancelButton.click();
+            botStyle.click(cancelButton);
             return new ProductsInventoryPage(driver, base_url);
         }
         return null;
@@ -275,7 +275,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
 
     public CheckoutFinishedPage finishCheckout() {
         if (isElementVisible(finishButton)) {
-            finishButton.click();
+            botStyle.click(finishButton);
             return new CheckoutFinishedPage(driver, base_url);
         }
         return null;

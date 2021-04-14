@@ -89,7 +89,7 @@ public class LoginPage extends BasePage {
 
         enterUserName(user);
         enterPwd(pwd);
-        loginButton.click();
+        super.botStyle.click(loginButton);
 
         return new ProductsInventoryPage(driver, base_url);
     }
@@ -98,7 +98,7 @@ public class LoginPage extends BasePage {
         try {
             enterUserName("");
             enterPwd(pwd);
-            loginButton.click();
+            botStyle.click(loginButton);
             return errorMessage.getText().equals(LoginPageConstants.LOGIN_USER_ERROR_MESSAGE);
         } catch (Exception e) {
             throw e;
@@ -109,7 +109,7 @@ public class LoginPage extends BasePage {
         try {
             enterUserName(user);
             enterPwd("");
-            loginButton.click();
+            botStyle.click(loginButton);
             return errorMessage.getText().equals(LoginPageConstants.LOGIN_PWD_ERROR_MESSAGE);
         } catch (Exception e) {
             throw e;
@@ -120,7 +120,7 @@ public class LoginPage extends BasePage {
         try {
             enterUserName(user);
             enterPwd(pwd);
-            loginButton.click();
+            botStyle.click(loginButton);
             return errorMessage.getText().equals(LoginPageConstants.LOGIN_ERROR_MESSAGE);
         } catch (Exception e) {
             throw e;

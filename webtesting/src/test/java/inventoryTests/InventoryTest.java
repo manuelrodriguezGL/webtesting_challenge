@@ -3,6 +3,7 @@ package inventoryTests;
 import Constants.GlobalTestConstants;
 import dataProviders.InventoryDataProvider;
 import dataProviders.ProductsDataProvider;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -11,7 +12,6 @@ import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
 
 import static java.lang.Integer.parseInt;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InventoryTest extends TestCaseBase {
 
@@ -53,23 +53,22 @@ public class InventoryTest extends TestCaseBase {
             e.printStackTrace();
         }
 
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not change product sort!: " + sortOrder);
     }
 
     @Test(description = "Verify that all products can be added to cart",
-            groups = {"inventory"})
+            groups = {"debug"})
     @Parameters({"totalProducts"})
     public void verifyAddAllToCart(String quantity) {
-        boolean result = false;
-        //TODO refactor
-        try {
-            result = inventoryPage.addToCartByQuantity(parseInt(quantity));
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+
+        int expectedQuantity = parseInt(quantity);
+
+        inventoryPage.addToCartByQuantity(expectedQuantity);
+
+        int quantityAdded = inventoryPage.getCartItemsQuantity();
+
+        Assert.assertEquals(quantityAdded, expectedQuantity, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not add all %s items to cart!", quantity));
     }
 
@@ -85,26 +84,30 @@ public class InventoryTest extends TestCaseBase {
             result = false;
             e.printStackTrace();
         }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not add product with ID %s to cart!", productId));
     }
 
     @Test(description = "Verify that all products can be removed from cart",
-            groups = {"inventory"})
+            groups = {"debug"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
-        //TODO refactor
-        boolean result = false;
+        int expectedQuantity = parseInt(quantity);
 
-        try {
-            result = (inventoryPage.addToCartByQuantity(parseInt(quantity)) &&
-                    inventoryPage.removeFromCartByQuantity(parseInt(quantity)));
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not remove all %s items from cart!", quantity));
+        // Add products to cart
+        inventoryPage.addToCartByQuantity(expectedQuantity);
+        // Get current quantity on cart
+        int originalQuantity = inventoryPage.getCartItemsQuantity();
+
+        // Remove products from cart
+        inventoryPage.removeFromCartByQuantity(expectedQuantity);
+        // Get remaining quantity on cart
+        int quantityRemoved = inventoryPage.getCartItemsQuantity();
+
+        // If the remaining quantity + removed items = original quantity, then the test pass
+        Assert.assertEquals(quantityRemoved + originalQuantity, expectedQuantity,
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        String.format("Could not remove all %s items from cart!", quantity));
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
@@ -120,7 +123,7 @@ public class InventoryTest extends TestCaseBase {
             result = false;
             e.printStackTrace();
         }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not remove product with ID %s from cart!", productId));
     }
 }
