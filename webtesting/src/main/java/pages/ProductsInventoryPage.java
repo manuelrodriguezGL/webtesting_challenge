@@ -183,6 +183,23 @@ public class ProductsInventoryPage extends BaseStorePage {
         return botStyle.waitByLocator(getInventoryItemRemoveFromCartLocator(productName)).getText();
     }
 
+    public List<String> getFirstAndLastItemByName() {
+        itemNames.sort(Comparator.comparing(item -> item.getAttribute("innerText")));
+        List<String> firstAndLastItems = new ArrayList<>();
+        firstAndLastItems.add(itemNames.get(0).getAttribute("innerText"));
+        firstAndLastItems.add(itemNames.get(itemNames.size() - 1).getAttribute("innerText"));
+        return firstAndLastItems;
+    }
+
+    public List<String> getFirstAndLastItemByPrice() {
+        ArrayList<Double> pricesList = getPricesList(itemPrices);
+        pricesList.sort(Comparator.naturalOrder());
+        List<String> firstAndLastItems = new ArrayList<>();
+        firstAndLastItems.add("$" + pricesList.get(0).toString());
+        firstAndLastItems.add("$" + pricesList.get(pricesList.size() - 1).toString());
+        return firstAndLastItems;
+    }
+
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
         /*
             1. Change the sort
@@ -300,28 +317,8 @@ public class ProductsInventoryPage extends BaseStorePage {
         //return (getCartItemsQuantity() == 0 || getCartItemsQuantity() + quantity == originalQuantity);
     }
 
-    //TODO refactor with new IDs
     public void removeFromCartById(String productName) {
-
         botStyle.click(getInventoryItemRemoveFromCartLocator(productName));
-
-//        if (itemRemoveFromCartButtons.size() == 0) {
-//            throw new IndexOutOfBoundsException("There are no products added to cart");
-//        }
-//
-//        // TODO Naming conventions en los contadores
-//        int i = 0;
-//        for (WebElement e : itemURLs) {
-//            if (e.getAttribute("href").contains(id)) {
-//                itemAddToCartButtons.get(i).click();
-//                return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
-//                        && (getCartItemsQuantity() == 0 ||
-//                        itemRemoveFromCartButtons.size() == getCartItemsQuantity()));
-//            }
-//            i++;
-//        }
-//
-//        return false;
     }
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
@@ -337,10 +334,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public LoginPage logout() throws NoSuchElementException {
         botStyle.click(burgerMenu);
-        if (isElementVisible(logoutOption))
-            logoutOption.click();
-        else
-            throw new NoSuchElementException("Could not load logout option from menu!");
+        botStyle.click(logoutOption);
         return new LoginPage(driver, base_url);
     }
 }
