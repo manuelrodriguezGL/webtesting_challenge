@@ -24,4 +24,10 @@ public class InventoryDataProvider {
         return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
                 InventoryPageConstants.ID_EXCEL_SHEET);
     }
+
+    @DataProvider(name = "Names")
+    public static Object[][] inventoryNames() throws  IOException {
+        return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
+                InventoryPageConstants.NAMES_EXCEL_SHEET);
+    }
 }

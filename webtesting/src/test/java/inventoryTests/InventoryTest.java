@@ -37,7 +37,8 @@ public class InventoryTest extends TestCaseBase {
                 "Product description not present or value is not the same, for ID: " + id);
         softAssert.assertEquals(inventoryPage.getProductPrice(id), price,
                 "Product price not present or value is not the same, for ID: " + id);
-        softAssert.assertAll("Product information does not match the values on file for ID: " + id);
+        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Product information does not match the values on file for ID: " + id);
 
     }
 
@@ -111,19 +112,22 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
-            groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
-    public void verifyRemoveIndividuallyFromCart(String productId) {
-        //TODO refactor
-        boolean result = false;
+            groups = {"debug"}, dataProvider = "Names", dataProviderClass = InventoryDataProvider.class)
+    public void verifyRemoveIndividuallyFromCart(String productId, String productName) {
 
-        try {
-            //   result = (inventoryPage.addToCartById(productId) &&
-            //         inventoryPage.removeFromCartById(productId));
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not remove product with ID %s from cart!", productId));
+        SoftAssert softAssert = new SoftAssert();
+
+        inventoryPage.addToCartById(productId);
+        int originalQuantity = inventoryPage.getCartItemsQuantity();
+
+        inventoryPage.removeFromCartById(productName);
+        int quantityRemoved = inventoryPage.getCartItemsQuantity();
+
+        softAssert.assertEquals(quantityRemoved + 1, originalQuantity,
+                String.format("Could not remove the following item from cart: %s!", productName));
+        softAssert.assertEquals(inventoryPage.getProductAddToCartButtonText(productId), "ADD TO CART",
+                String.format("The button text didn't change for the following item %s!", productName));
+        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                "Could not remove product from cart: " + productName);
     }
 }

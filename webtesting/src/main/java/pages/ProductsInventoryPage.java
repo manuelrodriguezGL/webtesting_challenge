@@ -1,6 +1,5 @@
 package pages;
 
-import constants.GlobalPageConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
@@ -114,6 +113,13 @@ public class ProductsInventoryPage extends BaseStorePage {
                         "/button[@class=\"btn btn_primary btn_small btn_inventory\"]", id));
     }
 
+    // I wanted to test a different way to get this element, given that using the ID would require a long and ugly xpath
+    private By getInventoryItemRemoveFromCartLocator(String productName) {
+        // Turns out the button id looks like: remove-product-name
+        String transformedName = productName.replace(" ", "-").toLowerCase();
+        return By.id(CommonUtils.formatLocator("remove-{0}", transformedName));
+    }
+
     private ArrayList<Double> getPricesList(List<WebElement> list) {
         ArrayList<Double> pricesList = new ArrayList<>();
         for (WebElement e : list) {
@@ -171,6 +177,10 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public String getProductAddToCartButtonText(String id) {
         return botStyle.waitByLocator(getInventoryItemAddToCartLocator(id)).getText();
+    }
+
+    public String getProductRemoveFromCartButtonText(String productName) {
+        return botStyle.waitByLocator(getInventoryItemRemoveFromCartLocator(productName)).getText();
     }
 
     public boolean changeProductSort(String sortValue) throws NoSuchElementException {
@@ -291,26 +301,27 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     //TODO refactor with new IDs
-    public boolean removeFromCartById(String id) {
+    public void removeFromCartById(String productName) {
 
+        botStyle.click(getInventoryItemRemoveFromCartLocator(productName));
 
-        if (itemRemoveFromCartButtons.size() == 0) {
-            throw new IndexOutOfBoundsException("There are no products added to cart");
-        }
-
-        // TODO Naming conventions en los contadores
-        int i = 0;
-        for (WebElement e : itemURLs) {
-            if (e.getAttribute("href").contains(id)) {
-                itemAddToCartButtons.get(i).click();
-                return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
-                        && (getCartItemsQuantity() == 0 ||
-                        itemRemoveFromCartButtons.size() == getCartItemsQuantity()));
-            }
-            i++;
-        }
-
-        return false;
+//        if (itemRemoveFromCartButtons.size() == 0) {
+//            throw new IndexOutOfBoundsException("There are no products added to cart");
+//        }
+//
+//        // TODO Naming conventions en los contadores
+//        int i = 0;
+//        for (WebElement e : itemURLs) {
+//            if (e.getAttribute("href").contains(id)) {
+//                itemAddToCartButtons.get(i).click();
+//                return (itemAddToCartButtons.get(i).getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
+//                        && (getCartItemsQuantity() == 0 ||
+//                        itemRemoveFromCartButtons.size() == getCartItemsQuantity()));
+//            }
+//            i++;
+//        }
+//
+//        return false;
     }
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
