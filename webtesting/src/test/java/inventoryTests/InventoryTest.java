@@ -74,19 +74,25 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be added to cart",
-            groups = {"inventory"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
-    public void verifyAddIndividuallyToCart(String productId) {
-        //TODO refactor
-        boolean result = false;
+            groups = {"inventory"}, dataProvider = "Names", dataProviderClass = InventoryDataProvider.class)
+    public void verifyAddIndividuallyToCart(String productId, String productName) {
+        SoftAssert softAssert = new SoftAssert();
 
-        try {
-            //result = inventoryPage.addToCartById(productId);
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not add product with ID %s to cart!", productId));
+        // Get current quantity on cart
+        int originalQuantity = inventoryPage.getCartItemsQuantity();
+        // Add products to cart
+        inventoryPage.addToCartById(productId);
+
+        // Get new quantity on cart
+        int quantityAdded = inventoryPage.getCartItemsQuantity();
+
+        // If the original quantity + 1 item = added quantity, then the test passes
+        softAssert.assertEquals(originalQuantity + 1, quantityAdded,
+                String.format("Could not add the following item to cart: %s-%s!", productId, productName));
+        softAssert.assertEquals(inventoryPage.getProductRemoveFromCartButtonText(productName), "REMOVE",
+                String.format("The button text didn't change for the following item %s-%s!", productId, productName));
+        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                String.format("Could not add product to cart: %s-%s!", productId, productName));
     }
 
     @Test(description = "Verify that all products can be removed from cart",
@@ -105,24 +111,29 @@ public class InventoryTest extends TestCaseBase {
         // Get remaining quantity on cart
         int quantityRemoved = inventoryPage.getCartItemsQuantity();
 
-        // If the remaining quantity + removed items = original quantity, then the test pass
+        // If the remaining quantity + removed items = original quantity, then the test passes
         Assert.assertEquals(quantityRemoved + originalQuantity, expectedQuantity,
                 GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not remove all %s items from cart!", quantity));
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
-            groups = {"debug"}, dataProvider = "Names", dataProviderClass = InventoryDataProvider.class)
+            groups = {"inventory"}, dataProvider = "Names", dataProviderClass = InventoryDataProvider.class)
     public void verifyRemoveIndividuallyFromCart(String productId, String productName) {
 
         SoftAssert softAssert = new SoftAssert();
 
+        // Add products to cart
         inventoryPage.addToCartById(productId);
+        // Get current quantity on cart
         int originalQuantity = inventoryPage.getCartItemsQuantity();
 
+        // Remove products from cart
         inventoryPage.removeFromCartById(productName);
+        // Get remaining quantity on cart
         int quantityRemoved = inventoryPage.getCartItemsQuantity();
 
+        // If the remaining quantity + 1 item = original quantity, then the test passes
         softAssert.assertEquals(quantityRemoved + 1, originalQuantity,
                 String.format("Could not remove the following item from cart: %s!", productName));
         softAssert.assertEquals(inventoryPage.getProductAddToCartButtonText(productId), "ADD TO CART",
