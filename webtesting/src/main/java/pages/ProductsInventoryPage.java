@@ -120,15 +120,6 @@ public class ProductsInventoryPage extends BaseStorePage {
         return By.id(CommonUtils.formatLocator("remove-{0}", transformedName));
     }
 
-    private ArrayList<Double> getPricesList(List<WebElement> list) {
-        ArrayList<Double> pricesList = new ArrayList<>();
-        for (WebElement e : list) {
-            // Remove the $ character from each price
-            pricesList.add(Double.parseDouble(e.getAttribute("innerText").substring(1)));
-        }
-        return pricesList;
-    }
-
     private Select getProductSortSelect(WebElement e) {
         return new Select(e);
     }
@@ -158,6 +149,19 @@ public class ProductsInventoryPage extends BaseStorePage {
         return isElementVisible(pageHeader);
     }
 
+    public ArrayList<Double> getPricesList(List<WebElement> list) {
+        ArrayList<Double> pricesList = new ArrayList<>();
+        for (WebElement e : list) {
+            // Remove the $ character from each price
+            pricesList.add(Double.parseDouble(e.getAttribute("innerText").substring(1)));
+        }
+        return pricesList;
+    }
+
+    public List<WebElement> getItemNames() {
+        return itemNames;
+    }
+
     public String getProductImageUrl(String id) {
         return botStyle.waitByLocator(getInventoryItemImageLocator(id)).getAttribute("src");
 
@@ -183,12 +187,12 @@ public class ProductsInventoryPage extends BaseStorePage {
         return botStyle.waitByLocator(getInventoryItemRemoveFromCartLocator(productName)).getText();
     }
 
-    public List<String> getFirstAndLastItemByName() {
+    public List<WebElement> getSortedInventoryByName() {
         itemNames.sort(Comparator.comparing(item -> item.getAttribute("innerText")));
-        List<String> firstAndLastItems = new ArrayList<>();
-        firstAndLastItems.add(itemNames.get(0).getAttribute("innerText"));
-        firstAndLastItems.add(itemNames.get(itemNames.size() - 1).getAttribute("innerText"));
-        return firstAndLastItems;
+//        List<String> firstAndLastItems = new ArrayList<>();
+//        firstAndLastItems.add(itemNames.get(0).getAttribute("innerText"));
+//        firstAndLastItems.add(itemNames.get(itemNames.size() - 1).getAttribute("innerText"));
+        return itemNames;
     }
 
     public List<String> getFirstAndLastItemByPrice() {
@@ -267,19 +271,11 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     public void clickProductSortSelect() throws NoSuchElementException {
-        if (isElementVisible(productSortSelect)) {
-            botStyle.click(productSortSelect);
-        } else {
-            throw new NoSuchElementException("Could not find sort field!");
-        }
+        botStyle.click(productSortSelect);
     }
 
     public void changeValueProductSortSelect(String sortValue) throws NoSuchElementException {
-        if (isElementVisible(productSortSelect)) {
-            getProductSortSelect(productSortSelect).selectByValue(sortValue);
-        } else {
-            throw new NoSuchElementException("Could not find sort field!");
-        }
+        getProductSortSelect(productSortSelect).selectByValue(sortValue);
     }
 
     public void addToCartByQuantity(int quantity) throws NoSuchElementException {

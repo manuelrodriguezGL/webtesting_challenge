@@ -3,6 +3,7 @@ package inventoryTests;
 import Constants.GlobalTestConstants;
 import dataProviders.InventoryDataProvider;
 import dataProviders.ProductsDataProvider;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -10,6 +11,8 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
+
+import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
@@ -40,6 +43,35 @@ public class InventoryTest extends TestCaseBase {
         softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Product information does not match the values on file for ID: " + id);
 
+    }
+
+    @Test(description = "Verify the items can be sorted by different name values",
+            groups = {"debug"})
+    @Parameters({"sortNameAz", "sortNameZa"})
+    public void verifySortChangeByName(String sortNameAz, String sortNameZa) {
+        SoftAssert softAssert = new SoftAssert();
+
+        List<WebElement> itemNames = inventoryPage.getSortedInventoryByName();
+        String firstItem = itemNames.get(0).getAttribute("innerText");
+        String lastItem = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
+
+        inventoryPage.clickProductSortSelect();
+        inventoryPage.changeValueProductSortSelect(sortNameAz);
+
+        softAssert.assertEquals(inventoryPage.getItemNames().get(0).getAttribute("innerText"),
+                firstItem);
+        softAssert.assertEquals(inventoryPage.getItemNames().get(itemNames.size() - 1).getAttribute("innerText"),
+                lastItem);
+
+        inventoryPage.clickProductSortSelect();
+        inventoryPage.changeValueProductSortSelect(sortNameZa);
+
+        softAssert.assertEquals(inventoryPage.getItemNames().get(0).getAttribute("innerText"),
+                lastItem);
+        softAssert.assertEquals(inventoryPage.getItemNames().get(itemNames.size() - 1).getAttribute("innerText"),
+                firstItem);
+
+        softAssert.assertAll("Items could not be sorted by name!");
     }
 
     @Test(description = "Verify the items can be sorted by different values",
