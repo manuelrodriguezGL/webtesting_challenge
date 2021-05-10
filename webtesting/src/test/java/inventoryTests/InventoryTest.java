@@ -3,7 +3,6 @@ package inventoryTests;
 import Constants.GlobalTestConstants;
 import dataProviders.InventoryDataProvider;
 import dataProviders.ProductsDataProvider;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -51,43 +50,65 @@ public class InventoryTest extends TestCaseBase {
     public void verifySortChangeByName(String sortNameAz, String sortNameZa) {
         SoftAssert softAssert = new SoftAssert();
 
-        List<WebElement> itemNames = inventoryPage.getSortedInventoryByName();
-        String firstItem = itemNames.get(0).getAttribute("innerText");
-        String lastItem = itemNames.get(itemNames.size() - 1).getAttribute("innerText");
+        int itemListSize = inventoryPage.getItemNames().size();
+
+        // We get current first and last item from UI
+        String firstItem = inventoryPage.getItemNames().get(0).getAttribute("innerText");
+        String lastItem = inventoryPage.getItemNames().get(itemListSize - 1).getAttribute("innerText");
 
         inventoryPage.clickProductSortSelect();
         inventoryPage.changeValueProductSortSelect(sortNameAz);
 
+        // We compare first and last elements after the sort change on UI
         softAssert.assertEquals(inventoryPage.getItemNames().get(0).getAttribute("innerText"),
-                firstItem);
-        softAssert.assertEquals(inventoryPage.getItemNames().get(itemNames.size() - 1).getAttribute("innerText"),
-                lastItem);
+                firstItem, "Could not change sort order: A to Z");
+        softAssert.assertEquals(inventoryPage.getItemNames().get(itemListSize - 1).getAttribute("innerText"),
+                lastItem, "Could not change sort order: A to Z");
 
         inventoryPage.clickProductSortSelect();
         inventoryPage.changeValueProductSortSelect(sortNameZa);
 
         softAssert.assertEquals(inventoryPage.getItemNames().get(0).getAttribute("innerText"),
-                lastItem);
-        softAssert.assertEquals(inventoryPage.getItemNames().get(itemNames.size() - 1).getAttribute("innerText"),
-                firstItem);
+                lastItem, "Could not change sort order: Z to A");
+        softAssert.assertEquals(inventoryPage.getItemNames().get(itemListSize - 1).getAttribute("innerText"),
+                firstItem, "Could not change sort order: Z to A");
 
-        softAssert.assertAll("Items could not be sorted by name!");
+        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + "Items could not be sorted by name!");
     }
 
-    @Test(description = "Verify the items can be sorted by different values",
-            groups = {"inventory"}, dataProvider = "Sort", dataProviderClass = InventoryDataProvider.class)
-    public void verifySortChange(String sortOrder) {
-        boolean result = false;
+    @Test(description = "Verify the items can be sorted by different price values",
+            groups = {"inventory"})
+    @Parameters({"sortPriceLohi", "sortPriceHilo"})
+    public void verifySortChangeByPrice(String sortPriceLohi, String sortPriceHilo) {
+        SoftAssert softAssert = new SoftAssert();
 
-        try {
-            result = inventoryPage.changeProductSort(sortOrder);
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
+        // We get a list of prices, that we can compare to
+        // and sort them in the way we would expect the app to do it
+        List<Double> itemPrices = inventoryPage.getSortedInventoryByPrice();
 
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "Could not change product sort!: " + sortOrder);
+        // We get current first and last item from sorted prices list
+        // On previous step, we had to strip the '$' sign on every price
+        String firstItem = "$" + itemPrices.get(0).toString();
+        String lastItem = "$" + itemPrices.get(itemPrices.size() - 1).toString();
+
+        inventoryPage.clickProductSortSelect();
+        inventoryPage.changeValueProductSortSelect(sortPriceLohi);
+
+        // We compare our actual prices from first and last elements on UI, against the sorted list
+        softAssert.assertEquals(inventoryPage.getItemPrices().get(0).getAttribute("innerText"),
+                firstItem, "Could not change sort order: Lowest to highest price");
+        softAssert.assertEquals(inventoryPage.getItemPrices().get(itemPrices.size() - 1).getAttribute("innerText"),
+                lastItem, "Could not change sort order: Lowest to highest price");
+
+        inventoryPage.clickProductSortSelect();
+        inventoryPage.changeValueProductSortSelect(sortPriceHilo);
+
+        softAssert.assertEquals(inventoryPage.getItemPrices().get(0).getAttribute("innerText"),
+                lastItem, "Could not change sort order: Highest  to lowest price");
+        softAssert.assertEquals(inventoryPage.getItemPrices().get(itemPrices.size() - 1).getAttribute("innerText"),
+                firstItem, "Could not change sort order: Highest  to lowest price");
+
+        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + "Items could not be sorted by price!");
     }
 
     @Test(description = "Verify that all products can be added to cart",
@@ -123,6 +144,7 @@ public class InventoryTest extends TestCaseBase {
                 String.format("Could not add the following item to cart: %s-%s!", productId, productName));
         softAssert.assertEquals(inventoryPage.getProductRemoveFromCartButtonText(productName), "REMOVE",
                 String.format("The button text didn't change for the following item %s-%s!", productId, productName));
+
         softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not add product to cart: %s-%s!", productId, productName));
     }
