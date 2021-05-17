@@ -3,6 +3,7 @@ package productTests;
 import Constants.GlobalTestConstants;
 import dataProviders.InventoryDataProvider;
 import dataProviders.ProductsDataProvider;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -10,8 +11,6 @@ import org.testng.asserts.SoftAssert;
 import pages.ProductPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ProductTest extends TestCaseBase {
 
@@ -47,48 +46,37 @@ public class ProductTest extends TestCaseBase {
             groups = {"product"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductGoBackButton(String productId) {
         ProductPage product = inventoryPage.loadProductPageById(productId);
-        boolean result = false;
 
-        try {
-            result = (product.goBack() != null);
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not go back on product with ID %s!", productId));
+        Assert.assertNotNull(product.goBack(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                String.format("Could not go back from product with ID %s!", productId));
     }
 
     @Test(description = "Verify that every individual product can be added to cart",
             groups = {"product"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductAddToCart(String productId) {
         ProductPage product = inventoryPage.loadProductPageById(productId);
-        boolean result = false;
 
-        try {
-            result = product.clickAddToCartButton();
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not add product with ID %s to cart!", productId));
+        int originalQuantity = product.getCartItemsQuantity();
+        product.clickAddToCartButton();
+
+        Assert.assertEquals(product.getCartItemsQuantity(), originalQuantity + 1,
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        String.format("Could not add product with ID %s to cart!", productId));
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
             groups = {"product"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductRemoveFromCart(String productId) {
         ProductPage product = inventoryPage.loadProductPageById(productId);
-        boolean result = false;
 
-        try {
-            result = (product.clickAddToCartButton() && product.clickRemoveButton());
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not remove product with ID %s from cart!", productId));
+        product.clickAddToCartButton();
+
+        int originalQuantity = product.getCartItemsQuantity();
+        product.clickRemoveButton();
+
+        Assert.assertEquals(product.getCartItemsQuantity(), originalQuantity - 1,
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        String.format("Could not remove product with ID %s from cart!", productId));
     }
 
 }

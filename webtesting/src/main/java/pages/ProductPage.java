@@ -1,6 +1,6 @@
 package pages;
 
-import constants.GlobalPageConstants;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -53,52 +53,33 @@ public class ProductPage extends BaseStorePage {
         return isElementVisible(productName);
     }
 
-    public ProductsInventoryPage goBack() {
-        if (isElementVisible(backButton)) {
-            botStyle.click(backButton);
-            return new ProductsInventoryPage(driver, base_url);
-        }
-        return null;
+    public ProductsInventoryPage goBack() throws NoSuchElementException {
+        botStyle.click(backButton);
+        return new ProductsInventoryPage(driver, base_url);
     }
 
-    public String getProductImageUrl() {
+    public String getProductImageUrl() throws NoSuchElementException {
         return productImage.getAttribute("src");
     }
 
-    public String getProductName() {
+    public String getProductName() throws NoSuchElementException {
         return productName.getText();
     }
 
-    public String getProductDescription() {
+    public String getProductDescription() throws NoSuchElementException {
         return productDescription.getText();
     }
 
-    public String getProductPrice() {
+    public String getProductPrice() throws NoSuchElementException {
         return productPrice.getText();
     }
 
-    public boolean clickAddToCartButton() {
-        int originalQuantity = getCartItemsQuantity();
-        if (isElementVisible(productAddToCartButton)) {
-            botStyle.click(productAddToCartButton);
-            return (productRemoveFromCartButton.getAttribute("innerText").equals(GlobalPageConstants.REMOVE_FROM_CART_TXT)
-                    && (getCartItemsQuantity() == originalQuantity + 1));
-        }
-        return false;
+    public void clickAddToCartButton() throws NoSuchElementException {
+        botStyle.click(productAddToCartButton);
     }
 
-    public boolean clickRemoveButton() {
-        //TODO
-        // I think this method is to click on the Remove button, and other methods should be created to get the
-        // productAddToCartButton.getAttribute("innerText") and headerContainer.getCartItems(), and do the validation
-        // on the test case. It would apply on several PageObjects in the project
-        int originalQuantity = getCartItemsQuantity();
-        if (isElementVisible(productRemoveFromCartButton)) {
-            botStyle.click(productRemoveFromCartButton);
-            return (productAddToCartButton.getAttribute("innerText").equals(GlobalPageConstants.ADD_TO_CART_TXT)
-                    && (getCartItemsQuantity() == originalQuantity - 1));
-        }
-        return false;
+    public void clickRemoveButton() throws NoSuchElementException {
+        botStyle.click(productRemoveFromCartButton);
     }
 
 

@@ -45,7 +45,7 @@ public class InventoryTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the items can be sorted by different name values",
-            groups = {"debug"})
+            groups = {"inventory"})
     @Parameters({"sortNameAz", "sortNameZa"})
     public void verifySortChangeByName(String sortNameAz, String sortNameZa) {
         SoftAssert softAssert = new SoftAssert();
