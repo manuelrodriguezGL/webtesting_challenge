@@ -56,7 +56,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
-            groups = {"debug"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+            groups = {"shoppingCart"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductRemoveFromCart(String productId) {
         loadShoppingCartPage(productId);
         int beforeQuantity = shoppingCartPage.getCartItemsQuantity();
