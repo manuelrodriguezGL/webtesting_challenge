@@ -3,6 +3,7 @@ package shoppingCartTests;
 import Constants.GlobalTestConstants;
 import dataProviders.CartDataProvider;
 import dataProviders.InventoryDataProvider;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -11,12 +12,7 @@ import pages.ProductsInventoryPage;
 import pages.ShoppingCartPage;
 import testBase.TestCaseBase;
 
-import java.util.NoSuchElementException;
-import java.util.Objects;
-
 import static java.lang.Integer.parseInt;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShoppingCartTest extends TestCaseBase {
 
@@ -37,12 +33,8 @@ public class ShoppingCartTest extends TestCaseBase {
     @Test(description = "Verify the shopping cart is empty",
             groups = {"shoppingCart"})
     public void verifyShoppingCartIsEmpty() {
-        try {
-            assertTrue(shoppingCartPage.isCartEmpty(),
-                    GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + " Shopping cart is not empty!");
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-        }
+        Assert.assertTrue(shoppingCartPage.isCartEmpty(),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + " Shopping cart is not empty!");
     }
 
     @Test(description = "Verify the UI elements for every individual product",
@@ -52,68 +44,50 @@ public class ShoppingCartTest extends TestCaseBase {
         SoftAssert softAssert = new SoftAssert();
         loadShoppingCartPage(id);
 
-        softAssert.assertFalse(shoppingCartPage.isCartEmpty());
-        softAssert.assertEquals(shoppingCartPage.getProductName(id), name);
-        softAssert.assertEquals(shoppingCartPage.getProductDescription(id), description);
-        softAssert.assertEquals(shoppingCartPage.getProductPrice(id), price);
-        softAssert.assertAll("Product information does not match the values on file for ID: " + id);
+        if (!shoppingCartPage.isCartEmpty()) {
+            softAssert.assertEquals(shoppingCartPage.getProductName(id), name);
+            softAssert.assertEquals(shoppingCartPage.getProductDescription(id), description);
+            softAssert.assertEquals(shoppingCartPage.getProductPrice(id), price);
+            softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                    String.format("Product information does not match the values on file for ID: %s", id));
+        } else {
+            softAssert.fail("Shopping cart is not empty!");
+        }
     }
 
     @Test(description = "Verify that every individual product can be removed from cart",
-            groups = {"shoppingCart"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
+            groups = {"debug"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyProductRemoveFromCart(String productId) {
-        //TODO refactor
-        boolean result = false;
+        loadShoppingCartPage(productId);
+        int beforeQuantity = shoppingCartPage.getCartItemsQuantity();
+        shoppingCartPage.clickRemoveButton(productId);
 
-        try {
-            loadShoppingCartPage(productId);
-
-            result = (shoppingCartPage.removeFromCartById(productId));
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not remove product with ID %s from cart!", productId));
+        Assert.assertEquals(shoppingCartPage.getCartItemsQuantity(), --beforeQuantity,
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        String.format("Could not remove product with ID %s from cart!", productId));
     }
 
     @Test(description = "Verify that all products can be removed from cart",
             groups = {"shoppingCart"})
     @Parameters({"totalProducts"})
     public void verifyRemoveAllFromCart(String quantity) {
-        //TODO refactor
-        boolean result = false;
+        inventory.addToCartByQuantity(parseInt(quantity));
+        shoppingCartPage = inventory.loadShoppingCart();
 
-        try {
-            inventory.addToCartByQuantity(parseInt(quantity));
-            shoppingCartPage = inventory.loadShoppingCart();
-            result = shoppingCartPage.removeAllFromCart();
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not remove all %s items from cart!", quantity));
+        shoppingCartPage.clickAllRemoveButtons();
+
+        Assert.assertEquals(shoppingCartPage.getCartItemsQuantity(), 0,
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        String.format("Could not remove all %s items from cart!", quantity));
     }
 
 
-    @Test(description = "Verify that every individual product has a Continue Shopping button on cart",
+    @Test(description = "Verify that there's a Continue Shopping cart that takes user back to Inventory page",
             groups = {"shoppingCart"}, dataProvider = "ID", dataProviderClass = InventoryDataProvider.class)
     public void verifyContinueShoppingButton(String productId) {
-        //TODO refactor
-        boolean result = false;
-
-        try {
-            loadShoppingCartPage(productId);
-
-            //result = (Objects.nonNull(shoppingCartPage.clickContinueShoppingButton())
-                 //   && inventory.removeFromCartById(productId));
-        } catch (Exception e) {
-            result = false;
-            e.printStackTrace();
-        }
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                String.format("Could not find Continue Shopping button for product with ID %s", productId));
+        loadShoppingCartPage(productId);
+        Assert.assertNotNull(shoppingCartPage.clickContinueShoppingButton(),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        String.format("Could not click Continue Shopping button for product with ID %s", productId));
     }
-
 }

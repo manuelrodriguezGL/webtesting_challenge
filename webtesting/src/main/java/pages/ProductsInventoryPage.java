@@ -217,8 +217,6 @@ public class ProductsInventoryPage extends BaseStorePage {
                 limit++;
             }
         }
-
-        //return (getCartItemsQuantity() == 0 || getCartItemsQuantity() + quantity == originalQuantity);
     }
 
     public void removeFromCartById(String productName) {

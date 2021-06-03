@@ -46,10 +46,10 @@ public class ShoppingCartPage extends BaseStorePage {
     @FindBy(css = ".btn_secondary.cart_button")
     private List<WebElement> removeFromCartButtonsList;
 
-    @FindBy(css = ".cart_footer>.btn_secondary")
+    @FindBy(id = "continue-shopping")
     private WebElement continueShoppingButton;
 
-    @FindBy(css = ".btn_action.checkout_button")
+    @FindBy(id = "checkout")
     private WebElement checkoutButton;
 
     public ShoppingCartPage(WebDriver driver, String base_url) {
@@ -107,42 +107,14 @@ public class ShoppingCartPage extends BaseStorePage {
         return botStyle.waitByLocator(getProductRemoveButton(id)).getText();
     }
 
-
-    public boolean removeFromCartById(String id) {
-
-        if (isCartEmpty()) {
-            throw new IndexOutOfBoundsException("There are no products added to cart");
-        }
-
-        int i = 0;
-        for (WebElement e : cartItemLinkList) {
-            int currentQty = cartItemLinkList.size();
-            if (e.getAttribute("href").contains(id)) {
-                removeFromCartButtonsList.get(i).click();
-                return (removeFromCartButtonsList.size() == getCartItemsQuantity()
-                        && cartItemLinkList.size() == --currentQty);
-            }
-            i++;
-        }
-
-        return false;
+    public void clickRemoveButton(String id) {
+        botStyle.click(getProductRemoveButton(id));
     }
 
-    public boolean removeAllFromCart() {
-        // TODO:
-        //  As mentioned in other section, the method say that it remove all items from the cart, I would say that
-        // the validations should not be here in the responsability of this method, it would be better to have it
-        // in other methods and then call them from the test case and do the validation in the test case.
-        if (isCartEmpty()) {
-            throw new IndexOutOfBoundsException("There are no products added to cart");
-        }
-
+    public void clickAllRemoveButtons() {
         for (WebElement e : removeFromCartButtonsList) {
-            e.click();
+            botStyle.click(e);
         }
-
-        return (removeFromCartButtonsList.size() == getCartItemsQuantity()
-                && cartItemsList.size() == 0);
     }
 
     public boolean isCartEmpty() throws NoSuchElementException {
@@ -150,11 +122,8 @@ public class ShoppingCartPage extends BaseStorePage {
     }
 
     public ProductsInventoryPage clickContinueShoppingButton() {
-        if (isElementVisible(continueShoppingButton)) {
-            botStyle.click(continueShoppingButton);
-            return new ProductsInventoryPage(driver, base_url);
-        }
-        return null;
+        botStyle.click(continueShoppingButton);
+        return new ProductsInventoryPage(driver, base_url);
     }
 
     public CheckoutInformationPage clickCheckoutButton() {
