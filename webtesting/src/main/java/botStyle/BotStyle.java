@@ -37,7 +37,7 @@ public class BotStyle {
      * @param element Web Element representing page element
      * @return The WebElement found after wait
      */
-    public WebElement waitByWebElement(WebElement element) {
+    public WebElement waitByWebElement(WebElement element) throws NoSuchElementException {
         return (new WebDriverWait(this.driver, GlobalPageConstants.GLOBAL_TIMEOUT))
                 .until(ExpectedConditions.visibilityOf(element));
     }
@@ -48,7 +48,7 @@ public class BotStyle {
      * @param locator By locator taken from page
      * @return A WebElement found using By locator
      */
-    public WebElement waitByLocator(By locator) {
+    public WebElement waitByLocator(By locator) throws NoSuchElementException {
         return (new WebDriverWait(this.driver, GlobalPageConstants.GLOBAL_TIMEOUT))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
