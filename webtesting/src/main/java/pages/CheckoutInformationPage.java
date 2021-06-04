@@ -17,10 +17,10 @@ public class CheckoutInformationPage extends BaseStorePage {
     @FindBy(id = "postal-code")
     private WebElement postalCodeInput;
 
-    @FindBy(css = ".cart_cancel_link.btn_secondary")
+    @FindBy(id = "cancel")
     private WebElement cancelButton;
 
-    @FindBy(css = ".btn_primary.cart_button")
+    @FindBy(id = "continue")
     private WebElement continueButton;
 
     @FindBy(css = "h3[data-test]")
@@ -82,21 +82,13 @@ public class CheckoutInformationPage extends BaseStorePage {
     }
 
     public ShoppingCartPage clickCancel() {
-
-        if (isElementVisible(cancelButton)) {
-            botStyle.click(cancelButton);
-            return new ShoppingCartPage(driver, base_url);
-        }
-        return null;
+        botStyle.click(cancelButton);
+        return new ShoppingCartPage(driver, base_url);
     }
 
     public CheckoutOverviewPage clickContinue() {
-
-        if (isElementVisible(continueButton)) {
-            botStyle.click(continueButton);
-            return new CheckoutOverviewPage(driver, base_url);
-        }
-        return null;
+        botStyle.click(continueButton);
+        return new CheckoutOverviewPage(driver, base_url);
     }
 
     public void enterCustomerData(String firstName, String lastName, String postalCode) {

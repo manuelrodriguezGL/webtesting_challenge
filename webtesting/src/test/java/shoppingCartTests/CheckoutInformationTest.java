@@ -1,6 +1,7 @@
 package shoppingCartTests;
 
 import Constants.GlobalTestConstants;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -8,8 +9,6 @@ import org.testng.asserts.SoftAssert;
 import pages.CheckoutInformationPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CheckoutInformationTest extends TestCaseBase {
 
@@ -72,19 +71,17 @@ public class CheckoutInformationTest extends TestCaseBase {
     @Test(description = "Verify that user can click Cancel button and is taken back to cart page",
             groups = {"checkoutInformation"})
     public void verifyClickCancelButton() {
-        boolean result = checkoutPage.clickCancel().isPageLoaded();
-
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(checkoutPage.clickCancel().isPageLoaded(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not click cancel button, or Cart page was not loaded!");
     }
 
 
     @Test(description = "Verify that user can click Continue button and is taken to order overview page",
             groups = {"checkoutInformation"})
-    public void verifyClickContinueButton() {
-        boolean result = checkoutPage.clickContinue().isPageLoaded();
-
-        assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+    @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
+    public void verifyClickContinueButton(String firstName, String lastName, String zipCode) {
+        checkoutPage.enterCustomerData(firstName, lastName, zipCode);
+        Assert.assertTrue(checkoutPage.clickContinue().isPageLoaded(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not click continue button, or Overview page was not loaded!");
     }
 }

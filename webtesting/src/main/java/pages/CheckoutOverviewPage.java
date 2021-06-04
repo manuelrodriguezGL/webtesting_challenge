@@ -14,8 +14,8 @@ public class CheckoutOverviewPage extends BaseStorePage {
 
     private static final String URL = "/checkout-step-two.html";
 
-    @FindBy(className = "subheader")
-    private WebElement pageHeader;
+    @FindBy(id = "checkout_summary_container")
+    private WebElement checkoutSummaryContainer;
 
     @FindBy(className = "cart_quantity_label")
     private WebElement cartQuantityLabel;
@@ -106,7 +106,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
 
     @Override
     public boolean isPageLoaded() {
-        return isElementVisible(pageHeader);
+        return isElementVisible(checkoutSummaryContainer);
     }
 
     public String getProductName(String id) {

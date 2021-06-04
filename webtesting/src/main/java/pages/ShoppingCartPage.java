@@ -13,8 +13,8 @@ public class ShoppingCartPage extends BaseStorePage {
 
     private static final String URL = "/cart.html";
 
-    @FindBy(className = "subheader")
-    private WebElement pageHeader;
+    @FindBy(id = "cart_contents_container")
+    private WebElement cartContentsContainer;
 
     @FindBy(className = "cart_quantity_label")
     private WebElement cartQuantityLabel;
@@ -88,7 +88,7 @@ public class ShoppingCartPage extends BaseStorePage {
 
     @Override
     public boolean isPageLoaded() {
-        return isElementVisible(pageHeader);
+        return isElementVisible(cartContentsContainer);
     }
 
     public String getProductName(String id) {
@@ -127,10 +127,7 @@ public class ShoppingCartPage extends BaseStorePage {
     }
 
     public CheckoutInformationPage clickCheckoutButton() {
-        if (isElementVisible(checkoutButton)) {
-            botStyle.click(checkoutButton);
-            return new CheckoutInformationPage(driver, base_url);
-        }
-        return null;
+        botStyle.click(checkoutButton);
+        return new CheckoutInformationPage(driver, base_url);
     }
 }
