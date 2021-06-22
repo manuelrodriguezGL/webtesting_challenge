@@ -72,86 +72,59 @@ public class CheckoutOverviewTest extends TestCaseBase {
     @Test(description = "Verify the subtotal without tax value for the items on cart",
             groups = {"checkoutOverview"})
     public void verifyCartSubtotal() {
-
-        boolean result = false;
-        try {
-            result = checkoutOverviewPage.itemSubtotalMatch();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "The following values don't match: Item total (subtotal without tax)!");
+        Assert.assertEquals(checkoutOverviewPage.getTotalAmountFromItemList(),
+                checkoutOverviewPage.getSubtotalAmount(),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        "The following values don't match: Item total (subtotal without tax)!");
     }
 
-    @Test(description = "Verify the total values for the items on cart",
+    @Test(description = "Verify the total values for the items on cart, plus tax",
             groups = {"checkoutOverview"})
     public void verifyCartTotal() {
-        boolean result = false;
-        try {
-            result = checkoutOverviewPage.itemTotalMatch();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "The following values don't match: Total and Item total plus Tax!");
+        Assert.assertEquals(checkoutOverviewPage.sumTotalAmount(),
+                checkoutOverviewPage.getTotalAmount(),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        "The following values don't match: Total and Item total plus Tax!");
     }
 
     @Test(description = "Verify the changes on cart total amount, by removing items",
             groups = {"checkoutOverview"})
-    @Parameters({"item4ID", "item4Price", "customerFirstName", "customerLastName", "customerZipCode"})
-    public void verifyCartTotalChanges(String item4ID, String item4Price, String fName, String lName, String zip) {
-        boolean result = false;
+    @Parameters({"item4Name", "item4Price", "customerFirstName", "customerLastName", "customerZipCode"})
+    public void verifyCartTotalChanges(String item4Name, String item4Price, String fName, String lName, String zip) {
+
         double totalBefore = 0;
         double totalAfter = 0;
-        try {
-            totalBefore = checkoutOverviewPage.getSubtotalAmount();
 
-            inventory = checkoutOverviewPage.cancelCheckout();
-            inventory.removeFromCartById(item4ID);
-            checkoutOverviewPage = reloadCartOverview(fName, lName, zip);
+        totalBefore = checkoutOverviewPage.getSubtotalAmount();
 
-            totalAfter = checkoutOverviewPage.getSubtotalAmount();
+        inventory = checkoutOverviewPage.cancelCheckout();
+        inventory.removeFromCartByProductName(item4Name);
+        checkoutOverviewPage = reloadCartOverview(fName, lName, zip);
 
-            // A small trick to reduce decimal places without casting to String
-            double difference = Math.floor((totalBefore - totalAfter) * 100) / 100;
-            result = difference == Double.parseDouble(item4Price.substring(item4Price.indexOf("$") + 1));
+        totalAfter = checkoutOverviewPage.getSubtotalAmount();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "The following values don't match: Total before and after removing one element");
+        // A small trick to reduce decimal places without casting to String
+        double difference = Math.floor((totalBefore - totalAfter) * 100) / 100;
+        Assert.assertEquals(difference,
+                Double.parseDouble(item4Price.substring(item4Price.indexOf("$") + 1)),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        "The following values don't match: Total before and after removing one element");
     }
 
     @Test(description = "Verify the Cancel button works and user is taken back to inventory page",
             groups = {"checkoutOverview"})
     public void verifyCancelButton() {
-        boolean result = false;
-        try {
-            result = checkoutOverviewPage.cancelCheckout().isPageLoaded();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "The Inventory page could not be loaded");
+        Assert.assertTrue(checkoutOverviewPage.cancelCheckout().isPageLoaded(),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        "The Inventory page could not be loaded by clicking Cancel button");
     }
 
     @Test(description = "Verify the Finish button works and user is taken to final page",
             groups = {"checkoutOverview"})
     public void verifyFinishButton() {
-        boolean result = false;
-        try {
-            result = checkoutOverviewPage.finishCheckout().isPageLoaded();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        Assert.assertTrue(result, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
-                "The Finish page could not be loaded");
+        Assert.assertTrue(checkoutOverviewPage.finishCheckout().isPageLoaded(),
+                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                        "The Checkout Finished page could not be loaded");
     }
 
     private CheckoutOverviewPage reloadCartOverview(String fName, String lName, String zip) {

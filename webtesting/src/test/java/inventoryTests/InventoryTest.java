@@ -183,7 +183,7 @@ public class InventoryTest extends TestCaseBase {
         int originalQuantity = inventoryPage.getCartItemsQuantity();
 
         // Remove products from cart
-        inventoryPage.removeFromCartById(productName);
+        inventoryPage.removeFromCartByProductName(productName);
         // Get remaining quantity on cart
         int quantityRemoved = inventoryPage.getCartItemsQuantity();
 

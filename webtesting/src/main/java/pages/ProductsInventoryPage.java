@@ -16,8 +16,8 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     private static final String URL = "/inventory.html";
 
-    @FindBy(className = "product_label")
-    private WebElement pageHeader;
+    @FindBy(className = "inventory_container")
+    private WebElement inventoryContainer;
 
     @FindBy(className = "product_sort_container")
     private WebElement productSortSelect;
@@ -128,7 +128,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     @Override
     public boolean isPageLoaded() {
-        return isElementVisible(pageHeader);
+        return isElementVisible(inventoryContainer);
     }
 
     public ArrayList<Double> getPricesList() {
@@ -219,7 +219,7 @@ public class ProductsInventoryPage extends BaseStorePage {
         }
     }
 
-    public void removeFromCartById(String productName) {
+    public void removeFromCartByProductName(String productName) {
         botStyle.click(getInventoryItemRemoveFromCartLocator(productName));
     }
 

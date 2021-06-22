@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.CommonUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -23,9 +22,6 @@ public class CheckoutOverviewPage extends BaseStorePage {
     @FindBy(className = "cart_desc_label")
     private WebElement cartDescLabel;
 
-    // All this elements that creates a List<WebElement> should use @FindBys, with an "s" at the end, that is the
-    // equivalent to the findElements with an "s", @FindBy will return the first match found.
-    // If this happens on other pages, please fix on all all afected pages
     @FindBy(className = "cart_item")
     private List<WebElement> cartItemsList;
 
@@ -166,28 +162,18 @@ public class CheckoutOverviewPage extends BaseStorePage {
         }
     }
 
-    private ArrayList<Double> getPricesList(List<WebElement> list) {
-        ArrayList<Double> pricesList = new ArrayList<>();
-        for (WebElement e : list) {
-            // Remove the $ character from each price
-            String valueText = e.getAttribute("innerText");
-            //e.getText();
-            pricesList.add(Double.parseDouble(valueText.substring(valueText.indexOf("$") + 1)));
-        }
-        return pricesList;
-    }
-
-    private double getPriceAmountFromList(List<WebElement> list) {
-        double total = 0.0;
-        for (Double d : getPricesList(list)) {
-            total += d;
-        }
-        return total;
-    }
-
     private double getPriceAmountFromElement(WebElement e) {
         String valueText = e.getAttribute("innerText");
         return Double.parseDouble(valueText.substring(valueText.indexOf("$") + 1));
+    }
+
+    public double getTotalAmountFromItemList() {
+        double total = 0.0;
+        for (WebElement e : cartItemPricesList) {
+            // Remove the $ character from each price
+            total += getPriceAmountFromElement(e);
+        }
+        return total;
     }
 
     /***
@@ -199,7 +185,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
             throw new IndexOutOfBoundsException("There are no elements in the cart!");
 
         try {
-            double subtotal = getPriceAmountFromList(cartItemPricesList);
+            double subtotal = getTotalAmountFromItemList();
             double tax = getPriceAmountFromElement(taxLabel);
             return subtotal + tax;
         } catch (Exception e) {
@@ -208,7 +194,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
     }
 
     /***
-     * Sum all the values from the Item total label
+     * Get the values from the Item total label
      * @return A double with the value from Item total label
      */
     public double getSubtotalAmount() {
@@ -237,47 +223,13 @@ public class CheckoutOverviewPage extends BaseStorePage {
         }
     }
 
-    public boolean itemSubtotalMatch() {
-        boolean result = false;
-        if (isCartEmpty())
-            throw new IndexOutOfBoundsException("There are no elements in the cart!");
-
-        try {
-            result = getPriceAmountFromList(cartItemPricesList) == getSubtotalAmount();
-        } catch (Exception e) {
-            throw e;
-        }
-
-        return result;
-    }
-
-    public boolean itemTotalMatch() {
-        boolean result = false;
-        if (isCartEmpty())
-            throw new IndexOutOfBoundsException("There are no elements in the cart!");
-
-        try {
-            result = getTotalAmount() == sumTotalAmount();
-        } catch (Exception e) {
-            throw e;
-        }
-
-        return result;
-    }
-
     public ProductsInventoryPage cancelCheckout() {
-        if (isElementVisible(cancelButton)) {
-            botStyle.click(cancelButton);
-            return new ProductsInventoryPage(driver, base_url);
-        }
-        return null;
+        botStyle.click(cancelButton);
+        return new ProductsInventoryPage(driver, base_url);
     }
 
     public CheckoutFinishedPage finishCheckout() {
-        if (isElementVisible(finishButton)) {
-            botStyle.click(finishButton);
-            return new CheckoutFinishedPage(driver, base_url);
-        }
-        return null;
+        botStyle.click(finishButton);
+        return new CheckoutFinishedPage(driver, base_url);
     }
 }
