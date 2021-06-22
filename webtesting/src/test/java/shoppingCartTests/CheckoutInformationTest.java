@@ -52,18 +52,18 @@ public class CheckoutInformationTest extends TestCaseBase {
 
         checkoutPage.enterCustomerData("", lastName, zipCode);
         checkoutPage.clickContinue();
-        checkoutPage.clearCustomerData();
         softAssert.assertEquals(checkoutPage.getErrorMessage(), firstNameError);
+        checkoutPage.clearCustomerData();
 
         checkoutPage.enterCustomerData(firstName, "", zipCode);
         checkoutPage.clickContinue();
-        checkoutPage.clearCustomerData();
         softAssert.assertEquals(checkoutPage.getErrorMessage(), lastNameError);
+        checkoutPage.clearCustomerData();
 
         checkoutPage.enterCustomerData(firstName, lastName, "");
         checkoutPage.clickContinue();
-        checkoutPage.clearCustomerData();
         softAssert.assertEquals(checkoutPage.getErrorMessage(), zipCodeError);
+        checkoutPage.clearCustomerData();
 
         softAssert.assertAll("Checkout information error messages are not displayed or they have changed!");
     }

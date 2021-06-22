@@ -1,6 +1,5 @@
 package pages;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -92,9 +91,9 @@ public class CheckoutInformationPage extends BaseStorePage {
     }
 
     public void enterCustomerData(String firstName, String lastName, String postalCode) {
-        firstNameInput.sendKeys(firstName);
-        lastNameInput.sendKeys(lastName);
-        postalCodeInput.sendKeys(postalCode);
+        botStyle.type(firstNameInput, firstName);
+        botStyle.type(lastNameInput, lastName);
+        botStyle.type(postalCodeInput, postalCode);
     }
 
     public void clearCustomerData() {
@@ -103,14 +102,14 @@ public class CheckoutInformationPage extends BaseStorePage {
         // Based on the Oracle of knowledge:
         // https://stackoverflow.com/questions/50677760/selenium-clear-command-doesnt-clear-the-element
         //TODO: Find the OS so it detects if Windows or MacOS keyboard
-        firstNameInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
-        firstNameInput.sendKeys(Keys.BACK_SPACE);
 
-        lastNameInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
-        lastNameInput.sendKeys(Keys.BACK_SPACE);
+        botStyle.click(firstNameInput);
+        botStyle.clearTextField(firstNameInput);
 
-        postalCodeInput.sendKeys(Keys.chord(Keys.COMMAND, "a"));
-        postalCodeInput.sendKeys(Keys.BACK_SPACE);
+        botStyle.click(lastNameInput);
+        botStyle.clearTextField(lastNameInput);
 
+        botStyle.click(postalCodeInput);
+        botStyle.clearTextField(postalCodeInput);
     }
 }

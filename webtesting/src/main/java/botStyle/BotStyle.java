@@ -1,10 +1,7 @@
 package botStyle;
 
 import constants.GlobalPageConstants;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,8 +14,13 @@ public class BotStyle {
 
     public void type(WebElement element, String text) throws NoSuchElementException {
         click(element);
-        element.clear();
+        clearTextField(element);
         element.sendKeys(text);
+    }
+
+    public void clearTextField(WebElement element) throws  NoSuchElementException {
+        element.sendKeys(Keys.chord(Keys.COMMAND, "a"));
+        element.sendKeys(Keys.BACK_SPACE);
     }
 
     public void click(WebElement element) throws NoSuchElementException {
