@@ -16,7 +16,7 @@ pipeline{
         }
             steps{
                 echo "####DISPLAYING SECRET_FILE_ID####"
-           	    echo "Global property file: ${SECRET_FILE_ID}"
+           	    echo 'Global property file: ${SECRET_FILE_ID}'
                 dir("webtesting"){
                     sh 'mvn clean install -Dtestng.dtd.http=true'
                 }
