@@ -11,6 +11,11 @@ pipeline{
         }
         stage('Test')
         {
+        environment{
+            SECRET_FILE_ID = credentials('secret_file')
+            SAUCE_USER = credentials('SAUCE_USER')
+            SAUCE_PDW = credentials('SAUCE_PDW')
+        }
             steps{
                 dir("webtesting"){
                     sh 'mvn clean install -Dtestng.dtd.http=true'
