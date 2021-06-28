@@ -14,7 +14,7 @@ pipeline{
         environment{
             SECRET_FILE_ID = credentials('secret_file')
             SAUCE_USER = credentials('SAUCE_USER')
-            SAUCE_PDW = credentials('SAUCE_PDW')
+            SAUCE_PDW = credentials('SAUCE_PWD')
         }
             steps{
                 dir("webtesting"){
