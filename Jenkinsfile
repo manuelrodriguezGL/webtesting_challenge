@@ -20,13 +20,13 @@ pipeline{
         {
             environment{
                 SECRET_FILE_ID = credentials('secret_file')
-                SAUCE_USER = credentials('SAUCE_USER')
-                SAUCE_PWD = credentials('SAUCE_PWD')
+                //SAUCE_USER = credentials('SAUCE_USER')
+                //SAUCE_PWD = credentials('SAUCE_PWD')
             }
 
             steps{
-                echo 'Username: $SAUCE_USER'
-                echo 'Password: $SAUCE_PWD'
+                echo 'Username: $SECRET_FILE_ID_USR'
+                echo 'Password: $SECRET_FILE_ID_PSW'
                 sh 'mvn clean install -Dtestng.dtd.http=true'
             }
         }
