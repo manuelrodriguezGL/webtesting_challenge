@@ -11,7 +11,8 @@ pipeline{
             steps {
                // Clean before build
                cleanWs()
-               git "https://github.com/manuelrodriguezGL/webtesting_challenge"
+               git branch: 'development', 
+                    url: 'https://github.com/manuelrodriguezGL/webtesting_challenge.git'
             }
         }
         stage('Test')
