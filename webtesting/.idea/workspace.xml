@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ca9b4ae3-8ec8-4926-9af2-47f9374816ca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jenkinsfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TODO.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TestNG.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataProviders/Inventory.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590798999707_validLogin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590809754778_validLogin.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590809771448_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590809979155_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590810144610_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590810271980_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590810538979_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590811303653_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590811446765_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590811507790_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590811652285_verifyLoginUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590963860969_verifyLoginErrorMessages.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590964074267_verifyLoginErrorMessages.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1590985074571_verifyInventoryUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591049923593_verifyInventoryUI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591051939768_verifySortChange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591052247234_verifySortChange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591053743733_verifySortChange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591053752244_verifySortChange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591053807061_verifySortChange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591909773182_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591909895696_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591910119296_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591910692380_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591910787636_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591910893000_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1591910936977_verifyAddAllToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1592179362134_verifyRemoveIndividuallyToCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenshots/1592179423828_verifyRemoveAllFromCart.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/secret" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/botStyle/BotStyle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constants/CheckoutOverviewPageConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constants/GlobalPageConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constants/InventoryPageConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constants/LoginPageConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constants/ProductPageConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/constants/ShoppingCartPageConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dataProviders/CartDataProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dataProviders/InventoryDataProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dataProviders/ProductsDataProvider.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/listeners/TestExecutionListener.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/BasePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/BaseStorePage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/CheckoutFinishedPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/CheckoutInformationPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/CheckoutOverviewPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/LoginPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/ProductPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/ProductsInventoryPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/pages/ShoppingCartPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/selenium/SeleniumBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/CommonUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ExcelFileReader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/ScreenshotUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Constants/GlobalTestConstants.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/inventoryTests/InventoryTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/loginTests/LoginTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/productTests/ProductTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/shoppingCartTests/CheckoutFinishedTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/shoppingCartTests/CheckoutInformationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/shoppingCartTests/CheckoutOverviewTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/shoppingCartTests/ShoppingCartTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/testBase/TestCaseBase.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/log4j.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2021-04-13T19-15-42_534-jvmRun1.dump" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/2021-04-13T19-15-42_534-jvmRun1.dumpstream" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/webtesting.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testConfiguration/Classes.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testConfiguration/ExcludedTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testConfiguration/Parameters.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/CheckoutFinishedTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/CheckoutInformationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/CheckoutOverviewTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/DebugTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/InventoryTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/LoginTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/ProductTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/testGroups/ShoppingCartTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/webtesting.iml" beforeDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1udppiIwljmixjs51XaBGyptC1A" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ca9b4ae3-8ec8-4926-9af2-47f9374816ca" name="Default Changelist" comment="" />
+      <created>1625005504510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625005504510</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
