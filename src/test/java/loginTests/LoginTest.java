@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify items on login page",
-            groups = {"UI"})
+            groups = {"debug"})
     @Parameters({"loginPageTitle"})
     public void verifyLoginUI(String loginPageTitle) {
 
