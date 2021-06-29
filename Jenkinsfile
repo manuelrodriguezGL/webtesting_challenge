@@ -14,9 +14,11 @@ pipeline{
         environment{
             SECRET_FILE_ID = credentials('secret_file')
             SAUCE_USER = credentials('SAUCE_USER')
-            SAUCE_PDW = credentials('SAUCE_PWD')
         }
             steps{
+                echo "####DISPLAYING SECRET_FILE_ID####"
+           	    echo 'Global property file: ${SECRET_FILE_ID}'
+                echo 'Global username: ${SAUCE_USER}'
                 dir("webtesting"){
                     sh 'mvn clean install -Dtestng.dtd.http=true'
                 }
