@@ -25,8 +25,8 @@ pipeline{
             }
 
             steps{
-                echo 'Username: $SECRET_FILE_ID_USR'
-                echo 'Password: $SECRET_FILE_ID_PSW'
+                sh('echo Username: $SECRET_FILE_ID_USR')
+                sh('echo Password: $SECRET_FILE_ID_PSW')
                 sh 'mvn clean install -Dtestng.dtd.http=true'
             }
         }
