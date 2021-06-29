@@ -19,15 +19,13 @@ pipeline{
         stage('Test')
         {
             environment{
-                SECRET_FILE_ID = credentials('secret_file')
-                //SAUCE_USER = credentials('SAUCE_USER')
-                //SAUCE_PWD = credentials('SAUCE_PWD')
+                SAUCE_CREDENTIALS = credentials('secret_sauce')
             }
 
             steps{
-                sh('echo Username: $SECRET_FILE_ID_USR')
-                sh('echo Password: $SECRET_FILE_ID_PSW')
-                sh 'mvn clean install -Dtestng.dtd.http=true'
+                sh('echo Username: $SAUCE_CREDENTIALS_USR')
+                sh('echo Password: $SAUCE_CREDENTIALS_PSW')
+                //h 'mvn clean install -Dtestng.dtd.http=true'
             }
         }
     }
