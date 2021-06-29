@@ -4,6 +4,7 @@ pipeline{
         maven 'Maven 3.6.1' 
     }
     options {
+        // Clean before build options
         skipDefaultCheckout(true)
     }
     stages{
@@ -17,7 +18,15 @@ pipeline{
         }
         stage('Test')
         {
+            environment{
+                SECRET_FILE_ID = credentials('secret_file')
+                SAUCE_USER = credentials('SAUCE_USER')
+                SAUCE_PWD = credentials('SAUCE_PWD')
+            }
+
             steps{
+                echo 'Username: $SAUCE_USER'
+                echo 'Password: $SAUCE_PWD'
                 sh 'mvn clean install -Dtestng.dtd.http=true'
             }
         }
