@@ -129,6 +129,14 @@
                             <value>5</value>
                         </property>
                     </properties>
+                    <systemPropertyVariables>
+                        <propertyName>
+                            ${sauce_user}
+                        </propertyName>
+                        <propertyName>
+                            ${sauce_psw}
+                        </propertyName>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
 

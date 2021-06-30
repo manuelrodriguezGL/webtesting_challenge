@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginTest extends TestCaseBase {
 
     @Test(description = "Verify items on login page",
-            groups = {"debug"})
+            groups = {"UI"})
     @Parameters({"loginPageTitle"})
     public void verifyLoginUI(String loginPageTitle) {
 
@@ -56,8 +56,8 @@ public class LoginTest extends TestCaseBase {
     }
 
     @Test(description = "Perform a valid login action",
-            groups = {"login"})
-    @Parameters({"validUser", "validPassword"})
+            groups = {"debug"})
+    @Parameters({"sauce_user", "sauce_psw"})
     public void validLogin(String user, String pwd) {
         ProductsInventoryPage productsInventoryPage = getLoginPage().login(user, pwd);
         assertTrue(productsInventoryPage.isPageLoaded());
