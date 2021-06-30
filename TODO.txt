@@ -12,9 +12,11 @@ DONE 10. Use of BotStyle test pattern to reuse some code in PageObjects: https:/
 DONE 11. I think that there could be more validations in the test cases than validating booleans.
 That way you can validate and have more custom details on failures when the assert fails.
 DONE 12. There is a mix between TestNg and Junit, you can use just testNG since it also has assert methods.
+DONE 13. Use valid credentials out of the code, it is a good practice to not have usernames and passwords in teh code,
+you can use environemnt variables instead. DONE
+DONE Fix jenkinsfile
+DONE Remove InventoryItem class
 
-13. Use valid credentials out of the code, it is a good practice to not have usernames and passwords in teh code,
-you can use environemnt variables instead.
 14. Organize a little bit the POM.xml file, remove dependencies that you are not using and so on.
 3. (Optional) implement something better in the custom TestNG listener.
 
@@ -22,8 +24,5 @@ you can use environemnt variables instead.
 8. Add content to the readme file with instructions about how to run the project.
 
 ---
-
-DONE Remove InventoryItem class
 Remove unused code on Constant classes
-Fix jenkinsfile
 //TODO Parametro para el headless en el mvn

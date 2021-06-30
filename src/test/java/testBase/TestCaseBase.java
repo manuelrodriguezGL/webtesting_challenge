@@ -13,7 +13,7 @@ public class TestCaseBase extends SeleniumBase {
     protected String baseUrl = "";
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"browserName", "headless", "baseUrl"})
+    @Parameters({"browser", "headlessMode", "baseUrl"})
     public void setUp(String browserName, String headless, String _baseUrl) {
         System.out.println("Setting up Selenium driver for browser: " + browserName);
         super.setup(browserName, Boolean.valueOf(headless));

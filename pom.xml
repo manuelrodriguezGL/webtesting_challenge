@@ -131,6 +131,15 @@
                     </properties>
                     <systemPropertyVariables>
                         <propertyName>
+                            ${browser}
+                        </propertyName>
+                        <propertyName>
+                            ${headlessMode}
+                        </propertyName>
+                        <propertyName>
+                            ${baseUrl}
+                        </propertyName>
+                        <propertyName>
                             ${sauce_user}
                         </propertyName>
                         <propertyName>

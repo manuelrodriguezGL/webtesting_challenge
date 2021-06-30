@@ -1,12 +1,12 @@
 <!--Selenium Parameters-->
-<parameter name="browserName" value="Chrome"/>
-<parameter name="headless" value="false"/>
+<!--<parameter name="browserName" value="Chrome"/>-->
+<!--<parameter name="headless" value="false"/>-->
 
-<parameter name="baseUrl" value="https://www.saucedemo.com"/>
+<!--<parameter name="baseUrl" value="https://www.saucedemo.com"/>-->
 
         <!--Login Page Parameters-->
-<parameter name="validUser" value="standard_user"/>
-<parameter name="validPassword" value="secret_sauce"/>
+<!--<parameter name="validUser" value="standard_user"/>-->
+<!--<parameter name="validPassword" value="secret_sauce"/>-->
 <parameter name="invalidUser" value="test"/>
 <parameter name="invalidPassword" value="test"/>
 <parameter name="loginPageTitle" value="Swag Labs"/>
