@@ -1,8 +1,10 @@
 package testBase;
 
 import listeners.TestExecutionListener;
-import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Parameters;
 import pages.LoginPage;
 import pages.ProductsInventoryPage;
 import selenium.SeleniumBase;
@@ -37,7 +39,7 @@ public class TestCaseBase extends SeleniumBase {
         return loginPage;
     }
 
-    public ProductsInventoryPage login(String user, String pwd){
+    public ProductsInventoryPage login(String user, String pwd) {
         return getLoginPage().login(user, pwd);
     }
 }

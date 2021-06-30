@@ -25,4 +25,3 @@ DONE Remove InventoryItem class
 
 ---
 Remove unused code on Constant classes
-//TODO Parametro para el headless en el mvn

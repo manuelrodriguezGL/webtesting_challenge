@@ -40,7 +40,7 @@ public class ExcelFileReader {
     }
 
     /**
-     * Return only one roe of data
+     * Return only one row of data
      *
      * @param filePath  Path to the file
      * @param sheetName Sheet name inside the workbook
