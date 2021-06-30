@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Properties;
 
 /**
@@ -48,6 +49,41 @@ public class CommonUtils {
             }
 
             return properties.getProperty(property);
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            inputStream.close();
+        }
+    }
+
+    /**
+     * Gets all the properties needed at once, in the form of an array,
+     * to avoid opening and closing the file multiple times
+     *
+     * @param propertiesArray An array of strings representing the properties names needed
+     * @return An array with all the properties requested
+     * @throws IOException
+     */
+    public static ArrayList<String> getPropertiesArray(ArrayList<String> propertiesArray) throws IOException {
+
+        InputStream inputStream = null;
+        ArrayList<String> result = new ArrayList<>();
+
+        try {
+            Properties properties = new Properties();
+            inputStream = CommonUtils.class.getClassLoader().getResourceAsStream(PROPERTIES_FILE_NAME);
+
+            if (inputStream != null) {
+                properties.load(inputStream);
+            } else {
+                throw new FileNotFoundException("property file '" + PROPERTIES_FILE_NAME + "' not found in the classpath");
+            }
+
+            for (String s : propertiesArray) {
+                result.add(properties.getProperty(s));
+            }
+            return result;
 
         } catch (Exception e) {
             throw e;

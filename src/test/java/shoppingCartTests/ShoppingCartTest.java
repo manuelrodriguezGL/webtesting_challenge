@@ -25,7 +25,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword"})
+    @Parameters({"sauce_user", "sauce_psw"})
     public void loadInventoryPage(String user, String pwd) {
         inventory = login(user, pwd);
     }
@@ -38,7 +38,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"shoppingCart"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
+            groups = {"debug"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
     public void verifyShoppingCartUI(String id, String name, String description, String price) {
 
         SoftAssert softAssert = new SoftAssert();
@@ -47,7 +47,7 @@ public class ShoppingCartTest extends TestCaseBase {
         if (!shoppingCartPage.isCartEmpty()) {
             softAssert.assertEquals(shoppingCartPage.getProductName(id), name);
             softAssert.assertEquals(shoppingCartPage.getProductDescription(id), description);
-            softAssert.assertEquals(shoppingCartPage.getProductPrice(id), price);
+            softAssert.assertEquals(shoppingCartPage.getProductPrice(id), "$" + price);
             softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
                     String.format("Product information does not match the values on file for ID: %s", id));
         } else {
