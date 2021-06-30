@@ -56,7 +56,7 @@ public class LoginTest extends TestCaseBase {
     }
 
     @Test(description = "Perform a valid login action",
-            groups = {"debug"})
+            groups = {"login"})
     @Parameters({"sauce_user", "sauce_psw"})
     public void validLogin(String user, String pwd) {
         ProductsInventoryPage productsInventoryPage = getLoginPage().login(user, pwd);
