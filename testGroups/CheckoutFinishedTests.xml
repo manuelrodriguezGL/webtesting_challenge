@@ -1,0 +1,6 @@
+<!--Add your INCLUDED groups here-->
+
+<include name="checkoutFinished"/>
+
+        <!--Add your EXCLUDED groups here-->
+<exclude name="excluded"/>
