@@ -1,33 +1,42 @@
 package dataProviders;
 
-import constants.InventoryPageConstants;
 import org.testng.annotations.DataProvider;
+import utils.CommonUtils;
 import utils.ExcelFileReader;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class InventoryDataProvider {
+
     @DataProvider(name = "Inventory")
     public static Object[][] inventoryData() throws IOException {
-        return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
-                InventoryPageConstants.INVENTORY_EXCEL_SHEET);
+        return getExcelFile("inventory_excel_path", "inventory_excel_sheet");
     }
 
     @DataProvider(name = "Sort")
-    public static Object[][] sortOrder() throws  IOException {
-        return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
-                InventoryPageConstants.SORT_EXCEL_SHEET);
+    public static Object[][] sortOrder() throws IOException {
+        return getExcelFile("inventory_excel_path", "sort_excel_sheet");
     }
 
     @DataProvider(name = "ID")
-    public static Object[][] inventoryIds() throws  IOException {
-        return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
-                InventoryPageConstants.ID_EXCEL_SHEET);
+    public static Object[][] inventoryIds() throws IOException {
+        return getExcelFile("inventory_excel_path", "id_excel_sheet");
     }
 
     @DataProvider(name = "Names")
-    public static Object[][] inventoryNames() throws  IOException {
-        return ExcelFileReader.readFile(InventoryPageConstants.INVENTORY_EXCEL_PATH,
-                InventoryPageConstants.NAMES_EXCEL_SHEET);
+    public static Object[][] inventoryNames() throws IOException {
+        return getExcelFile("inventory_excel_path", "names_excel_sheet");
+    }
+
+    private static ArrayList<String> getPropertiesArray(String excel_path, String excel_sheet) throws IOException {
+        return CommonUtils.getPropertiesArray(new ArrayList<>(Arrays.asList(excel_path, excel_sheet)));
+    }
+
+    private static String[][] getExcelFile(String excel_path, String excel_sheet) throws IOException {
+        ArrayList<String> propertiesArray =
+                getPropertiesArray(excel_path, excel_sheet);
+        return ExcelFileReader.readFile(propertiesArray.get(0), propertiesArray.get(1));
     }
 }
