@@ -12,9 +12,6 @@ import java.io.IOException;
 
 public class ScreenshotUtil {
 
-    // TODO move to a configurations file
-    private static final String SCREENSHOT_FOLDER_NAME = "screenshots";
-
     private static boolean createFile(File screenshot) throws IOException {
         boolean fileCreated = false;
         if (screenshot.exists()) {
