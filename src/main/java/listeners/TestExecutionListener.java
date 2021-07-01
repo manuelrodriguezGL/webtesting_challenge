@@ -1,6 +1,7 @@
 package listeners;
 
 import org.testng.ITestResult;
+import org.testng.Reporter;
 import org.testng.TestListenerAdapter;
 import utils.ScreenshotUtil;
 
@@ -13,7 +14,8 @@ public class TestExecutionListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult testResult) {
-        ScreenshotUtil.takeScreenshot(testResult.getTestClass() + "_" + testResult.getTestName());
+        //Reporter
+        ScreenshotUtil.takeScreenshot(testResult.getTestClass() + "_" + testResult.getName());
     }
 
     @Override

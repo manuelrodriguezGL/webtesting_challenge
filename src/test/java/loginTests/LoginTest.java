@@ -1,13 +1,12 @@
 package loginTests;
 
+import org.testng.Assert;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 import pages.LoginPage;
 import pages.ProductsInventoryPage;
 import testBase.TestCaseBase;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest extends TestCaseBase {
 
@@ -29,7 +28,7 @@ public class LoginTest extends TestCaseBase {
     @Parameters({"invalidUser", "invalidPassword"})
     public void verifyInvalidLoginErrorMessage(String invalidUser, String invalidPassword) {
         LoginPage login = getLoginPage();
-        assertTrue(login.checkInvalidCredsErrorMessage(invalidUser, invalidPassword),
+        Assert.assertTrue(login.checkInvalidCredsErrorMessage(invalidUser, invalidPassword),
                 GLOBAL_TEST_FAILED_MESSAGE +
                         "Incorrect error message for invalid credentials");
     }
@@ -39,7 +38,7 @@ public class LoginTest extends TestCaseBase {
     @Parameters({"invalidPassword"})
     public void verifyEmptyUserNameErrorMessage(String invalidPassword) {
         LoginPage login = getLoginPage();
-        assertTrue(login.checkEmptyUserErrorMessage(invalidPassword),
+        Assert.assertTrue(login.checkEmptyUserErrorMessage(invalidPassword),
                 GLOBAL_TEST_FAILED_MESSAGE +
                         "Incorrect error message for empty user name");
     }
@@ -49,17 +48,17 @@ public class LoginTest extends TestCaseBase {
     @Parameters({"invalidUser"})
     public void verifyEmptyPasswordErrorMessage(String invalidUser) {
         LoginPage login = getLoginPage();
-        assertTrue(login.checkEmptyPwdErrorMessage(invalidUser),
+        Assert.assertTrue(login.checkEmptyPwdErrorMessage(invalidUser),
                 GLOBAL_TEST_FAILED_MESSAGE +
                         "Incorrect error message for empty password");
     }
 
     @Test(description = "Perform a valid login action",
-            groups = {"login"})
+            groups = {"debug"})
     @Parameters({"sauce_user", "sauce_psw"})
     public void validLogin(String user, String pwd) {
-        ProductsInventoryPage productsInventoryPage = getLoginPage().login(user, pwd);
-        assertTrue(productsInventoryPage.isPageLoaded());
+        ProductsInventoryPage productsInventoryPage = getLoginPage().login(user, pwd + "!");
+        Assert.assertTrue(productsInventoryPage.isPageLoaded());
     }
 
     @Test(description = "Perform a logout action",
@@ -67,6 +66,6 @@ public class LoginTest extends TestCaseBase {
     @Parameters({"sauce_user", "sauce_psw"})
     public void logout(String user, String pwd) {
         ProductsInventoryPage productsInventoryPage = getLoginPage().login(user, pwd);
-        assertTrue(productsInventoryPage.logout().isPageLoaded());
+        Assert.assertTrue(productsInventoryPage.logout().isPageLoaded());
     }
 }
