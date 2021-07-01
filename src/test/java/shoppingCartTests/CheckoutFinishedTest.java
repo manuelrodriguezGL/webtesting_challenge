@@ -20,7 +20,7 @@ public class CheckoutFinishedTest extends TestCaseBase {
     private CheckoutFinishedPage checkoutFinishedPage;
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword", "customerFirstName", "customerLastName", "customerZipCode"})
+    @Parameters({"sauce_user", "sauce_psw", "customerFirstName", "customerLastName", "customerZipCode"})
     public void loadCheckoutFinishedPage(String user, String pwd, String firstName, String lastName, String zipCode) {
         try {
             inventory = login(user, pwd);

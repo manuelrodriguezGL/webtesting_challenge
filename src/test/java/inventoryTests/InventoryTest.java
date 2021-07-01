@@ -20,7 +20,7 @@ public class InventoryTest extends TestCaseBase {
     private ProductsInventoryPage inventoryPage;
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword"})
+    @Parameters({"sauce_user", "sauce_psw"})
     public void loadInventoryPage(String user, String pwd) {
         login(user, pwd);
         inventoryPage = new ProductsInventoryPage(getWebDriverInstance(), baseUrl);

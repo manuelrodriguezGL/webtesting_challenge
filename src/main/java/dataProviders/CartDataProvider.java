@@ -14,7 +14,6 @@ public class CartDataProvider {
         ArrayList<String> propertiesArray =
                 CommonUtils.getPropertiesArray(new ArrayList<>(Arrays.asList("cart_excel_path", "cart_excel_sheet")));
 
-        return ExcelFileReader.readFile(propertiesArray.get(0),
-                propertiesArray.get(1));
+        return ExcelFileReader.readFile(propertiesArray.get(0), propertiesArray.get(1));
     }
 }

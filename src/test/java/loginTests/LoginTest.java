@@ -65,7 +65,7 @@ public class LoginTest extends TestCaseBase {
 
     @Test(description = "Perform a logout action",
             groups = {"login"})
-    @Parameters({"validUser", "validPassword"})
+    @Parameters({"sauce_user", "sauce_psw"})
     public void logout(String user, String pwd) {
         ProductsInventoryPage productsInventoryPage = getLoginPage().login(user, pwd);
         assertTrue(productsInventoryPage.logout().isPageLoaded());

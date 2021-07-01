@@ -18,7 +18,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     private ProductsInventoryPage inventory;
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword", "customerFirstName", "customerLastName", "customerZipCode"})
+    @Parameters({"sauce_user", "sauce_psw", "customerFirstName", "customerLastName", "customerZipCode"})
     public void loadShoppingCartPage(String user, String pwd, String firstName, String lastName, String zipCode) {
         try {
             inventory = login(user, pwd);

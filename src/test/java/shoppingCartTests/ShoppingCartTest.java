@@ -38,7 +38,7 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for every individual product",
-            groups = {"debug"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
+            groups = {"shoppingCart"}, dataProvider = "Cart", dataProviderClass = CartDataProvider.class)
     public void verifyShoppingCartUI(String id, String name, String description, String price) {
 
         SoftAssert softAssert = new SoftAssert();

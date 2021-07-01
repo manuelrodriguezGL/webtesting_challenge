@@ -45,7 +45,8 @@ public class CommonUtils {
             if (inputStream != null) {
                 properties.load(inputStream);
             } else {
-                throw new FileNotFoundException("property file '" + PROPERTIES_FILE_NAME + "' not found in the classpath");
+                throw new FileNotFoundException("property file '" +
+                        PROPERTIES_FILE_NAME + "' not found in the classpath");
             }
 
             return properties.getProperty(property);
@@ -77,7 +78,8 @@ public class CommonUtils {
             if (inputStream != null) {
                 properties.load(inputStream);
             } else {
-                throw new FileNotFoundException("property file '" + PROPERTIES_FILE_NAME + "' not found in the classpath");
+                throw new FileNotFoundException("property file '" +
+                        PROPERTIES_FILE_NAME + "' not found in the classpath");
             }
 
             for (String s : propertiesArray) {

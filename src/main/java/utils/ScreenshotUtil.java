@@ -38,8 +38,8 @@ public class ScreenshotUtil {
         boolean result = false;
         try {
             WebDriver driver = SeleniumBase.getWebDriverInstance();
-            String screenshotPath = SCREENSHOT_FOLDER_NAME + File.separator +
-                    System.currentTimeMillis() + "_" + failedTestName + ".png";
+            String screenshotPath = CommonUtils.getPropertyValue("screenshot_folder_name") +
+                    File.separator + System.currentTimeMillis() + "_" + failedTestName + ".png";
             File screenshot = new File(screenshotPath);
             if (createFile(screenshot)) {
                 try {

@@ -17,7 +17,7 @@ public class ProductTest extends TestCaseBase {
     private ProductsInventoryPage inventoryPage;
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword"})
+    @Parameters({"sauce_user", "sauce_psw"})
     public void loadInventoryPage(String user, String pwd) {
         inventoryPage = login(user, pwd);
     }

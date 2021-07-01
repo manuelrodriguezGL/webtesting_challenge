@@ -16,7 +16,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     private ProductsInventoryPage inventory;
 
     @BeforeMethod(alwaysRun = true)
-    @Parameters({"validUser", "validPassword", "item4ID"})
+    @Parameters({"sauce_user", "sauce_psw", "item4ID"})
     public void loadShoppingCartPage(String user, String pwd, String item4ID) {
         inventory = login(user, pwd);
         inventory.addToCartById(item4ID);
