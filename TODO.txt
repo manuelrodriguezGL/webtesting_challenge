@@ -18,8 +18,7 @@ DONE Fix jenkinsfile
 DONE Remove InventoryItem class
 DONE Remove unused code on Constant classes
 DONE 14. Organize a little bit the POM.xml file, remove dependencies that you are not using and so on.
-
-3. (Optional) implement something better in the custom TestNG listener.
+DONE 3. (Optional) implement something better in the custom TestNG listener.
 
 ? 7. There are some methods with comments and other methods without comments, add comments to missing methods.
 8. Add content to the readme file with instructions about how to run the project.

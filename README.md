@@ -1,15 +1,66 @@
-# Oscar Valerio's Feedback
-1. I think it could be better to have the jenkinsfile and the .gitignore files into the project, webtesting folder in this case.
-2. There are several screenshots in the repository, it seems like the .gitignore is not working for that folder.
-3. (Optional) implement something better in the custom TestNG listener.
-4. BASE_URL = "https://www.saucedemo.com": it could be in the TestNG xmls files.
-5. We can take methods in the BasePage like: assesElementTextEquals, assesElementTextContains, textContains, etc to another class in charged of manage this utilities.
-6. Use of softasserts as we talked in our meeting.
-7. There are some methods with comments and other methods without comments, add comments to missing methods.
-8. Add content to the readme file with instructions about how to run the project.
-9. Try to avoid commented code like: "//e.getText();".
-10. Use of BotStyle test pattern to reuse some code in PageObjects: https://github.com/SeleniumHQ/selenium/wiki/Bot-Style-Tests 
-11. I think that there could be more validations in the test cases than validating booleans. That way you can validate and have more custom details on failures when the assert fails.
-12. There is a mix between TestNg and Junit, you can use just testNG since it also has assert methods.
-13. Use valid credentials out of the code, it is a good practice to not have usernames and passwords in teh code, you can use environemnt variables instead.
-14. Organize a little bit the POM.xml file, remove dependencies that you are not using and so on.
+# Saucedemo Test Project
+
+This Selenium automation project was designed to test Sauce Labs demo page https://www.saucedemo.com/
+
+## How to run it
+
+### Local run
+In a terminal, run the following maven command:
+
+`mvn clean install -Dtestng.dtd.http=true -Dsauce_user=$SAUCE_CREDENTIALS_USR 
+    -Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=Chrome -DheadlessMode=false 
+    -DbaseUrl=https://www.saucedemo.com`
+    
+Replace `$SAUCE_CREDENTIALS_USR` and `$SAUCE_CREDENTIALS_PSW` with Saucedemo page credentials (user and password)
+
+Also, to run the tests in headless mode, set `headlessMode=true`
+
+Finally, `baseUrl` parameter is there, in case Sauce labs decides to move the page somewhere else.
+
+### Jenkins run
+
+#### Prerequisites
+1. Install Maven plugin
+2. Install Workspace cleanup plugin
+3. Configure Saucedemo app credentials inside Jenkins manager
+
+NOTE: There are more secure ways of handling credentials, but for the sake of this example, I used the most straightforward way.
+
+#### Configuring a pipeline file
+ 1. Add maven to your tools section
+ 
+ `tools {
+         maven 'Maven 3.6.1' 
+     }`   
+2. Add skipDefaultCheckout option to cleanup the workspace
+
+ `options {
+        // Clean before build options
+        skipDefaultCheckout(true)
+    }`
+3. In your stage steps, first call the cleanup plugin `cleanWs()` Then, configure git to checkout from the desired branch
+
+`git branch: 'testing',
+    url: 'https://github.com/manuelrodriguezGL/webtesting_challenge.git'`
+4. Setup an environment, where you read the credentials stored in Jenkins credentials manager. Make sure you are using the same credentials ID.
+ 
+` environment{
+    SAUCE_CREDENTIALS = credentials('secret_sauce')
+} `
+5. Finally, in your steps, call a shell script with maven command, similarly to a local run
+
+`sh 'mvn clean install -Dtestng.dtd.http=true -Dsauce_user=$SAUCE_CREDENTIALS_USR ' +
+    '-Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=Chrome -DheadlessMode=false ' +
+    '-DbaseUrl=https://www.saucedemo.com'
+`    
+Where: 
+
+`$SAUCE_CREDENTIALS_USR` and `$SAUCE_CREDENTIALS_PSW` are default Jenkins variable names, based on the credentials ID you configured on credentials manager. 
+
+`headlessMode=true` Is the flag for headless mode or not.
+
+`baseUrl` parameter is there, in case Sauce labs decides to move the page somewhere else.
+
+NOTE: Don't remove `testng.dtd.http=true`, since it is needed to run it from terminal. That's a workaround for a known TestNG bug.
+
+
