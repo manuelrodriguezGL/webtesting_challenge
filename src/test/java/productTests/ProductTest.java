@@ -1,6 +1,5 @@
 package productTests;
 
-import Constants.GlobalTestConstants;
 import dataProviders.InventoryDataProvider;
 import dataProviders.ProductsDataProvider;
 import org.testng.Assert;
@@ -47,7 +46,7 @@ public class ProductTest extends TestCaseBase {
     public void verifyProductGoBackButton(String productId) {
         ProductPage product = inventoryPage.loadProductPageById(productId);
 
-        Assert.assertNotNull(product.goBack(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertNotNull(product.goBack(), GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not go back from product with ID %s!", productId));
     }
 
@@ -60,7 +59,7 @@ public class ProductTest extends TestCaseBase {
         product.clickAddToCartButton();
 
         Assert.assertEquals(product.getCartItemsQuantity(), originalQuantity + 1,
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not add product with ID %s to cart!", productId));
     }
 
@@ -75,7 +74,7 @@ public class ProductTest extends TestCaseBase {
         product.clickRemoveButton();
 
         Assert.assertEquals(product.getCartItemsQuantity(), originalQuantity - 1,
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not remove product with ID %s from cart!", productId));
     }
 

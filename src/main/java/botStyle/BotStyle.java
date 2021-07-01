@@ -1,11 +1,26 @@
 package botStyle;
 
-import constants.GlobalPageConstants;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.CommonUtils;
+
+import java.io.IOException;
 
 public class BotStyle {
+    private static long timeout;
+
+    /**
+     * Static initialization of the timeout variable
+     */
+    static {
+        try {
+            timeout = Long.parseLong(CommonUtils.getPropertyValue("global_timeout"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private WebDriver driver;
 
     public BotStyle(WebDriver driver) {
@@ -18,7 +33,7 @@ public class BotStyle {
         element.sendKeys(text);
     }
 
-    public void clearTextField(WebElement element) throws  NoSuchElementException {
+    public void clearTextField(WebElement element) throws NoSuchElementException {
         element.sendKeys(Keys.chord(Keys.COMMAND, "a"));
         element.sendKeys(Keys.BACK_SPACE);
     }
@@ -40,7 +55,7 @@ public class BotStyle {
      * @return The WebElement found after wait
      */
     public WebElement waitByWebElement(WebElement element) throws NoSuchElementException {
-        return (new WebDriverWait(this.driver, GlobalPageConstants.GLOBAL_TIMEOUT))
+        return (new WebDriverWait(this.driver, timeout))
                 .until(ExpectedConditions.visibilityOf(element));
     }
 
@@ -51,7 +66,7 @@ public class BotStyle {
      * @return A WebElement found using By locator
      */
     public WebElement waitByLocator(By locator) throws NoSuchElementException {
-        return (new WebDriverWait(this.driver, GlobalPageConstants.GLOBAL_TIMEOUT))
+        return (new WebDriverWait(this.driver, timeout))
                 .until(ExpectedConditions.presenceOfElementLocated(locator));
     }
     /////

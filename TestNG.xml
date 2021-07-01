@@ -22,14 +22,14 @@
         <groups>
             <run>
                 &excludedTests;
-                &debugTests;
-                <!--                &loginTests;-->
-                <!--                &inventoryTests;-->
-                <!--                &productTests;-->
-                <!--                &shoppingCartTests;-->
-                <!--                &checkoutInformationTests;-->
-                <!--                &checkoutOverviewTests;-->
-                <!--                &checkoutFinishedTests;-->
+                <!--                &debugTests;-->
+                &loginTests;
+                &inventoryTests;
+                &productTests;
+                &shoppingCartTests;
+                &checkoutInformationTests;
+                &checkoutOverviewTests;
+                &checkoutFinishedTests;
             </run>
         </groups>
         &classes;

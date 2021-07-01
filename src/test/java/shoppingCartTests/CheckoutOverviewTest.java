@@ -1,6 +1,5 @@
 package shoppingCartTests;
 
-import Constants.GlobalTestConstants;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -74,7 +73,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     public void verifyCartSubtotal() {
         Assert.assertEquals(checkoutOverviewPage.getTotalAmountFromItemList(),
                 checkoutOverviewPage.getSubtotalAmount(),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "The following values don't match: Item total (subtotal without tax)!");
     }
 
@@ -83,7 +82,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
     public void verifyCartTotal() {
         Assert.assertEquals(checkoutOverviewPage.sumTotalAmount(),
                 checkoutOverviewPage.getTotalAmount(),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "The following values don't match: Total and Item total plus Tax!");
     }
 
@@ -107,7 +106,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
         double difference = Math.floor((totalBefore - totalAfter) * 100) / 100;
         Assert.assertEquals(difference,
                 Double.parseDouble(item4Price.substring(item4Price.indexOf("$") + 1)),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "The following values don't match: Total before and after removing one element");
     }
 
@@ -115,7 +114,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             groups = {"checkoutOverview"})
     public void verifyCancelButton() {
         Assert.assertTrue(checkoutOverviewPage.cancelCheckout().isPageLoaded(),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "The Inventory page could not be loaded by clicking Cancel button");
     }
 
@@ -123,7 +122,7 @@ public class CheckoutOverviewTest extends TestCaseBase {
             groups = {"checkoutOverview"})
     public void verifyFinishButton() {
         Assert.assertTrue(checkoutOverviewPage.finishCheckout().isPageLoaded(),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "The Checkout Finished page could not be loaded");
     }
 

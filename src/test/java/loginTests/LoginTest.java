@@ -1,6 +1,5 @@
 package loginTests;
 
-import Constants.GlobalTestConstants;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -31,7 +30,7 @@ public class LoginTest extends TestCaseBase {
     public void verifyInvalidLoginErrorMessage(String invalidUser, String invalidPassword) {
         LoginPage login = getLoginPage();
         assertTrue(login.checkInvalidCredsErrorMessage(invalidUser, invalidPassword),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "Incorrect error message for invalid credentials");
     }
 
@@ -41,7 +40,7 @@ public class LoginTest extends TestCaseBase {
     public void verifyEmptyUserNameErrorMessage(String invalidPassword) {
         LoginPage login = getLoginPage();
         assertTrue(login.checkEmptyUserErrorMessage(invalidPassword),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "Incorrect error message for empty user name");
     }
 
@@ -51,7 +50,7 @@ public class LoginTest extends TestCaseBase {
     public void verifyEmptyPasswordErrorMessage(String invalidUser) {
         LoginPage login = getLoginPage();
         assertTrue(login.checkEmptyPwdErrorMessage(invalidUser),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         "Incorrect error message for empty password");
     }
 

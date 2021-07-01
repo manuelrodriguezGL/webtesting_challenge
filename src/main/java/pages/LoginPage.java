@@ -1,6 +1,5 @@
 package pages;
 
-import constants.LoginPageConstants;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +7,10 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePage {
 
+    public static final String LOGIN_USER_ERROR_MESSAGE = "Epic sadface: Username is required";
+    public static final String LOGIN_PWD_ERROR_MESSAGE = "Epic sadface: Password is required";
+    public static final String LOGIN_ERROR_MESSAGE = "Epic sadface: Username and password do not match any user in this service";
     private static final String URL = "";
-
     @FindBy(tagName = "title")
     private WebElement title;
 
@@ -100,7 +101,7 @@ public class LoginPage extends BasePage {
             enterUserName("");
             enterPwd(pwd);
             botStyle.click(loginButton);
-            return errorMessage.getText().equals(LoginPageConstants.LOGIN_USER_ERROR_MESSAGE);
+            return errorMessage.getText().equals(LOGIN_USER_ERROR_MESSAGE);
         } catch (Exception e) {
             throw e;
         }
@@ -111,7 +112,7 @@ public class LoginPage extends BasePage {
             enterUserName(user);
             enterPwd("");
             botStyle.click(loginButton);
-            return errorMessage.getText().equals(LoginPageConstants.LOGIN_PWD_ERROR_MESSAGE);
+            return errorMessage.getText().equals(LOGIN_PWD_ERROR_MESSAGE);
         } catch (Exception e) {
             throw e;
         }
@@ -122,7 +123,7 @@ public class LoginPage extends BasePage {
             enterUserName(user);
             enterPwd(pwd);
             botStyle.click(loginButton);
-            return errorMessage.getText().equals(LoginPageConstants.LOGIN_ERROR_MESSAGE);
+            return errorMessage.getText().equals(LOGIN_ERROR_MESSAGE);
         } catch (Exception e) {
             throw e;
         }

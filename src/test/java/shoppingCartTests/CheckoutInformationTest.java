@@ -1,6 +1,5 @@
 package shoppingCartTests;
 
-import Constants.GlobalTestConstants;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
@@ -71,7 +70,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     @Test(description = "Verify that user can click Cancel button and is taken back to cart page",
             groups = {"checkoutInformation"})
     public void verifyClickCancelButton() {
-        Assert.assertTrue(checkoutPage.clickCancel().isPageLoaded(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(checkoutPage.clickCancel().isPageLoaded(), GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not click cancel button, or Cart page was not loaded!");
     }
 
@@ -81,7 +80,7 @@ public class CheckoutInformationTest extends TestCaseBase {
     @Parameters({"customerFirstName", "customerLastName", "customerZipCode"})
     public void verifyClickContinueButton(String firstName, String lastName, String zipCode) {
         checkoutPage.enterCustomerData(firstName, lastName, zipCode);
-        Assert.assertTrue(checkoutPage.clickContinue().isPageLoaded(), GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertTrue(checkoutPage.clickContinue().isPageLoaded(), GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not click continue button, or Overview page was not loaded!");
     }
 }

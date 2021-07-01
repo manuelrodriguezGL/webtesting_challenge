@@ -1,15 +1,30 @@
 package pages;
 
 import botStyle.BotStyle;
-import constants.GlobalPageConstants;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.LoadableComponent;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.CommonUtils;
+
+import java.io.IOException;
 
 public abstract class BasePage extends LoadableComponent {
+
+    private static long timeout;
+
+    /**
+     * Static initialization of the timeout variable
+     */
+    static {
+        try {
+            timeout = Long.parseLong(CommonUtils.getPropertyValue("global_timeout"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     protected String base_url = "";
 
@@ -37,7 +52,7 @@ public abstract class BasePage extends LoadableComponent {
 
     protected boolean isElementVisible(WebElement e) throws NoSuchElementException {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, GlobalPageConstants.GLOBAL_TIMEOUT);
+            WebDriverWait wait = new WebDriverWait(driver, timeout);
             return wait.until(driver -> e.isDisplayed());
         } catch (Exception ex) {
             return false;

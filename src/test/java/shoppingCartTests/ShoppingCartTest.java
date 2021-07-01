@@ -1,6 +1,5 @@
 package shoppingCartTests;
 
-import Constants.GlobalTestConstants;
 import dataProviders.CartDataProvider;
 import dataProviders.InventoryDataProvider;
 import org.testng.Assert;
@@ -34,7 +33,7 @@ public class ShoppingCartTest extends TestCaseBase {
             groups = {"shoppingCart"})
     public void verifyShoppingCartIsEmpty() {
         Assert.assertTrue(shoppingCartPage.isCartEmpty(),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + " Shopping cart is not empty!");
+                GLOBAL_TEST_FAILED_MESSAGE + " Shopping cart is not empty!");
     }
 
     @Test(description = "Verify the UI elements for every individual product",
@@ -48,7 +47,7 @@ public class ShoppingCartTest extends TestCaseBase {
             softAssert.assertEquals(shoppingCartPage.getProductName(id), name);
             softAssert.assertEquals(shoppingCartPage.getProductDescription(id), description);
             softAssert.assertEquals(shoppingCartPage.getProductPrice(id), "$" + price);
-            softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+            softAssert.assertAll(GLOBAL_TEST_FAILED_MESSAGE +
                     String.format("Product information does not match the values on file for ID: %s", id));
         } else {
             softAssert.fail("Shopping cart is not empty!");
@@ -63,7 +62,7 @@ public class ShoppingCartTest extends TestCaseBase {
         shoppingCartPage.clickRemoveButton(productId);
 
         Assert.assertEquals(shoppingCartPage.getCartItemsQuantity(), --beforeQuantity,
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not remove product with ID %s from cart!", productId));
     }
 
@@ -77,7 +76,7 @@ public class ShoppingCartTest extends TestCaseBase {
         shoppingCartPage.clickAllRemoveButtons();
 
         Assert.assertEquals(shoppingCartPage.getCartItemsQuantity(), 0,
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not remove all %s items from cart!", quantity));
     }
 
@@ -87,7 +86,7 @@ public class ShoppingCartTest extends TestCaseBase {
     public void verifyContinueShoppingButton(String productId) {
         loadShoppingCartPage(productId);
         Assert.assertNotNull(shoppingCartPage.clickContinueShoppingButton(),
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not click Continue Shopping button for product with ID %s", productId));
     }
 }

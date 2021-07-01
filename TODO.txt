@@ -16,6 +16,7 @@ DONE 13. Use valid credentials out of the code, it is a good practice to not hav
 you can use environemnt variables instead. DONE
 DONE Fix jenkinsfile
 DONE Remove InventoryItem class
+DONE Remove unused code on Constant classes
 
 14. Organize a little bit the POM.xml file, remove dependencies that you are not using and so on.
 3. (Optional) implement something better in the custom TestNG listener.
@@ -24,4 +25,3 @@ DONE Remove InventoryItem class
 8. Add content to the readme file with instructions about how to run the project.
 
 ---
-Remove unused code on Constant classes

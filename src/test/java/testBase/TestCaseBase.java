@@ -11,6 +11,8 @@ import selenium.SeleniumBase;
 
 @Listeners(TestExecutionListener.class)
 public class TestCaseBase extends SeleniumBase {
+    public static final String  GLOBAL_TEST_FAILED_MESSAGE = "Test execution failed! Message: \n";
+
     private static LoginPage loginPage = null;
     protected String baseUrl = "";
 

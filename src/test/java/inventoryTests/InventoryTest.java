@@ -1,6 +1,5 @@
 package inventoryTests;
 
-import Constants.GlobalTestConstants;
 import dataProviders.InventoryDataProvider;
 import dataProviders.ProductsDataProvider;
 import org.testng.Assert;
@@ -39,7 +38,7 @@ public class InventoryTest extends TestCaseBase {
                 "Product description not present or value is not the same, for ID: " + id);
         softAssert.assertEquals(inventoryPage.getProductPrice(id), price,
                 "Product price not present or value is not the same, for ID: " + id);
-        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        softAssert.assertAll(GLOBAL_TEST_FAILED_MESSAGE +
                 "Product information does not match the values on file for ID: " + id);
 
     }
@@ -73,7 +72,7 @@ public class InventoryTest extends TestCaseBase {
         softAssert.assertEquals(inventoryPage.getItemNames().get(itemListSize - 1).getAttribute("innerText"),
                 firstItem, "Could not change sort order: Z to A");
 
-        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + "Items could not be sorted by name!");
+        softAssert.assertAll(GLOBAL_TEST_FAILED_MESSAGE + "Items could not be sorted by name!");
     }
 
     @Test(description = "Verify the items can be sorted by different price values",
@@ -108,7 +107,7 @@ public class InventoryTest extends TestCaseBase {
         softAssert.assertEquals(inventoryPage.getItemPrices().get(itemPrices.size() - 1).getAttribute("innerText"),
                 firstItem, "Could not change sort order: Highest  to lowest price");
 
-        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE + "Items could not be sorted by price!");
+        softAssert.assertAll(GLOBAL_TEST_FAILED_MESSAGE + "Items could not be sorted by price!");
     }
 
     @Test(description = "Verify that all products can be added to cart",
@@ -122,7 +121,7 @@ public class InventoryTest extends TestCaseBase {
 
         int quantityAdded = inventoryPage.getCartItemsQuantity();
 
-        Assert.assertEquals(quantityAdded, expectedQuantity, GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        Assert.assertEquals(quantityAdded, expectedQuantity, GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not add all %s items to cart!", quantity));
     }
 
@@ -145,7 +144,7 @@ public class InventoryTest extends TestCaseBase {
         softAssert.assertEquals(inventoryPage.getProductRemoveFromCartButtonText(productName), "REMOVE",
                 String.format("The button text didn't change for the following item %s-%s!", productId, productName));
 
-        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        softAssert.assertAll(GLOBAL_TEST_FAILED_MESSAGE +
                 String.format("Could not add product to cart: %s-%s!", productId, productName));
     }
 
@@ -167,7 +166,7 @@ public class InventoryTest extends TestCaseBase {
 
         // If the remaining quantity + removed items = original quantity, then the test passes
         Assert.assertEquals(quantityRemoved + originalQuantity, expectedQuantity,
-                GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+                GLOBAL_TEST_FAILED_MESSAGE +
                         String.format("Could not remove all %s items from cart!", quantity));
     }
 
@@ -192,7 +191,7 @@ public class InventoryTest extends TestCaseBase {
                 String.format("Could not remove the following item from cart: %s!", productName));
         softAssert.assertEquals(inventoryPage.getProductAddToCartButtonText(productId), "ADD TO CART",
                 String.format("The button text didn't change for the following item %s!", productName));
-        softAssert.assertAll(GlobalTestConstants.GLOBAL_TEST_FAILED_MESSAGE +
+        softAssert.assertAll(GLOBAL_TEST_FAILED_MESSAGE +
                 "Could not remove product from cart: " + productName);
     }
 }
