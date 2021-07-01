@@ -62,29 +62,13 @@ public class LoginPage extends BasePage {
     }
 
     private void enterUserName(String user) throws NoSuchElementException {
-        //TODO Use bot style
-        if (isElementVisible(userNameText)) {
-            //WebElement e = waitElement(userNameText);
-            // Use Botstyle test to remove this lines since they are duplicated on several methods:
-            // https://github.com/SeleniumHQ/selenium/wiki/Bot-Style-Tests
-            userNameText.clear();
-            userNameText.sendKeys(user);
-        } else {
-            throw new NoSuchElementException("Could not find user name field!");
-        }
+        botStyle.clearTextField(userNameText);
+        botStyle.type(userNameText, user);
     }
 
-    // TODO Patron de diseno Botstyle
-    // TODO https://github.com/SeleniumHQ/selenium/wiki/Bot-Style-Tests
     private void enterPwd(String pwd) throws NoSuchElementException {
-        if (isElementVisible(userNameText)) {
-            // Remove this kind of commented code, to keep you code clean :D
-            //WebElement e = waitElement(passwordText);
-            passwordText.clear();
-            passwordText.sendKeys(pwd);
-        } else {
-            throw new NoSuchElementException("Could not find password field!");
-        }
+        botStyle.clearTextField(passwordText);
+        botStyle.type(passwordText, pwd);
     }
 
     public ProductsInventoryPage login(String user, String pwd) throws NoSuchElementException {

@@ -24,12 +24,12 @@
                 &excludedTests;
                 <!--                &debugTests;-->
                 &loginTests;
-                &inventoryTests;
-                &productTests;
-                &shoppingCartTests;
-                &checkoutInformationTests;
-                &checkoutOverviewTests;
-                &checkoutFinishedTests;
+<!--                &inventoryTests;-->
+<!--                &productTests;-->
+<!--                &shoppingCartTests;-->
+<!--                &checkoutInformationTests;-->
+<!--                &checkoutOverviewTests;-->
+<!--                &checkoutFinishedTests;-->
             </run>
         </groups>
         &classes;
