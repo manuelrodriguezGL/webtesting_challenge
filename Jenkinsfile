@@ -12,7 +12,7 @@ pipeline{
             steps {
                // Clean before build
                cleanWs()
-               git branch: 'testing',
+               git branch: 'main',
                     url: 'https://github.com/manuelrodriguezGL/webtesting_challenge.git'
             }
         }
