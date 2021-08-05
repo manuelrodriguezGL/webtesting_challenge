@@ -3,18 +3,31 @@ pipeline{
     tools {
         maven 'Maven 3.6.1' 
     }
+    options {
+        // Clean before build options
+        skipDefaultCheckout(true)
+    }
     stages{
         stage('SCM Checkout'){
             steps {
-               git "https://github.com/manuelrodriguezGL/webtesting_challenge"
+               // Clean before build
+               cleanWs()
+               git branch: 'main',
+                    url: 'https://github.com/manuelrodriguezGL/webtesting_challenge.git'
             }
         }
         stage('Test')
         {
+            environment{
+                SAUCE_CREDENTIALS = credentials('secret_sauce')
+            }
+
             steps{
-                dir("webtesting"){
-                    sh 'mvn clean install -Dtestng.dtd.http=true'
-                }
+                sh('echo Reading Username...: $SAUCE_CREDENTIALS_USR')
+                sh('echo Reading Password...')
+                sh 'mvn clean install -Dtestng.dtd.http=true -Dsauce_user=$SAUCE_CREDENTIALS_USR ' +
+                    '-Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=Chrome -DheadlessMode=false ' +
+                    '-DbaseUrl=https://www.saucedemo.com'
             }
         }
     }
