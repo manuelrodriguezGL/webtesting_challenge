@@ -77,7 +77,7 @@ public class ShoppingCartPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Shopping Cart page...");
-        driver.get(base_url + URL);
+        driver.get(baseUrl + URL);
     }
 
     @Override
@@ -123,11 +123,11 @@ public class ShoppingCartPage extends BaseStorePage {
 
     public ProductsInventoryPage clickContinueShoppingButton() {
         botStyle.click(continueShoppingButton);
-        return new ProductsInventoryPage(driver, base_url);
+        return new ProductsInventoryPage(driver, baseUrl);
     }
 
     public CheckoutInformationPage clickCheckoutButton() {
         botStyle.click(checkoutButton);
-        return new CheckoutInformationPage(driver, base_url);
+        return new CheckoutInformationPage(driver, baseUrl);
     }
 }

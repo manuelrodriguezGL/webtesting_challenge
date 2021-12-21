@@ -38,7 +38,7 @@ public class CheckoutInformationPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Checkout Information page...");
-        driver.get(base_url + URL);
+        driver.get(baseUrl + URL);
     }
 
     @Override
@@ -82,12 +82,12 @@ public class CheckoutInformationPage extends BaseStorePage {
 
     public ShoppingCartPage clickCancel() {
         botStyle.click(cancelButton);
-        return new ShoppingCartPage(driver, base_url);
+        return new ShoppingCartPage(driver, baseUrl);
     }
 
     public CheckoutOverviewPage clickContinue() {
         botStyle.click(continueButton);
-        return new CheckoutOverviewPage(driver, base_url);
+        return new CheckoutOverviewPage(driver, baseUrl);
     }
 
     public void enterCustomerData(String firstName, String lastName, String postalCode) {

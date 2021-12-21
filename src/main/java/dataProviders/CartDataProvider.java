@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class CartDataProvider {
     @DataProvider(name = "Cart")
-    public static Object[][] cartData() throws IOException {
+    public Object[][] cartData() throws IOException {
         ArrayList<String> propertiesArray =
                 CommonUtils.getPropertiesArray(new ArrayList<>(Arrays.asList("cart_excel_path", "cart_excel_sheet")));
 

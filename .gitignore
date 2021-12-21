@@ -24,3 +24,9 @@ hs_err_pid*
 
 #screenshots
 screenshots/
+
+#IntelliJ stuuf
+.idea
+
+#Target
+target

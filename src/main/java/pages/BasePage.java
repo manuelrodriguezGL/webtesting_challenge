@@ -26,14 +26,14 @@ public abstract class BasePage extends LoadableComponent {
         }
     }
 
-    protected String base_url = "";
+    protected String baseUrl = "";
 
     protected WebDriver driver;
     protected BotStyle botStyle;
 
     public BasePage(WebDriver driver, String baseUrl) {
         this.driver = driver;
-        base_url = baseUrl;
+        this.baseUrl = baseUrl;
         PageFactory.initElements(driver, this);
         this.botStyle = new BotStyle(driver);
     }

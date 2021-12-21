@@ -117,7 +117,7 @@ public class ProductsInventoryPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Inventory page...");
-        driver.get(base_url + URL);
+        driver.get(baseUrl + URL);
     }
 
     @Override
@@ -225,18 +225,18 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     public ProductPage loadProductPageById(String id) throws NoSuchElementException {
         botStyle.waitByLocator(getInventoryItemLinkLocator(id)).click();
-        return new ProductPage(driver, id, base_url);
+        return new ProductPage(driver, id, baseUrl);
 
     }
 
     public ShoppingCartPage loadShoppingCart() throws NoSuchElementException {
         botStyle.click(shoppingCartButton);
-        return new ShoppingCartPage(driver, base_url);
+        return new ShoppingCartPage(driver, baseUrl);
     }
 
     public LoginPage logout() throws NoSuchElementException {
         botStyle.click(burgerMenu);
         botStyle.click(logoutOption);
-        return new LoginPage(driver, base_url);
+        return new LoginPage(driver, baseUrl);
     }
 }

@@ -39,7 +39,7 @@ public class ProductPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Product detail page...");
-        driver.get(base_url + this.url);
+        driver.get(baseUrl + this.url);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ProductPage extends BaseStorePage {
 
     public ProductsInventoryPage goBack() throws NoSuchElementException {
         botStyle.click(backButton);
-        return new ProductsInventoryPage(driver, base_url);
+        return new ProductsInventoryPage(driver, baseUrl);
     }
 
     public String getProductImageUrl() throws NoSuchElementException {

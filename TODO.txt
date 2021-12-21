@@ -25,3 +25,70 @@ DONE 8. Add content to the readme file with instructions about how to run the pr
 
 
 ---
+
+Oscar's feedback - 15/11/21
+
+WEB UI PROJECT
+
++++++++++++++++++++++++++
+- Package structure
++++++++++++++++++++++++++
+	- gitignore: Good
+	- Dataproviders: I think the dataproviders could be into src/main/resources or src/main/resources, however as it is now is OK for me. No a blocker.
+	- applications.properties: you can also define that in the TestNG.xml and with that remove this extra layer of reading a property file, but it is good to me as well using a property file,
+	it is another option that works fine. DONE
+	- InventoryDataProvider.java: method getExcelFile cound be private and non-static, since it is not being used in other places.
+	- Listener: excellent, I like you are using custom listeners from testNG
+	- TestNG.xml: very good, it is a bit messy but I like the level of complexity it has. The way it is build with parameters or aliases. From my point of view it allow to reuse stuff.
+	- Try to stop using a lot of static definitions, use status just when it is needed, otherwise try to use
+
++++++++++++++++++++++++++
+- Maven
++++++++++++++++++++++++++
+	- POM.xml: I like that you are using parameters with -D, wich means that you are doing a good use of maven from my point of view,
+	not everyone use it despite for me it should be this ways, because projects work with different environments etc, so with this you are leveraging TestNG to manage that.
+	- The POM file refers to this path that does not exist: <directory>/src/test/resources</directory>
+
++++++++++++++++++++++++++
+- Automation patterns
++++++++++++++++++++++++++
+	- Botstyle: good
+	- PageObjects with PageFactory
+		- you are passing base_url to all PageObjects, maybe you can define it in a way that you can read it without sending each time you create a new instance of a page object.
+		For example into a static variable, or read from the property file that you are using, or so on.
+		- BasePage: you have a variable base_url, it should be baseUrl (lower camel case format)
+	- @FindBy(className = "summary_value_label") private List<WebElement> summaryValueLabelList;  --> if I am not mistaken you need to use @FindBys if you want to do a findElements operation /
+	to find a list of elementos.
+	- LoadableComponent: good
+
+- Selenium
+	- Why are you defining the driver variable as "static"? from my point of view it can drive to issues if you want to run your tests in parallel if you create a static driver.
+- TestNG
+	- good use of the xml files.
+- Documentation
+	- There is a readme file which is good.
+
+
+########################
+# Final thoughs
+########################
++++++++++++++++++++++++++
+Can be improved?
++++++++++++++++++++++++++
+- Try to stop using a lot of static definitions, use static just when it is needed.
+- I would recomend to stop defining "static final variables" that are used just one time in the code, or unified all of them in one place maybe,
+but it can be confusing for other coworkers if there are not a kind of standard.
+- Try to use a non-static definition of the driver
+- Remove any un-used method or variables
+- Replace "System.out.println" with logger info, warning, error, etc.
+- In the jenkins file, create parameters for: browser, headless, baseUrl, etc to make the most of the jenkins file.
+- Remove .idea and target filder from the repository and add them to the .gitignore file
+- I think that you are using testng listeners but I think you are not using them, I did not see it in the testNG.xml file.
+
++++++++++++++++++++++++++
+PROS
++++++++++++++++++++++++++
+- I like that you are exercising Custom listeners, Dataproviders (with external files like xls), Patterns like Loadable component, botstyle, and pageobjects with pagefactory
+- I like that you are reusing stuff in the testNG.XML file
+- I like that you are using parameters in the POM.xml file with maven
+- I like that you are using a jenkins file

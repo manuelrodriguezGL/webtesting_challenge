@@ -42,7 +42,7 @@ public class LoginPage extends BasePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Login page...");
-        driver.get(base_url + URL);
+        driver.get(baseUrl + URL);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class LoginPage extends BasePage {
         enterPwd(pwd);
         super.botStyle.click(loginButton);
 
-        return new ProductsInventoryPage(driver, base_url);
+        return new ProductsInventoryPage(driver, baseUrl);
     }
 
     public boolean checkEmptyUserErrorMessage(String pwd) {

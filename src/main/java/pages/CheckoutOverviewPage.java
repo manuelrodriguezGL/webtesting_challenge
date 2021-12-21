@@ -91,7 +91,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
     @Override
     protected void load() {
         System.out.println("Attempting to load Checkout Overview page...");
-        driver.get(base_url + URL);
+        driver.get(baseUrl + URL);
     }
 
     @Override
@@ -225,11 +225,11 @@ public class CheckoutOverviewPage extends BaseStorePage {
 
     public ProductsInventoryPage cancelCheckout() {
         botStyle.click(cancelButton);
-        return new ProductsInventoryPage(driver, base_url);
+        return new ProductsInventoryPage(driver, baseUrl);
     }
 
     public CheckoutFinishedPage finishCheckout() {
         botStyle.click(finishButton);
-        return new CheckoutFinishedPage(driver, base_url);
+        return new CheckoutFinishedPage(driver, baseUrl);
     }
 }

@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class ProductsDataProvider {
     @DataProvider(name = "Products")
-    public static Object[][] inventoryProducts() throws IOException {
+    public Object[][] inventoryProducts() throws IOException {
         ArrayList<String> propertiesArray =
                 CommonUtils.getPropertiesArray(new ArrayList<>(Arrays.asList("product_excel_path", "product_excel_sheet")));
 
