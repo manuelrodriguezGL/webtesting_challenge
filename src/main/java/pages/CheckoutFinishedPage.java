@@ -23,6 +23,7 @@ public class CheckoutFinishedPage extends BaseStorePage {
 
     @Override
     protected void load() {
+        logger.info("Info: Attempting to load Checkout Finished page...");
         System.out.println("Attempting to load Checkout Finished page...");
         driver.get(baseUrl + URL);
     }

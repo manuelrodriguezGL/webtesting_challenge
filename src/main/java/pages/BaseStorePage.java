@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import java.util.logging.Logger;
+
 public abstract class BaseStorePage extends BasePage {
 
     @FindBy(className = "header_label")
@@ -25,8 +27,11 @@ public abstract class BaseStorePage extends BasePage {
     @FindBy(className = "shopping_cart_badge")
     private WebElement cartItemsIcon;
 
+    protected Logger logger;
+
     public BaseStorePage(WebDriver driver, String baseUrl) {
         super(driver, baseUrl);
+        logger = Logger.getGlobal();
     }
 
     @Override
@@ -44,5 +49,9 @@ public abstract class BaseStorePage extends BasePage {
         } catch (NoSuchElementException e) {
             return 0;
         }
+    }
+
+    private void configureLogger() {
+
     }
 }

@@ -37,7 +37,7 @@ WEB UI PROJECT
 	- Dataproviders: I think the dataproviders could be into src/main/resources or src/main/resources, however as it is now is OK for me. No a blocker.
 	- applications.properties: you can also define that in the TestNG.xml and with that remove this extra layer of reading a property file, but it is good to me as well using a property file,
 	it is another option that works fine. DONE
-	- InventoryDataProvider.java: method getExcelFile cound be private and non-static, since it is not being used in other places.
+	- InventoryDataProvider.java: method getExcelFile cound be private and non-static, since it is not being used in other places. DONE
 	- Listener: excellent, I like you are using custom listeners from testNG
 	- TestNG.xml: very good, it is a bit messy but I like the level of complexity it has. The way it is build with parameters or aliases. From my point of view it allow to reuse stuff.
 	- Try to stop using a lot of static definitions, use status just when it is needed, otherwise try to use
@@ -47,7 +47,7 @@ WEB UI PROJECT
 +++++++++++++++++++++++++
 	- POM.xml: I like that you are using parameters with -D, wich means that you are doing a good use of maven from my point of view,
 	not everyone use it despite for me it should be this ways, because projects work with different environments etc, so with this you are leveraging TestNG to manage that.
-	- The POM file refers to this path that does not exist: <directory>/src/test/resources</directory>
+	- The POM file refers to this path that does not exist: <directory>/src/test/resources</directory> DONE
 
 +++++++++++++++++++++++++
 - Automation patterns
@@ -56,9 +56,9 @@ WEB UI PROJECT
 	- PageObjects with PageFactory
 		- you are passing base_url to all PageObjects, maybe you can define it in a way that you can read it without sending each time you create a new instance of a page object.
 		For example into a static variable, or read from the property file that you are using, or so on.
-		- BasePage: you have a variable base_url, it should be baseUrl (lower camel case format)
+		- BasePage: you have a variable base_url, it should be baseUrl (lower camel case format) DONE
 	- @FindBy(className = "summary_value_label") private List<WebElement> summaryValueLabelList;  --> if I am not mistaken you need to use @FindBys if you want to do a findElements operation /
-	to find a list of elementos.
+	to find a list of elements. // After doing research, findBys i used to locate by multiple locators. To manipulate a list of elements, there's no other way
 	- LoadableComponent: good
 
 - Selenium
