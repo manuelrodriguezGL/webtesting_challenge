@@ -78,7 +78,7 @@ WEB UI PROJECT
 +++++++++++++++++++++++++
 Can be improved?
 +++++++++++++++++++++++++
-- In the jenkins file, create parameters for: browser, headless, baseUrl, etc to make the most of the jenkins file.
+- In the jenkins file, create parameters for: browser, headless, baseUrl, etc to make the most of the jenkins file. DONE
 - Try to stop using a lot of static definitions, use static just when it is needed.
 - I would recomend to stop defining "static final variables" that are used just one time in the code, or unified all of them in one place maybe,
 but it can be confusing for other coworkers if there are not a kind of standard.
