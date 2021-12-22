@@ -38,7 +38,7 @@ public class ProductPage extends BaseStorePage {
 
     @Override
     protected void load() {
-        System.out.println("Attempting to load Product detail page...");
+        logger.getLogger().info("Attempting to load Product detail page...");
         driver.get(baseUrl + this.url);
     }
 

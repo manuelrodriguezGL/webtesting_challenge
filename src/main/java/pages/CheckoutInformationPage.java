@@ -37,7 +37,7 @@ public class CheckoutInformationPage extends BaseStorePage {
 
     @Override
     protected void load() {
-        System.out.println("Attempting to load Checkout Information page...");
+        logger.getLogger().info("Attempting to load Checkout Information page...");
         driver.get(baseUrl + URL);
     }
 

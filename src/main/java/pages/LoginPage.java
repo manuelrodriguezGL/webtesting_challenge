@@ -41,7 +41,7 @@ public class LoginPage extends BasePage {
 
     @Override
     protected void load() {
-        System.out.println("Attempting to load Login page...");
+        logger.getLogger().info("Info: Attempting to load Login page...");
         driver.get(baseUrl + URL);
     }
 

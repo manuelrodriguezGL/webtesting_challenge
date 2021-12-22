@@ -21,9 +21,8 @@ public class TestCaseBase extends SeleniumBase {
     @BeforeMethod(alwaysRun = true)
     @Parameters({"browser", "headlessMode", "baseUrl"})
     public void setUp(String browserName, String headless, String _baseUrl, ITestContext context) {
-        System.out.println("Setting up Selenium driver for browser: " + browserName);
+
         WebDriver driver = super.setup(browserName, Boolean.valueOf(headless));
-        System.out.println("Loading login page...");
 
         // Setting the webdriver attribute to the test context
         // This way, we avoid using static definitions of the web driver
@@ -36,7 +35,6 @@ public class TestCaseBase extends SeleniumBase {
 
     @AfterMethod(alwaysRun = true)
     public void quitBrowser() {
-        System.out.println("Quitting driver...");
         super.quit();
     }
 
@@ -54,4 +52,5 @@ public class TestCaseBase extends SeleniumBase {
     private void setTestContext(ITestContext context, Object object) {
         context.setAttribute("WebDriver", object);
     }
+
 }

@@ -76,7 +76,7 @@ public class ShoppingCartPage extends BaseStorePage {
 
     @Override
     protected void load() {
-        System.out.println("Attempting to load Shopping Cart page...");
+        logger.getLogger().info("Attempting to load Shopping Cart page...");
         driver.get(baseUrl + URL);
     }
 

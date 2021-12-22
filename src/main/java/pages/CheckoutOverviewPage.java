@@ -90,7 +90,7 @@ public class CheckoutOverviewPage extends BaseStorePage {
 
     @Override
     protected void load() {
-        System.out.println("Attempting to load Checkout Overview page...");
+        logger.getLogger().info("Attempting to load Checkout Overview page...");
         driver.get(baseUrl + URL);
     }
 

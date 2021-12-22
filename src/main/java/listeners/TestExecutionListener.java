@@ -11,6 +11,7 @@ public class TestExecutionListener extends TestListenerAdapter {
     public void onTestStart(ITestResult testResult) {
         super.onTestStart(testResult);
         Reporter.log("Executing the following test: " + testResult.getName() + "\n");
+
     }
 
     @Override

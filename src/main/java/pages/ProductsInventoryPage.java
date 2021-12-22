@@ -116,7 +116,7 @@ public class ProductsInventoryPage extends BaseStorePage {
 
     @Override
     protected void load() {
-        System.out.println("Attempting to load Inventory page...");
+        logger.getLogger().info("Attempting to load Inventory page...");
         driver.get(baseUrl + URL);
     }
 

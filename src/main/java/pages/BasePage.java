@@ -1,6 +1,7 @@
 package pages;
 
 import botStyle.BotStyle;
+import logger.EventLogger;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,6 +27,7 @@ public abstract class BasePage extends LoadableComponent {
         }
     }
 
+    protected EventLogger logger;
     protected String baseUrl = "";
 
     protected WebDriver driver;
@@ -36,6 +38,8 @@ public abstract class BasePage extends LoadableComponent {
         this.baseUrl = baseUrl;
         PageFactory.initElements(driver, this);
         this.botStyle = new BotStyle(driver);
+
+        logger = new EventLogger();
     }
 
     public String getPageTitle() {
