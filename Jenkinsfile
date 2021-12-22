@@ -31,8 +31,8 @@ pipeline{
                 sh('echo Reading Username...: $SAUCE_CREDENTIALS_USR')
                 sh('echo Reading Password...')
                 sh 'mvn clean install -Dtestng.dtd.http=true -Dsauce_user=$SAUCE_CREDENTIALS_USR ' +
-                    '-Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=${params.BROWSER} -DheadlessMode=${params.HEADLESS} '
-                    + '-DbaseUrl=${params.BASE_URL}'
+                    '-Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=${params.BROWSER} -DheadlessMode=${params.HEADLESS} ' +
+                    '-DbaseUrl=${params.BASE_URL}'
             }
         }
     }
