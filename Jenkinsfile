@@ -7,6 +7,11 @@ pipeline{
         // Clean before build options
         skipDefaultCheckout(true)
     }
+    parameters {
+        string(name:'BROWSER', defaultValue: 'Chrome', description:'Browser where the suite is executed')
+        booleanParam(name:'HEADLESS', defaultValue: true, description:'Whether execute in headless mode or not')
+        string(name:'BASE_URL', defaultValue: 'https://www.saucedemo.com', description:'Site URL')
+    }
     stages{
         stage('SCM Checkout'){
             steps {
@@ -26,8 +31,8 @@ pipeline{
                 sh('echo Reading Username...: $SAUCE_CREDENTIALS_USR')
                 sh('echo Reading Password...')
                 sh 'mvn clean install -Dtestng.dtd.http=true -Dsauce_user=$SAUCE_CREDENTIALS_USR ' +
-                    '-Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=Chrome -DheadlessMode=true ' +
-                    '-DbaseUrl=https://www.saucedemo.com'
+                    '-Dsauce_psw=$SAUCE_CREDENTIALS_PSW -Dbrowser=${params.BROWSER} -DheadlessMode=${params.HEADLESS} '
+                    + '-DbaseUrl=${params.BASE_URL}'
             }
         }
     }
