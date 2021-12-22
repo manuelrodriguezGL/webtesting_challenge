@@ -33,14 +33,16 @@ WEB UI PROJECT
 +++++++++++++++++++++++++
 - Package structure
 +++++++++++++++++++++++++
+	- Try to stop using a lot of static definitions, use status just when it is needed, otherwise try to use
+
 	- gitignore: Good
-	- Dataproviders: I think the dataproviders could be into src/main/resources or src/main/resources, however as it is now is OK for me. No a blocker.
+	- Dataproviders: I think the dataproviders could be into src/main/resources or src/main/resources, however as it is now is OK for me. No a blocker. DONE
 	- applications.properties: you can also define that in the TestNG.xml and with that remove this extra layer of reading a property file, but it is good to me as well using a property file,
 	it is another option that works fine. DONE
 	- InventoryDataProvider.java: method getExcelFile cound be private and non-static, since it is not being used in other places. DONE
 	- Listener: excellent, I like you are using custom listeners from testNG
 	- TestNG.xml: very good, it is a bit messy but I like the level of complexity it has. The way it is build with parameters or aliases. From my point of view it allow to reuse stuff.
-	- Try to stop using a lot of static definitions, use status just when it is needed, otherwise try to use
+
 
 +++++++++++++++++++++++++
 - Maven
@@ -56,6 +58,7 @@ WEB UI PROJECT
 	- PageObjects with PageFactory
 		- you are passing base_url to all PageObjects, maybe you can define it in a way that you can read it without sending each time you create a new instance of a page object.
 		For example into a static variable, or read from the property file that you are using, or so on.
+
 		- BasePage: you have a variable base_url, it should be baseUrl (lower camel case format) DONE
 	- @FindBy(className = "summary_value_label") private List<WebElement> summaryValueLabelList;  --> if I am not mistaken you need to use @FindBys if you want to do a findElements operation /
 	to find a list of elements. // After doing research, findBys i used to locate by multiple locators. To manipulate a list of elements, there's no other way
@@ -75,15 +78,18 @@ WEB UI PROJECT
 +++++++++++++++++++++++++
 Can be improved?
 +++++++++++++++++++++++++
+- In the jenkins file, create parameters for: browser, headless, baseUrl, etc to make the most of the jenkins file.
 - Try to stop using a lot of static definitions, use static just when it is needed.
 - I would recomend to stop defining "static final variables" that are used just one time in the code, or unified all of them in one place maybe,
 but it can be confusing for other coworkers if there are not a kind of standard.
 - Try to use a non-static definition of the driver
+
 - Remove any un-used method or variables
-- Replace "System.out.println" with logger info, warning, error, etc.
-- In the jenkins file, create parameters for: browser, headless, baseUrl, etc to make the most of the jenkins file.
-- Remove .idea and target filder from the repository and add them to the .gitignore file
+
+- Replace "System.out.println" with logger info, warning, error, etc. DONE
+- Remove .idea and target filder from the repository and add them to the .gitignore file DONE
 - I think that you are using testng listeners but I think you are not using them, I did not see it in the testNG.xml file.
+    // I use an annotation @Listeners(TestExecutionListener.class) on testCaseBase class
 
 +++++++++++++++++++++++++
 PROS
