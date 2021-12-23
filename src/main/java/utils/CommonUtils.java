@@ -12,7 +12,7 @@ import java.util.Properties;
  */
 public class CommonUtils {
 
-    private static final String PROPERTIES_FILE_NAME = "application.properties";
+    private final String PROPERTIES_FILE_NAME = "application.properties";
 
     /**
      * Formats dynamically generated locators
@@ -21,7 +21,7 @@ public class CommonUtils {
      * @param text    the value to be inserted into the string
      * @return A string value with the parameters interpolated
      */
-    public static String formatLocator(String pattern, String text) {
+    public String formatLocator(String pattern, String text) {
         return MessageFormat.format(pattern, text);
     }
 
@@ -33,7 +33,7 @@ public class CommonUtils {
      * @return A string representation of the property value
      * @throws IOException
      */
-    public static String getPropertyValue(String property) throws IOException {
+    public String getPropertyValue(String property) throws IOException {
 
         InputStream inputStream = null;
 
@@ -66,7 +66,7 @@ public class CommonUtils {
      * @return An array with all the properties requested
      * @throws IOException
      */
-    public static ArrayList<String> getPropertiesArray(ArrayList<String> propertiesArray) throws IOException {
+    public ArrayList<String> getPropertiesArray(ArrayList<String> propertiesArray) throws IOException {
 
         InputStream inputStream = null;
         ArrayList<String> result = new ArrayList<>();

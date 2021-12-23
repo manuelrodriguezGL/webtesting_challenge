@@ -19,7 +19,7 @@ public class ExcelFileReader {
      * @param sheetName Sheet name inside the workbook
      * @throws IOException
      */
-    public static String[][] readFile(String filePath, String sheetName) throws IOException {
+    public String[][] readFile(String filePath, String sheetName) throws IOException {
         File file = new File(filePath);
         FileInputStream fs = new FileInputStream(file);
         XSSFWorkbook wb = new XSSFWorkbook(fs);
@@ -48,7 +48,7 @@ public class ExcelFileReader {
      * @return One-dimensioned ArrayList of Strings
      * @throws IOException
      */
-    public static String[][] readFileRow(String filePath, String sheetName, int index) throws IOException {
+    public String[][] readFileRow(String filePath, String sheetName, int index) throws IOException {
         File file = new File(filePath);
         FileInputStream fs = new FileInputStream(file);
         XSSFWorkbook wb = new XSSFWorkbook(fs);
