@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 
 public class ShoppingCartPage extends BaseStorePage {
 
-    private static final String URL = "/cart.html";
+    private final String URL = "/cart.html";
 
     @FindBy(id = "cart_contents_container")
     private WebElement cartContentsContainer;

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ProductsInventoryPage extends BaseStorePage {
 
-    private static final String URL = "/inventory.html";
+    private final String URL = "/inventory.html";
 
     @FindBy(className = "inventory_container")
     private WebElement inventoryContainer;
