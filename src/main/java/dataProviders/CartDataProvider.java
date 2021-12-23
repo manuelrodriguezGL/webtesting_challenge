@@ -1,8 +1,6 @@
 package dataProviders;
 
 import org.testng.annotations.DataProvider;
-import utils.CommonUtils;
-import utils.ExcelFileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import utils.CommonUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -57,20 +56,20 @@ public class ShoppingCartPage extends BaseStorePage {
     }
 
     private By getProductNameLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
     }
 
     private By getProductDescriptionLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
     }
 
     private By getProductPriceLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator(
+        return By.cssSelector(commonUtils.formatLocator(
                 "#item_{0}_title_link~.item_pricebar>.inventory_item_price", id));
     }
 
     private By getProductRemoveButton(String id) {
-        return By.cssSelector(CommonUtils.formatLocator(
+        return By.cssSelector(commonUtils.formatLocator(
                 "#item_{0}_title_link~.item_pricebar>.btn_secondary.cart_button", id));
     }
 

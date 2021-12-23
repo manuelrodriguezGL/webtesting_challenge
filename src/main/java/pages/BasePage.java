@@ -14,24 +14,16 @@ import java.io.IOException;
 
 public abstract class BasePage extends LoadableComponent {
 
-    private static long timeout;
-
-    /**
-     * Static initialization of the timeout variable
-     */
-    static {
-        try {
-            timeout = Long.parseLong(CommonUtils.getPropertyValue("global_timeout"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    protected CommonUtils commonUtils;
     protected EventLogger logger;
     protected String baseUrl = "";
-
     protected WebDriver driver;
     protected BotStyle botStyle;
+    private long timeout;
+
+    // Just a security measure, so no one calls this constructor
+    private BasePage() {
+    }
 
     public BasePage(WebDriver driver, String baseUrl) {
         this.driver = driver;
@@ -40,6 +32,8 @@ public abstract class BasePage extends LoadableComponent {
         this.botStyle = new BotStyle(driver);
 
         logger = new EventLogger();
+        commonUtils = new CommonUtils();
+        initializeTimeOut();
     }
 
     public String getPageTitle() {
@@ -60,6 +54,18 @@ public abstract class BasePage extends LoadableComponent {
             return wait.until(driver -> e.isDisplayed());
         } catch (Exception ex) {
             return false;
+        }
+    }
+
+    /**
+     * Time out variable initialization
+     * To take some of code churn from constructor
+     */
+    private void initializeTimeOut() {
+        try {
+            timeout = Long.parseLong(commonUtils.getPropertyValue("global_timeout"));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
