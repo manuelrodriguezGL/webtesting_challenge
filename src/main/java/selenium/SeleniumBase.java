@@ -1,20 +1,20 @@
 package selenium;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-
 public class SeleniumBase {
 
-    private static WebDriver driver;
+    private WebDriver driver;
 
     /**
      * Method to initialize the web driver
-     * @param browser String representing the name of the browser
+     *
+     * @param browser  String representing the name of the browser
      * @param headless Boolean value to decide whether to run headless or not
      */
     //TODO: Implement remaining multi-browser logic
@@ -52,12 +52,7 @@ public class SeleniumBase {
     /**
      * Disposes the session and quits the driver
      */
-    public void quit(){
+    protected void quit() {
         driver.quit();
-    }
-
-    public static WebDriver getWebDriverInstance()
-    {
-        return driver;
     }
 }

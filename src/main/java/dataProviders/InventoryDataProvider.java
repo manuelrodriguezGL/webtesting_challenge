@@ -1,14 +1,12 @@
 package dataProviders;
 
 import org.testng.annotations.DataProvider;
-import utils.CommonUtils;
-import utils.ExcelFileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class InventoryDataProvider {
+public class InventoryDataProvider extends BaseDataProvider {
 
     @DataProvider(name = "Inventory")
     public Object[][] inventoryData() throws IOException {
@@ -31,12 +29,12 @@ public class InventoryDataProvider {
     }
 
     private ArrayList<String> getPropertiesArray(String excel_path, String excel_sheet) throws IOException {
-        return CommonUtils.getPropertiesArray(new ArrayList<>(Arrays.asList(excel_path, excel_sheet)));
+        return commonUtils.getPropertiesArray(new ArrayList<>(Arrays.asList(excel_path, excel_sheet)));
     }
 
     private String[][] getExcelFile(String excel_path, String excel_sheet) throws IOException {
         ArrayList<String> propertiesArray =
                 getPropertiesArray(excel_path, excel_sheet);
-        return ExcelFileReader.readFile(propertiesArray.get(0), propertiesArray.get(1));
+        return excelFileReader.readFile(propertiesArray.get(0), propertiesArray.get(1));
     }
 }

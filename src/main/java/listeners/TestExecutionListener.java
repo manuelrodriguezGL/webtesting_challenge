@@ -1,11 +1,13 @@
 package listeners;
 
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.TestListenerAdapter;
 import utils.ScreenshotUtil;
 
 public class TestExecutionListener extends TestListenerAdapter {
+    ;
 
     @Override
     public void onTestStart(ITestResult testResult) {
@@ -16,8 +18,10 @@ public class TestExecutionListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult testResult) {
+        WebDriver driver = (WebDriver) testResult.getTestContext().getAttribute("WebDriver");
+        ScreenshotUtil screenshotUtil = new ScreenshotUtil();
         Reporter.log("The following test has failed: " + testResult.getName() + "\n");
-        if (ScreenshotUtil.takeScreenshot(testResult.getTestClass() + "_" + testResult.getName())) {
+        if (screenshotUtil.takeScreenshot(driver, testResult.getTestClass() + "_" + testResult.getName())) {
             Reporter.log("Screenshot has been created successfully \n");
         }
         Reporter.log("Cause of test failure: " + testResult.getThrowable().getMessage());

@@ -22,7 +22,7 @@ public class InventoryTest extends TestCaseBase {
     @Parameters({"sauce_user", "sauce_psw"})
     public void loadInventoryPage(String user, String pwd) {
         login(user, pwd);
-        inventoryPage = new ProductsInventoryPage(getWebDriverInstance(), baseUrl);
+        inventoryPage = new ProductsInventoryPage(driver, baseUrl);
     }
 
     @Test(description = "Verify items on inventory page",

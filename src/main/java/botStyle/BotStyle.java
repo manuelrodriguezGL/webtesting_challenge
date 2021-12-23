@@ -8,23 +8,19 @@ import utils.CommonUtils;
 import java.io.IOException;
 
 public class BotStyle {
-    private static long timeout;
-
-    /**
-     * Static initialization of the timeout variable
-     */
-    static {
-        try {
-            timeout = Long.parseLong(CommonUtils.getPropertyValue("global_timeout"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    private final CommonUtils commonUtils;
+    private long timeout;
     private WebDriver driver;
 
     public BotStyle(WebDriver driver) {
         this.driver = driver;
+        commonUtils = new CommonUtils();
+
+        try {
+            timeout = Long.parseLong(commonUtils.getPropertyValue("global_timeout"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void type(WebElement element, String text) throws NoSuchElementException {

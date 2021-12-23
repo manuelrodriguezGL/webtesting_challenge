@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
-import utils.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class ProductsInventoryPage extends BaseStorePage {
 
-    private static final String URL = "/inventory.html";
+    private final String URL = "/inventory.html";
 
     @FindBy(className = "inventory_container")
     private WebElement inventoryContainer;
@@ -63,19 +62,19 @@ public class ProductsInventoryPage extends BaseStorePage {
     }
 
     private By getInventoryItemLinkLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id));
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id));
     }
 
     private By getInventoryItemImageLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_img_link", id) + ">img");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_img_link", id) + ">img");
     }
 
     private By getInventoryItemNameLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
     }
 
     private By getInventoryItemDescriptionLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
     }
 
     /**
@@ -83,13 +82,13 @@ public class ProductsInventoryPage extends BaseStorePage {
      * and from there, navigate thru the DOM
      */
     private By getInventoryItemPriceLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
-        return By.xpath(CommonUtils.formatLocator(
+        return By.xpath(commonUtils.formatLocator(
                 "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"inventory_item_label\"]" +
                         "/following-sibling::div[@class=\"pricebar\"]/div[@class=\"inventory_item_price\"]", id));
     }
 
     private By getInventoryItemAddToCartLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
-        return By.xpath(CommonUtils.formatLocator(
+        return By.xpath(commonUtils.formatLocator(
                 "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"inventory_item_label\"]" +
                         "/following-sibling::div[@class=\"pricebar\"]" +
                         "/button[@class=\"btn btn_primary btn_small btn_inventory\"]", id));
@@ -99,7 +98,7 @@ public class ProductsInventoryPage extends BaseStorePage {
     private By getInventoryItemRemoveFromCartLocator(String productName) {
         // Turns out the button id looks like: remove-product-name
         String transformedName = productName.replace(" ", "-").toLowerCase();
-        return By.id(CommonUtils.formatLocator("remove-{0}", transformedName));
+        return By.id(commonUtils.formatLocator("remove-{0}", transformedName));
     }
 
     private Select getProductSortSelect(WebElement e) {

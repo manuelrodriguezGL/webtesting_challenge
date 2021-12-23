@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class CheckoutFinishedPage extends BaseStorePage {
 
-    private static final String URL = "/checkout-complete.html";
+    private final String URL = "/checkout-complete.html";
 
     @FindBy(className = "complete-header")
     private WebElement pageHeader;

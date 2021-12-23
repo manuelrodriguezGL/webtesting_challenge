@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class CheckoutInformationPage extends BaseStorePage {
-    private static final String URL = "//checkout-step-one.html";
+    private final String URL = "//checkout-step-one.html";
 
     @FindBy(id = "first-name")
     private WebElement firstNameInput;

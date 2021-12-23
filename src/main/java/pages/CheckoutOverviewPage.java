@@ -4,14 +4,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import utils.CommonUtils;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 public class CheckoutOverviewPage extends BaseStorePage {
 
-    private static final String URL = "/checkout-step-two.html";
+    private final String URL = "/checkout-step-two.html";
 
     @FindBy(id = "checkout_summary_container")
     private WebElement checkoutSummaryContainer;
@@ -66,24 +65,24 @@ public class CheckoutOverviewPage extends BaseStorePage {
     }
 
     private By getInventoryItemLinkLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id));
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id));
     }
 
     private By getInventoryItemNameLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) + ">.inventory_item_name");
     }
 
     private By getInventoryItemDescriptionLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) + "~.inventory_item_desc");
     }
 
     private By getInventoryItemPriceLocator(String id) {
-        return By.cssSelector(CommonUtils.formatLocator("#item_{0}_title_link", id) +
+        return By.cssSelector(commonUtils.formatLocator("#item_{0}_title_link", id) +
                 "~.item_pricebar>.inventory_item_price");
     }
 
     private By getInventoryItemQuantityLocator(String id) { // SauceDemo found its way to make us use Xpath anyway
-        return By.xpath(CommonUtils.formatLocator(
+        return By.xpath(commonUtils.formatLocator(
                 "//a[@id=\"item_{0}_title_link\"]/ancestor::div[@class=\"cart_item_label\"]" +
                         "/preceding-sibling::div[@class=\"cart_quantity\"]", id));
     }

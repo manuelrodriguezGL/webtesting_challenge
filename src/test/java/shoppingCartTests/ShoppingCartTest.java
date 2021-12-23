@@ -30,8 +30,9 @@ public class ShoppingCartTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the shopping cart is empty",
-            groups = {"shoppingCart"})
+            groups = {"debug"})
     public void verifyShoppingCartIsEmpty() {
+        shoppingCartPage = inventory.loadShoppingCart();
         Assert.assertTrue(shoppingCartPage.isCartEmpty(),
                 GLOBAL_TEST_FAILED_MESSAGE + " Shopping cart is not empty!");
     }
