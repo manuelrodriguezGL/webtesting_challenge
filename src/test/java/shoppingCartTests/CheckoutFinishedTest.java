@@ -35,7 +35,7 @@ public class CheckoutFinishedTest extends TestCaseBase {
     }
 
     @Test(description = "Verify the UI elements for checkout finished page",
-            groups = {"debug"})
+            groups = {"checkoutFinished"})
     @Parameters({"pageHeaderText", "orderCompleteText", "backHomeButtonText"})
     public void verifyCheckoutOverviewUIElements(String pageHeaderText, String orderCompleteText,
                                                  String backHomeButtonText) {

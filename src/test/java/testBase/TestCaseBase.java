@@ -35,6 +35,7 @@ public class TestCaseBase extends SeleniumBase {
 
     @AfterMethod(alwaysRun = true)
     public void quitBrowser() {
+        loginPage = null;
         super.quit();
     }
 
