@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 
 public class CheckoutOverviewPage extends BaseStorePage {
 
-    private static final String URL = "/checkout-step-two.html";
+    private final String URL = "/checkout-step-two.html";
 
     @FindBy(id = "checkout_summary_container")
     private WebElement checkoutSummaryContainer;
