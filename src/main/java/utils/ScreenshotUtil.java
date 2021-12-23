@@ -4,7 +4,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.Augmenter;
-import selenium.SeleniumBase;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,10 +32,9 @@ public class ScreenshotUtil {
         stream.close();
     }
 
-    public boolean takeScreenshot(String failedTestName) {
+    public boolean takeScreenshot(WebDriver driver, String failedTestName) {
         boolean result = false;
         try {
-            WebDriver driver = SeleniumBase.getWebDriverInstance();
             String screenshotPath = commonUtils.getPropertyValue("screenshot_folder_name") +
                     File.separator + System.currentTimeMillis() + "_" + failedTestName + ".png";
             File screenshot = new File(screenshotPath);
