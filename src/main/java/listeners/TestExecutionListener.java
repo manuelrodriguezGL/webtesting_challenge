@@ -16,8 +16,9 @@ public class TestExecutionListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult testResult) {
+        ScreenshotUtil screenshotUtil = new ScreenshotUtil();
         Reporter.log("The following test has failed: " + testResult.getName() + "\n");
-        if (ScreenshotUtil.takeScreenshot(testResult.getTestClass() + "_" + testResult.getName())) {
+        if (screenshotUtil.takeScreenshot(testResult.getTestClass() + "_" + testResult.getName())) {
             Reporter.log("Screenshot has been created successfully \n");
         }
         Reporter.log("Cause of test failure: " + testResult.getThrowable().getMessage());
